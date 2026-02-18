@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rho-Labs | Kognitives Training & Individuelle Lösungen</title>
+    <meta name="description" content="Wissenschaftlich fundiertes kognitives Training. Lokal, datenschutzkonform. Flexible Lizenzmodelle und Individualentwicklung." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['Outfit', 'sans-serif'],
+              body: ['DM Sans', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                dark: '#020617', 
+                surface: '#0B1121',
+                cyan: '#00f2ff',
+                cyanDim: '#0891b2',
+                purple: '#bd00ff',
+                accent: '#4f46e5'
+              }
+            },
+            animation: {
+              'blob': 'blob 10s infinite',
+              'shimmer': 'shimmer 2.5s linear infinite',
+              'meteor': 'meteor 5s linear infinite',
+              'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            keyframes: {
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              shimmer: {
+                from: { backgroundPosition: '0 0' },
+                to: { backgroundPosition: '-200% 0' }
+              },
+              meteor: {
+                '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+                '70%': { opacity: '1' },
+                '100%': { transform: 'rotate(215deg) translateX(-500px)', opacity: '0' },
+              },
+              'pulse-glow': {
+                '0%, 100%': { opacity: '1', boxShadow: '0 0 20px rgba(0, 242, 255, 0.5)' },
+                '50%': { opacity: '.8', boxShadow: '0 0 10px rgba(0, 242, 255, 0.2)' },
+              }
+            },
+            backgroundImage: {
+              'hero-gradient': 'radial-gradient(ellipse at top, #0f172a 0%, #020617 100%)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #020617;
+        color: #cbd5e1;
+        overflow-x: hidden;
+      }
+      
+      .perspective-grid-container {
+        perspective: 500px;
+        overflow: hidden;
+      }
+      
+      .moving-grid {
+        transform: rotateX(50deg) scale(2);
+        background-size: 60px 60px;
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        animation: grid-move 20s linear infinite;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+      }
+
+      @keyframes grid-move {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 60px; }
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00f2ff;
+      }
+    </style>
+    <script type="module" crossorigin src="./assets/index-DoCab7UR.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
