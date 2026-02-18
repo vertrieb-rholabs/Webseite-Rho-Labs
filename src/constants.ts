@@ -179,7 +179,7 @@ export const PRICING_SECTIONS: PricingSection[] = [
         price: "3,99\u20AC",
         subtext: "Pro Monat (inkl. MwSt.)",
         ctaText: "Jetzt starten",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=TODO_VARIANT_B2C_STANDARD",
+        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1320039",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
@@ -194,7 +194,7 @@ export const PRICING_SECTIONS: PricingSection[] = [
         price: "4,99\u20AC",
         subtext: "Pro Monat (inkl. MwSt.)",
         ctaText: "Jetzt starten",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=TODO_VARIANT_B2C_PREMIUM",
+        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1320602",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
@@ -218,7 +218,7 @@ export const PRICING_SECTIONS: PricingSection[] = [
         price: "14,90\u20AC",
         subtext: "Pro Monat (zzgl. MwSt.)",
         ctaText: "Lizenz erwerben",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=TODO_VARIANT_B2B_NORMAL",
+        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1319966",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
@@ -239,7 +239,7 @@ export const PRICING_SECTIONS: PricingSection[] = [
         isFeatured: true,
         badge: "Bestseller",
         ctaText: "Team-Lizenz erwerben",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=TODO_VARIANT_B2B_TEAM",
+        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1319970",
         isExternalCheckout: true,
         features: [
           { text: "3 Ger\u00E4te / Installationen", highlight: true },
