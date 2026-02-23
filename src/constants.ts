@@ -29,7 +29,7 @@ export const STATS: StatItem[] = [
   { value: "7+", label: "Trainingsmodule" },
   { value: "Lokal", label: "Datenspeicherung" },
   { value: "\u221E", label: "Nutzerprofile" },
-  { value: "Flexibel", label: "Abo-Modell" },
+  { value: "Einmalig", label: "Einmalkauf" },
 ];
 
 export const MODULES: ModuleItem[] = [
@@ -156,7 +156,7 @@ export const CORE_VALUES = [
   },
   {
     title: "Kein Cloud-Zwang",
-    description: "Ihre Daten geh\u00F6ren Ihnen. Nur die Lizenzpr\u00FCfung erfordert eine Internetverbindung.",
+    description: "Ihre Daten geh\u00F6ren Ihnen. Nach einmaliger Aktivierung funktioniert die Software komplett ohne Internet.",
     Icon: ShieldCheck
   },
   {
@@ -171,30 +171,31 @@ export const PRICING_SECTIONS: PricingSection[] = [
   {
     id: "b2c",
     title: "F\u00FCr Privatanwender",
-    subtitle: "Kognitives Training f\u00FCr den pers\u00F6nlichen Gebrauch",
+    subtitle: "Einmal kaufen \u2014 dauerhaft nutzen",
     plans: [
       {
         id: "b2c-standard",
         name: "Standard",
-        price: "3,99\u20AC",
-        subtext: "Pro Monat (inkl. MwSt.)",
-        ctaText: "Jetzt starten",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1320039",
+        price: "19\u20AC",
+        subtext: "Einmalig (inkl. MwSt.)",
+        ctaText: "Jetzt kaufen",
+        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2C_STANDARD",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
           { text: "Alle 7 Trainingsmodule" },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Vollst\u00E4ndig offline nutzbar", highlight: true }
         ]
       },
       {
-        id: "b2c-premium",
-        name: "Premium",
-        price: "4,99\u20AC",
-        subtext: "Pro Monat (inkl. MwSt.)",
-        ctaText: "Jetzt starten",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1320602",
+        id: "b2c-pro",
+        name: "Pro",
+        price: "29\u20AC",
+        subtext: "Einmalig (inkl. MwSt.)",
+        ctaText: "Jetzt kaufen",
+        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2C_PRO",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
@@ -202,7 +203,8 @@ export const PRICING_SECTIONS: PricingSection[] = [
           { text: "Detaillierte Statistiken & Auswertungen", highlight: true },
           { text: "Export-Funktion (PDF/CSV)", highlight: true },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Vollst\u00E4ndig offline nutzbar", highlight: true }
         ]
       }
     ]
@@ -210,15 +212,15 @@ export const PRICING_SECTIONS: PricingSection[] = [
   {
     id: "b2b",
     title: "F\u00FCr Einrichtungen & Teams",
-    subtitle: "Professioneller Einsatz mit Mehrnutzer-Verwaltung",
+    subtitle: "Professioneller Einsatz \u2014 einmalige Investition, dauerhafter Nutzen",
     plans: [
       {
         id: "b2b-normal",
         name: "Einzel-Lizenz",
-        price: "14,90\u20AC",
-        subtext: "Pro Monat (zzgl. MwSt.)",
+        price: "119\u20AC",
+        subtext: "Einmalig (zzgl. MwSt.)",
         ctaText: "Lizenz erwerben",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1319966",
+        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2B_EINZEL",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
@@ -227,19 +229,20 @@ export const PRICING_SECTIONS: PricingSection[] = [
           { text: "Detaillierte Statistiken & Auswertungen", highlight: true },
           { text: "Export-Funktion (PDF/CSV)", highlight: true },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Vollst\u00E4ndig offline nutzbar", highlight: true }
         ]
       },
       {
         id: "b2b-team",
         name: "Team-Lizenz",
-        price: "39,90\u20AC",
-        subtext: "Pro Monat (zzgl. MwSt.)",
+        price: "309\u20AC",
+        subtext: "Einmalig f\u00FCr 3 Lizenzen (zzgl. MwSt.)",
         subtextClass: "text-brand-cyan font-bold",
         isFeatured: true,
         badge: "Bestseller",
         ctaText: "Team-Lizenz erwerben",
-        ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1319970",
+        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2B_TEAM",
         isExternalCheckout: true,
         features: [
           { text: "3 Ger\u00E4te / Installationen", highlight: true },
@@ -249,7 +252,8 @@ export const PRICING_SECTIONS: PricingSection[] = [
           { text: "Export-Funktion (PDF/CSV)", highlight: true },
           { text: "Technischer Support inklusive", highlight: true },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Vollst\u00E4ndig offline nutzbar", highlight: true }
         ]
       },
       {
