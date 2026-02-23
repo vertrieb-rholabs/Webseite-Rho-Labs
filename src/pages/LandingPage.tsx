@@ -173,8 +173,8 @@ const LandingPage: React.FC = () => {
                   mit sieben spezialisierten Trainingsmodulen für Gedächtnis, Aufmerksamkeit und kognitive Flexibilität.
                 </p>
                 <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                  Die Software wird als <span className="text-white font-bold">Installer (EXE)</span> ausgeliefert und läuft vollständig lokal auf Ihrem Rechner. 
-                  Alle Trainings- und Nutzerdaten bleiben auf Ihrem Gerät — nur die Lizenzvalidierung erfordert eine periodische Internetverbindung. 
+                  Die Software wird als <span className="text-white font-bold">Installer (EXE)</span> ausgeliefert und läuft vollständig lokal auf Ihrem Rechner.
+                  Alle Trainings- und Nutzerdaten bleiben auf Ihrem Gerät — nach der einmaligen Lizenzaktivierung ist keine Internetverbindung mehr nötig.
                   Profile, Verlaufsdaten und PDF-Exporte werden ausschließlich lokal erzeugt und gespeichert.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">

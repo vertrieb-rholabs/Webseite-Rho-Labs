@@ -29,7 +29,7 @@ export const STATS: StatItem[] = [
   { value: "7+", label: "Trainingsmodule" },
   { value: "Lokal", label: "Datenspeicherung" },
   { value: "\u221E", label: "Nutzerprofile" },
-  { value: "Flexibel", label: "Abo-Modell" },
+  { value: "Einmal", label: "Kaufen & Behalten" },
 ];
 
 export const MODULES: ModuleItem[] = [
@@ -156,7 +156,7 @@ export const CORE_VALUES = [
   },
   {
     title: "Kein Cloud-Zwang",
-    description: "Ihre Daten geh\u00F6ren Ihnen. Nur die Lizenzpr\u00FCfung erfordert eine Internetverbindung.",
+    description: "Ihre Daten geh\u00F6ren Ihnen. Nach der einmaligen Lizenzaktivierung l\u00E4uft die Software komplett offline.",
     Icon: ShieldCheck
   },
   {
@@ -171,29 +171,30 @@ export const PRICING_SECTIONS: PricingSection[] = [
   {
     id: "b2c",
     title: "F\u00FCr Privatanwender",
-    subtitle: "Kognitives Training f\u00FCr den pers\u00F6nlichen Gebrauch",
+    subtitle: "Einmal kaufen \u2014 immer nutzen. Keine Abos, keine versteckten Kosten.",
     plans: [
       {
         id: "b2c-standard",
         name: "Standard",
-        price: "3,99\u20AC",
-        subtext: "Pro Monat (inkl. MwSt.)",
-        ctaText: "Jetzt starten",
+        price: "19\u20AC",
+        subtext: "Einmaliger Kauf (inkl. MwSt.)",
+        ctaText: "Jetzt kaufen",
         ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1320039",
         isExternalCheckout: true,
         features: [
           { text: "1 Ger\u00E4t / Installation" },
           { text: "Alle 7 Trainingsmodule" },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Komplett offline nach Aktivierung", highlight: true }
         ]
       },
       {
         id: "b2c-premium",
-        name: "Premium",
-        price: "4,99\u20AC",
-        subtext: "Pro Monat (inkl. MwSt.)",
-        ctaText: "Jetzt starten",
+        name: "Pro",
+        price: "29\u20AC",
+        subtext: "Einmaliger Kauf (inkl. MwSt.)",
+        ctaText: "Jetzt kaufen",
         ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1320602",
         isExternalCheckout: true,
         features: [
@@ -202,7 +203,8 @@ export const PRICING_SECTIONS: PricingSection[] = [
           { text: "Detaillierte Statistiken & Auswertungen", highlight: true },
           { text: "Export-Funktion (PDF/CSV)", highlight: true },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Komplett offline nach Aktivierung", highlight: true }
         ]
       }
     ]
@@ -210,13 +212,13 @@ export const PRICING_SECTIONS: PricingSection[] = [
   {
     id: "b2b",
     title: "F\u00FCr Einrichtungen & Teams",
-    subtitle: "Professioneller Einsatz mit Mehrnutzer-Verwaltung",
+    subtitle: "Einmalige Lizenzgeb\u00FChr \u2014 kein Abo, volle Kontrolle.",
     plans: [
       {
         id: "b2b-normal",
         name: "Einzel-Lizenz",
-        price: "14,90\u20AC",
-        subtext: "Pro Monat (zzgl. MwSt.)",
+        price: "119\u20AC",
+        subtext: "Einmaliger Kauf (zzgl. MwSt.)",
         ctaText: "Lizenz erwerben",
         ctaLink: "https://rholabs.lemonsqueezy.com/checkout?cart=1319966",
         isExternalCheckout: true,
@@ -227,14 +229,15 @@ export const PRICING_SECTIONS: PricingSection[] = [
           { text: "Detaillierte Statistiken & Auswertungen", highlight: true },
           { text: "Export-Funktion (PDF/CSV)", highlight: true },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Komplett offline nach Aktivierung", highlight: true }
         ]
       },
       {
         id: "b2b-team",
         name: "Team-Lizenz",
-        price: "39,90\u20AC",
-        subtext: "Pro Monat (zzgl. MwSt.)",
+        price: "309\u20AC",
+        subtext: "Einmaliger Kauf (zzgl. MwSt.)",
         subtextClass: "text-brand-cyan font-bold",
         isFeatured: true,
         badge: "Bestseller",
@@ -249,7 +252,8 @@ export const PRICING_SECTIONS: PricingSection[] = [
           { text: "Export-Funktion (PDF/CSV)", highlight: true },
           { text: "Technischer Support inklusive", highlight: true },
           { text: "Lokale Datenspeicherung" },
-          { text: "Monatlich k\u00FCndbar" }
+          { text: "Kostenlose Patches & Bugfixes", highlight: true },
+          { text: "Komplett offline nach Aktivierung", highlight: true }
         ]
       },
       {

@@ -92,7 +92,7 @@ const ProductPage: React.FC = () => {
                   <div className="shrink-0 w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center text-brand-cyan group-hover:bg-brand-cyan group-hover:text-brand-dark transition-all duration-500"><Database size={28}/></div>
                   <div>
                     <h4 className="font-display font-bold text-xl text-white mb-3">Lokale Datenhoheit</h4>
-                    <p className="text-sm text-slate-400 leading-relaxed">{"Keine Cloud-\u00DCbertragung. Alle Nutzerdaten bleiben auf Ihrem Rechner. Nur zur Lizenzpr\u00FCfung ist eine periodische Internetverbindung n\u00F6tig."}</p>
+                    <p className="text-sm text-slate-400 leading-relaxed">{"Keine Cloud-\u00DCbertragung. Alle Nutzerdaten bleiben auf Ihrem Rechner. Nach der einmaligen Lizenzaktivierung l\u00E4uft die Software komplett offline."}</p>
                   </div>
                 </div>
                 <div className="flex gap-8 group">
@@ -134,8 +134,8 @@ const ProductPage: React.FC = () => {
             <div className="text-center mb-24">
               <h2 className="font-display font-black text-5xl md:text-7xl text-white mb-6 tracking-tighter">Software-Lizenzen</h2>
               <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                {"Der professionelle Bezug erfolgt \u00FCber unseren Partner "}<span className="text-brand-cyan font-bold">{PARTNER_INFO.name}</span>.
-                {" Transparent, sicher und monatlich k\u00FCndbar."}
+                {"Einmal kaufen \u2014 immer nutzen. Der Bezug erfolgt \u00FCber unseren Partner "}<span className="text-brand-cyan font-bold">{PARTNER_INFO.name}</span>.
+                {" Gr\u00F6\u00DFere Updates werden als optionale Einmalk\u00E4ufe angeboten. Notwendige Patches und Bugfixes sind kostenlos."}
               </p>
             </div>
 
@@ -168,7 +168,7 @@ const ProductPage: React.FC = () => {
                             <h3 className="font-display font-bold text-2xl text-white mb-2">{plan.name}</h3>
                             <div className="flex items-baseline gap-2 mb-2">
                               <span className="text-6xl font-black text-white tracking-tighter">{plan.price}</span>
-                              {!plan.isEnterprise && <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">netto</span>}
+                              {!plan.isEnterprise && <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">einmalig</span>}
                             </div>
                             <p className={`text-xs mb-10 ${plan.subtextClass || 'text-slate-500'}`}>{plan.subtext}</p>
 
@@ -199,8 +199,8 @@ const ProductPage: React.FC = () => {
 
                 <p className="text-center text-[10px] text-slate-600 mt-16 font-bold uppercase tracking-[0.3em]">
                   {section.id === 'b2c'
-                    ? "Alle Preise inkl. gesetzlicher MwSt. \u2022 Monatlich k\u00FCndbar"
-                    : "Alle Preise zzgl. gesetzlicher MwSt. \u2022 Monatlich k\u00FCndbar"
+                    ? "Alle Preise inkl. gesetzlicher MwSt. \u2022 Einmaliger Kauf \u2022 Kostenlose Patches inklusive"
+                    : "Alle Preise zzgl. gesetzlicher MwSt. \u2022 Einmaliger Kauf \u2022 Kostenlose Patches inklusive"
                   }
                 </p>
               </div>
