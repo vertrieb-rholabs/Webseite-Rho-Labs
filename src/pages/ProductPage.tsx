@@ -249,7 +249,7 @@ const ProductPage: React.FC = () => {
                     {"Die aktuelle Version von Rho-Labs Kognitives Training k\u00F6nnen Sie kostenlos herunterladen. Die Software ist ohne g\u00FCltigen Lizenzschl\u00FCssel nicht nutzbar. F\u00FCr die erstmalige Aktivierung wird eine Internetverbindung ben\u00F6tigt."}
                   </p>
                   <a
-                    href="https://github.com/vertrieb-rholabs/Updates-Gedaechtnisstraining/releases/latest"
+                    href="http://162.55.219.1:3080/download"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-3 px-10 py-5 bg-brand-cyan/20 border border-brand-cyan/40 text-white font-black text-lg rounded-full backdrop-blur-sm hover:bg-brand-cyan/30 hover:border-brand-cyan/60 transition-all hover:shadow-[0_0_25px_rgba(0,242,255,0.3)]"
