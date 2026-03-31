@@ -52,9 +52,9 @@ export const MODULES: ModuleItem[] = [
   },
   {
     id: "cpt",
-    title: "Aufmerksamkeit (CPT)",
-    subtitle: "Vigilanz & Impulskontrolle",
-    description: "Continuous Performance Test zur Messung der Daueraufmerksamkeit, Reaktionskontrolle und Vigilanz \u00FCber drei Testbl\u00F6cke mit detaillierter Blockanalyse.",
+    title: "Aufmerksamkeit",
+    subtitle: "Konzentration & Reaktion",
+    description: "Training der Daueraufmerksamkeit, Reaktionskontrolle und Konzentration \u00FCber drei \u00DCbungsbl\u00F6cke mit detaillierter Auswertung.",
     Icon: Target
   },
   {
