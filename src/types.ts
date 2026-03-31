@@ -23,6 +23,8 @@ export interface PricingTier {
   features: PricingFeature[];
   ctaText: string;
   ctaLink: string;
+  paypalLink?: string;
+  paypalText?: string;
   isFeatured?: boolean;
   isEnterprise?: boolean;
   badge?: string;

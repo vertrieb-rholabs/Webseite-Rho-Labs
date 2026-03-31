@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail, MessageSquare, ShoppingCart, Globe, Download, Sparkles } from 'lucide-react';
-import { CONTACT_EMAIL, PARTNER_INFO } from '../constants';
+import { CONTACT_EMAIL, SALES_EMAIL } from '../constants';
 
 const ContactPage: React.FC = () => {
   return (
@@ -53,12 +53,10 @@ const ContactPage: React.FC = () => {
             <ShoppingCart size={28} />
           </div>
           <h2 className="font-display font-bold text-3xl text-white mb-4">Vertrieb & Lizenzen</h2>
-          <p className="text-slate-400 mb-8">{"Die Lizenzierung erfolgt \u00FCber unseren Partner "}<strong>{PARTNER_INFO.name}</strong>.</p>
-          <div className="space-y-2">
-            <p className="text-sm text-slate-500 uppercase font-black tracking-widest">Vertriebspartner</p>
-            <p className="text-white font-bold">{PARTNER_INFO.name}</p>
-            <p className="text-xs text-brand-cyan">{PARTNER_INFO.email}</p>
-          </div>
+          <p className="text-slate-400 mb-8">{"F\u00FCr Fragen zu Lizenzen, Bestellungen oder Angeboten erreichen Sie uns direkt per E-Mail."}</p>
+          <a href={`mailto:${SALES_EMAIL}`} className="inline-flex items-center gap-2 text-brand-cyan font-black text-lg hover:underline">
+            {SALES_EMAIL} <Mail size={20}/>
+          </a>
         </div>
       </div>
       

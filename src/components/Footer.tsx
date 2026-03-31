@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CONTACT_EMAIL, PARTNER_INFO } from '../constants';
+import { CONTACT_EMAIL, SALES_EMAIL } from '../constants';
 
 const Footer: React.FC = () => {
   return (
@@ -22,6 +22,7 @@ const Footer: React.FC = () => {
             <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Produkte</h4>
             <ul className="space-y-4 text-sm text-slate-400">
               <li><Link to="/kognitives-training" className="hover:text-brand-cyan transition-colors">Kognitives Training</Link></li>
+              <li><span className="opacity-50 italic">MediPen (In Planung)</span></li>
               <li><span className="opacity-50 italic">Optical Studio (In Planung)</span></li>
             </ul>
           </div>
@@ -37,11 +38,10 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Vertrieb</h4>
+            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Kontakt</h4>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-xs text-slate-400 mb-2">Unser Vertriebspartner:</p>
-              <p className="text-sm font-bold text-white">{PARTNER_INFO.name}</p>
-              <p className="text-xs text-brand-cyan">{PARTNER_INFO.role}</p>
+              <a href={`mailto:${SALES_EMAIL}`} className="text-sm font-bold text-brand-cyan hover:underline">{SALES_EMAIL}</a>
+              <p className="text-xs text-slate-400 mt-2">Antwort in der Regel innerhalb von 24 Stunden.</p>
             </div>
           </div>
         </div>

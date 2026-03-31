@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Check, Zap, Info, BarChart3, Database, ChevronRight, Sparkles, Download, Monitor } from 'lucide-react';
-import { MODULES, PRICING_SECTIONS, MDR_DISCLAIMER, PARTNER_INFO, CONTACT_EMAIL } from '../constants';
+import { MODULES, PRICING_SECTIONS, MDR_DISCLAIMER, CONTACT_EMAIL } from '../constants';
 import { SharedBackground } from './LandingPage';
 
 const ScrollReveal: React.FC<{ children?: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
@@ -134,8 +134,7 @@ const ProductPage: React.FC = () => {
             <div className="text-center mb-24">
               <h2 className="font-display font-black text-5xl md:text-7xl text-white mb-6 tracking-tighter">Software-Lizenzen</h2>
               <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                {"Einmal kaufen, dauerhaft nutzen. Der sichere Bezug erfolgt \u00FCber unseren Partner "}<span className="text-brand-cyan font-bold">{PARTNER_INFO.name}</span>.
-                {" Gr\u00F6\u00DFere Feature-Updates werden als optionale Upgrades angeboten \u2014 Sicherheits-Patches und Bugfixes sind kostenlos."}
+                {"Einmal kaufen, dauerhaft nutzen. Gr\u00F6\u00DFere Feature-Updates werden als optionale Upgrades angeboten \u2014 Sicherheits-Patches und Bugfixes sind kostenlos."}
               </p>
             </div>
 
@@ -181,13 +180,12 @@ const ProductPage: React.FC = () => {
                               ))}
                             </ul>
 
-                            {plan.isExternalCheckout ? (
-                              <a href={plan.ctaLink} target="_blank" rel="noopener noreferrer" className={`w-full py-5 rounded-2xl font-black text-center text-sm uppercase tracking-widest transition-all block ${plan.isFeatured ? 'bg-brand-cyan text-brand-dark hover:shadow-[0_0_40px_rgba(0,242,255,0.5)]' : 'bg-white/10 text-white hover:bg-white/20'}`}>
-                                {plan.ctaText}
-                              </a>
-                            ) : (
-                              <a href={plan.ctaLink} className={`w-full py-5 rounded-2xl font-black text-center text-sm uppercase tracking-widest transition-all block ${plan.isFeatured ? 'bg-brand-cyan text-brand-dark hover:shadow-[0_0_40px_rgba(0,242,255,0.5)]' : 'bg-white/10 text-white hover:bg-white/20'}`}>
-                                {plan.ctaText}
+                            <a href={plan.ctaLink} className={`w-full py-5 rounded-2xl font-black text-center text-sm uppercase tracking-widest transition-all block ${plan.isFeatured ? 'bg-brand-cyan text-brand-dark hover:shadow-[0_0_40px_rgba(0,242,255,0.5)]' : 'bg-white/10 text-white hover:bg-white/20'}`}>
+                              {plan.ctaText}
+                            </a>
+                            {plan.paypalLink && (
+                              <a href={plan.paypalLink} target="_blank" rel="noopener noreferrer" className={`w-full py-4 mt-3 rounded-2xl font-bold text-center text-xs uppercase tracking-widest transition-all block border ${plan.isFeatured ? 'border-brand-cyan/30 text-brand-cyan hover:bg-brand-cyan/10' : 'border-white/10 text-slate-400 hover:text-white hover:border-white/20'}`}>
+                                {plan.paypalText}
                               </a>
                             )}
                           </div>
@@ -198,14 +196,87 @@ const ProductPage: React.FC = () => {
                 </div>
 
                 <p className="text-center text-[10px] text-slate-600 mt-16 font-bold uppercase tracking-[0.3em]">
-                  {section.id === 'b2c'
-                    ? "Alle Preise inkl. gesetzlicher MwSt. \u2022 Einmaliger Kauf \u2014 keine laufenden Kosten"
-                    : "Alle Preise zzgl. gesetzlicher MwSt. \u2022 Einmaliger Kauf \u2014 keine laufenden Kosten"
-                  }
+                  {"Alle Preise sind Endpreise. Gem\u00E4\u00DF \u00A719 UStG wird keine Umsatzsteuer berechnet. \u2022 Einmaliger Kauf \u2014 keine laufenden Kosten"}
                 </p>
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Kaufprozess Info */}
+        <section className="py-16 px-6 max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="p-10 rounded-[2.5rem] bg-brand-surface border border-white/5">
+              <h3 className="font-display font-bold text-2xl text-white mb-8 flex items-center gap-3">
+                <div className="w-1.5 h-8 bg-brand-cyan rounded-full" />
+                So funktioniert der Kauf
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <h4 className="font-bold text-white">{`Option 1 \u2014 Sofortkauf per PayPal`}</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {"Klicken Sie auf \u201ESofort per PayPal kaufen\u201C. Nach Zahlungseingang erhalten Sie Ihren Lizenzschl\u00FCssel automatisch per Email \u2014 in der Regel innerhalb weniger Minuten."}
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h4 className="font-bold text-white">{`Option 2 \u2014 Bestellung per Email / Bank\u00FCberweisung`}</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    {"Klicken Sie auf \u201ELizenz erwerben\u201C und senden Sie uns eine kurze Bestellmail. Sie erhalten eine Rechnung per Email \u2014 zahlbar per PayPal oder Bank\u00FCberweisung. Nach Zahlungseingang erhalten Sie Ihren Lizenzschl\u00FCssel per Email."}
+                  </p>
+                </div>
+              </div>
+              <p className="text-brand-cyan/60 text-xs mt-8">
+                {"Bitte geben Sie bei der PayPal-Zahlung Ihre Email-Adresse im Verwendungszweck an, damit wir Ihren Lizenzschl\u00FCssel an die richtige Adresse senden k\u00F6nnen."}
+              </p>
+              <p className="text-slate-500 text-xs mt-4 font-bold uppercase tracking-widest">
+                {"Rho-Labs Kognitives Training ist derzeit ausschlie\u00DFlich in Deutschland erh\u00E4ltlich."}
+              </p>
+            </div>
+          </ScrollReveal>
+        </section>
+
+        {/* Download */}
+        <section className="py-16 px-6 max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="relative p-[2px] rounded-[2.5rem] bg-gradient-to-r from-brand-cyan/30 via-brand-purple/20 to-brand-cyan/30 overflow-hidden">
+              <div className="relative bg-brand-surface/95 backdrop-blur-xl rounded-[2.4rem] p-10 md:p-14 overflow-hidden">
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-cyan/5 blur-[100px] rounded-full -mr-40 -mt-40" />
+                <div className="relative z-10">
+                  <h3 className="font-display font-bold text-3xl text-white mb-4 flex items-center gap-3">
+                    <Download size={28} className="text-brand-cyan" /> Download
+                  </h3>
+                  <p className="text-slate-400 mb-8 leading-relaxed">
+                    {"Die aktuelle Version von Rho-Labs Kognitives Training k\u00F6nnen Sie kostenlos herunterladen. Die Software ist ohne g\u00FCltigen Lizenzschl\u00FCssel nicht nutzbar. F\u00FCr die erstmalige Aktivierung wird eine Internetverbindung ben\u00F6tigt."}
+                  </p>
+                  <a
+                    href="https://github.com/vertrieb-rholabs/Updates-Gedaechtnisstraining/releases/latest"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-10 py-5 bg-brand-cyan/20 border border-brand-cyan/40 text-white font-black text-lg rounded-full backdrop-blur-sm hover:bg-brand-cyan/30 hover:border-brand-cyan/60 transition-all hover:shadow-[0_0_25px_rgba(0,242,255,0.3)]"
+                  >
+                    <Monitor size={22} /> Download f\u00FCr Windows
+                  </a>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                    <div>
+                      <h4 className="font-bold text-white text-sm mb-3">Systemanforderungen</h4>
+                      <ul className="space-y-2 text-slate-400 text-sm">
+                        <li className="flex items-center gap-2"><Check size={14} className="text-brand-cyan shrink-0" /> Windows 10 oder neuer</li>
+                        <li className="flex items-center gap-2"><Check size={14} className="text-brand-cyan shrink-0" /> 4 GB RAM</li>
+                        <li className="flex items-center gap-2"><Check size={14} className="text-brand-cyan shrink-0" /> 200 MB Speicherplatz</li>
+                        <li className="flex items-center gap-2"><Check size={14} className="text-brand-cyan shrink-0" /> Internetverbindung f\u00FCr die Erstaktivierung</li>
+                      </ul>
+                    </div>
+                    <div className="p-6 rounded-xl bg-amber-500/5 border border-amber-500/10">
+                      <h4 className="font-bold text-amber-400 text-sm mb-3 flex items-center gap-2"><Info size={16} /> Hinweis zur Installation</h4>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        {"Da die Software noch kein kommerzielles Code-Signing-Zertifikat besitzt, kann Windows Defender SmartScreen beim ersten Start eine Warnung anzeigen. Klicken Sie auf \u201EWeitere Informationen\u201C und dann auf \u201ETrotzdem ausf\u00FChren\u201C. Die Software ist sicher \u2014 der Quellcode wird ausschlie\u00DFlich von Rho-Labs entwickelt und die Installationsdatei wird direkt \u00FCber unseren GitHub-Release-Kanal bereitgestellt."}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
         </section>
 
         {/* Custom Feature Development */}

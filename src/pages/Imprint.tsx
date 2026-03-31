@@ -29,7 +29,9 @@ const Imprint: React.FC = () => {
             Patrick Feix<br />
             {"Feldstra\u00DFe 15"}<br />
             99848 Wutha-Farnroda<br />
-            Deutschland
+            Deutschland<br /><br />
+            <strong>Steuernummer:</strong> 155/218/01562<br />
+            <strong>W-IdNr.:</strong> DE461250542
           </address>
         </div>
 
@@ -90,7 +92,7 @@ const Imprint: React.FC = () => {
       </div>
 
       <div className="mt-12 pt-8 border-t border-white/5 text-slate-500 text-sm">
-        <strong>Stand dieses Impressums:</strong> Februar 2025
+        <strong>Stand dieses Impressums:</strong> März 2026
       </div>
     </div>
   );

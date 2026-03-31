@@ -17,11 +17,7 @@ import {
 import { ModuleItem, PricingTier, PricingSection, StatItem } from './types';
 
 export const CONTACT_EMAIL = "kontakt.rholabs@gmail.com";
-export const PARTNER_INFO = {
-  name: "Lemon Squeezy",
-  role: "Vertrieb & Lizenzierung",
-  email: "via LemonSqueezy.com"
-};
+export const SALES_EMAIL = "vertrieb.rholabs@gmail.com";
 
 export const MDR_DISCLAIMER = "Wichtiger Hinweis: Rho-Labs Kognitives Training ist kein Medizinprodukt und kein zugelassenes Therapieinstrument im Sinne der EU-Medizinprodukteverordnung (MDR 2017/745). Die Software dient ausschlie\u00DFlich dem allgemeinen kognitiven Training und der pers\u00F6nlichen Leistungsf\u00F6rderung. Sie ersetzt keine \u00E4rztliche oder therapeutische Behandlung. Die dargestellten Auswertungen sind keine medizinischen Diagnosen.";
 
@@ -169,47 +165,6 @@ export const CORE_VALUES = [
 // Produktspezifische Pricing-Daten f\u00FCr "Kognitives Training"
 export const PRICING_SECTIONS: PricingSection[] = [
   {
-    id: "b2c",
-    title: "F\u00FCr Privatanwender",
-    subtitle: "Einmal kaufen \u2014 dauerhaft nutzen",
-    plans: [
-      {
-        id: "b2c-standard",
-        name: "Standard",
-        price: "19\u20AC",
-        subtext: "Einmalig (inkl. MwSt.)",
-        ctaText: "Jetzt kaufen",
-        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2C_STANDARD",
-        isExternalCheckout: true,
-        features: [
-          { text: "1 Ger\u00E4t / Installation" },
-          { text: "Alle 7 Trainingsmodule" },
-          { text: "Lokale Datenspeicherung" },
-          { text: "Kostenlose Patches & Bugfixes", highlight: true },
-          { text: "Vollst\u00E4ndig offline nutzbar", highlight: true }
-        ]
-      },
-      {
-        id: "b2c-pro",
-        name: "Pro",
-        price: "29\u20AC",
-        subtext: "Einmalig (inkl. MwSt.)",
-        ctaText: "Jetzt kaufen",
-        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2C_PRO",
-        isExternalCheckout: true,
-        features: [
-          { text: "1 Ger\u00E4t / Installation" },
-          { text: "Alle 7 Trainingsmodule" },
-          { text: "Detaillierte Statistiken & Auswertungen", highlight: true },
-          { text: "Export-Funktion (PDF/CSV)", highlight: true },
-          { text: "Lokale Datenspeicherung" },
-          { text: "Kostenlose Patches & Bugfixes", highlight: true },
-          { text: "Vollst\u00E4ndig offline nutzbar", highlight: true }
-        ]
-      }
-    ]
-  },
-  {
     id: "b2b",
     title: "F\u00FCr Einrichtungen & Teams",
     subtitle: "Professioneller Einsatz \u2014 einmalige Investition, dauerhafter Nutzen",
@@ -218,10 +173,12 @@ export const PRICING_SECTIONS: PricingSection[] = [
         id: "b2b-normal",
         name: "Einzel-Lizenz",
         price: "119\u20AC",
-        subtext: "Einmalig (zzgl. MwSt.)",
+        subtext: "Einmaliger Kauf",
         ctaText: "Lizenz erwerben",
-        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2B_EINZEL",
-        isExternalCheckout: true,
+        ctaLink: "mailto:vertrieb.rholabs@gmail.com?subject=Bestellung%20Einzellizenz%20Rho-Labs%20Kognitives%20Training&body=Ich%20m\u00F6chte%20eine%20Einzellizenz%20(119\u20AC)%20erwerben.%0A%0ABitte%20senden%20Sie%20mir%20eine%20Rechnung.%0A%0AName%2FFirma%3A%20%0AAdresse%3A%20%0ARechnungs-Email%3A%20%0A%0AGew\u00FCnschte%20Zahlungsart%3A%20PayPal%20%2F%20Bank\u00FCberweisung",
+        isExternalCheckout: false,
+        paypalLink: "https://www.paypal.com/ncp/payment/GLU7XDSD8ZMXJ",
+        paypalText: "Sofort per PayPal kaufen",
         features: [
           { text: "1 Ger\u00E4t / Installation" },
           { text: "Alle 7 Trainingsmodule" },
@@ -237,13 +194,15 @@ export const PRICING_SECTIONS: PricingSection[] = [
         id: "b2b-team",
         name: "Team-Lizenz",
         price: "309\u20AC",
-        subtext: "Einmalig f\u00FCr 3 Lizenzen (zzgl. MwSt.)",
+        subtext: "Einmaliger Kauf \u00B7 3 Lizenzen",
         subtextClass: "text-brand-cyan font-bold",
         isFeatured: true,
         badge: "Bestseller",
         ctaText: "Team-Lizenz erwerben",
-        ctaLink: "PLACEHOLDER_CHECKOUT_LINK_B2B_TEAM",
-        isExternalCheckout: true,
+        ctaLink: "mailto:vertrieb.rholabs@gmail.com?subject=Bestellung%20Team-Lizenz%20Rho-Labs%20Kognitives%20Training&body=Ich%20m\u00F6chte%20eine%20Team-Lizenz%20(309\u20AC%20f\u00FCr%203%20Ger\u00E4te)%20erwerben.%0A%0ABitte%20senden%20Sie%20mir%20eine%20Rechnung.%0A%0AName%2FFirma%3A%20%0AAdresse%3A%20%0ARechnungs-Email%3A%20%0A%0AGew\u00FCnschte%20Zahlungsart%3A%20PayPal%20%2F%20Bank\u00FCberweisung",
+        isExternalCheckout: false,
+        paypalLink: "https://www.paypal.com/ncp/payment/7RPJTHYFAX4QQ",
+        paypalText: "Sofort per PayPal kaufen",
         features: [
           { text: "3 Ger\u00E4te / Installationen", highlight: true },
           { text: "Alle 7 Trainingsmodule" },
@@ -263,7 +222,7 @@ export const PRICING_SECTIONS: PricingSection[] = [
         isEnterprise: true,
         subtext: "Ab 5+ Lizenzen",
         ctaText: "Kontakt aufnehmen",
-        ctaLink: `mailto:${CONTACT_EMAIL}?subject=Anfrage%20Enterprise-Lizenz`,
+        ctaLink: `mailto:${SALES_EMAIL}?subject=Anfrage%20Enterprise-Lizenz`,
         isExternalCheckout: false,
         features: [
           { text: "Volumenrabatte" },

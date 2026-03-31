@@ -45,23 +45,48 @@ const Privacy: React.FC = () => {
           <div className="pl-12 text-slate-300 space-y-4">
              <div className="p-6 rounded-xl bg-gradient-to-br from-brand-surface to-brand-dark border border-brand-cyan/20">
                 <h3 className="font-bold text-white text-lg mb-4">Lokale Datenhaltung (Privacy by Design)</h3>
-                <p className="mb-4">{"Unsere Software speichert alle nutzerbezogenen Daten (Trainingsergebnisse, Profile) ausschlie\u00DFlich lokal auf Ihrem Endger\u00E4t."}</p>
-                <div className="flex items-start gap-3 p-4 bg-brand-cyan/10 rounded-xl text-xs text-brand-cyan mb-4">
-                  <Info size={18} className="shrink-0" />
-                  <p><strong>{"Hinweis zur Lizenzpr\u00FCfung:"}</strong>{" Zur Validierung der Software-Lizenz baut die Anwendung in periodischen Abst\u00E4nden eine verschl\u00FCsselte Verbindung zu unserem Lizenz-Server auf. Hierbei werden ausschlie\u00DFlich technische Lizenzdaten (Lizenzschl\u00FCssel, Hardware-ID), jedoch niemals nutzerbezogene Daten \u00FCbertragen."}</p>
-                </div>
+                <p>{"Unsere Software speichert alle nutzerbezogenen Daten (Trainingsergebnisse, Profile) ausschlie\u00DFlich lokal auf Ihrem Endger\u00E4t. Es findet keine Cloud-\u00DCbertragung statt."}</p>
              </div>
           </div>
         </section>
 
         <section>
-           <div className="flex items-center gap-4 mb-6">
+          <div className="flex items-center gap-4 mb-6">
             <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 font-bold text-brand-cyan">3</span>
+            <h2 className="font-display font-bold text-2xl text-white m-0">Zahlungsabwicklung</h2>
+          </div>
+          <div className="pl-12 text-slate-300 space-y-4">
+            <p>{"F\u00FCr die Zahlungsabwicklung bieten wir PayPal und Bank\u00FCberweisung an."}</p>
+            <p>{"Bei Zahlung per PayPal werden Sie auf die Website von PayPal (Europe) S.\u00E0 r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxemburg, weitergeleitet. Es gelten die Datenschutzbestimmungen von PayPal: "}<a href="https://www.paypal.com/de/webapps/mpp/ua/privacy-full" target="_blank" rel="noopener noreferrer" className="text-brand-cyan hover:underline">https://www.paypal.com/de/webapps/mpp/ua/privacy-full</a></p>
+            <p>{"Bei Zahlung per Bank\u00FCberweisung werden keine Daten an Dritte \u00FCbermittelt."}</p>
+          </div>
+        </section>
+
+        <section>
+          <div className="flex items-center gap-4 mb-6">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 font-bold text-brand-cyan">4</span>
+            <h2 className="font-display font-bold text-2xl text-white m-0">Lizenzaktivierung</h2>
+          </div>
+          <div className="pl-12 text-slate-300 space-y-4">
+            <p>{"Bei der erstmaligen Aktivierung der Software wird eine verschl\u00FCsselte Anfrage an unseren Aktivierungsserver gesendet. Dabei werden folgende Daten \u00FCbermittelt:"}</p>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>{"Eine anonymisierte Ger\u00E4tekennung (Hardware-Fingerprint als SHA-256-Hash)"}</li>
+              <li>{"Die Lizenzschl\u00FCssel-ID (keine personenbezogenen Daten)"}</li>
+              <li>{"Die App-Version"}</li>
+            </ul>
+            <p>{"Diese Daten dienen ausschlie\u00DFlich der Lizenzvalidierung und werden nicht an Dritte weitergegeben. Nach erfolgreicher Erstaktivierung funktioniert die Software vollst\u00E4ndig offline \u2014 es werden keine weiteren Daten \u00FCbermittelt."}</p>
+            <p>{"Der Aktivierungsserver wird bei Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland, betrieben."}</p>
+          </div>
+        </section>
+
+        <section>
+           <div className="flex items-center gap-4 mb-6">
+            <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 font-bold text-brand-cyan">5</span>
             <h2 className="font-display font-bold text-2xl text-white m-0">Ihre Rechte</h2>
           </div>
           <div className="pl-12 text-slate-300">
             <p className="mb-4">{"Sie haben das Recht auf Auskunft, Berichtigung, L\u00F6schung und Widerspruch gem\u00E4\u00DF DSGVO."}</p>
-            <p className="text-sm text-slate-500">Stand: Februar 2025</p>
+            <p className="text-sm text-slate-500">Stand: M\u00E4rz 2026</p>
           </div>
         </section>
       </div>
