@@ -12,7 +12,7 @@ const Imprint: React.FC = () => {
         <span className="text-amber-500 text-2xl">{"\u2139\uFE0F"}</span>
         <p className="text-slate-300 text-sm leading-relaxed">
           <strong>Hinweis:</strong> Die von Rho-Labs angebotene Software dient ausschließlich dem
-          <strong> unterst\u00FCtzenden kognitiven Training</strong>. Sie stellt kein Medizinprodukt dar, 
+          <strong> unterstützenden kognitiven Training</strong>. Sie stellt kein Medizinprodukt dar, 
           ersetzt keine ärztliche oder therapeutische Diagnostik und erhebt keinen Anspruch auf 
           medizinische Wirksamkeit.
         </p>

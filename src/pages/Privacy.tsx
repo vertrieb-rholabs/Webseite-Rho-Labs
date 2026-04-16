@@ -86,7 +86,7 @@ const Privacy: React.FC = () => {
           </div>
           <div className="pl-12 text-slate-300">
             <p className="mb-4">{"Sie haben das Recht auf Auskunft, Berichtigung, L\u00F6schung und Widerspruch gem\u00E4\u00DF DSGVO."}</p>
-            <p className="text-sm text-slate-500">Stand: M\u00E4rz 2026</p>
+            <p className="text-sm text-slate-500">Stand: März 2026</p>
           </div>
         </section>
       </div>
