@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5 group">
           <img 
-            src="./logo.png" 
+            src="/logo.png"
             alt="Rho-Labs Logo" 
             className="w-9 h-9 object-contain drop-shadow-[0_0_8px_rgba(0,242,255,0.3)] group-hover:drop-shadow-[0_0_14px_rgba(0,242,255,0.5)] transition-all"
           />
@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
           <NavLink to="/evidenz">Evidenz</NavLink>
           <NavLink to="/kontakt">Kontakt</NavLink>
           <a 
-            href="/#/kognitives-training#pricing"
+            href="/kognitives-training#pricing"
             className="px-5 py-2.5 bg-brand-cyan hover:bg-brand-cyanDim text-brand-dark font-bold text-sm rounded-full transition-all transform hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]"
           >
             Lizenzen

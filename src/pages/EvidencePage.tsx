@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { EVIDENZ_SOURCES } from '../constants';
 import { BookOpen, ExternalLink, GraduationCap } from 'lucide-react';
 
@@ -38,9 +39,9 @@ const EvidencePage: React.FC = () => {
 
       <div className="mt-20 text-center">
         <p className="text-slate-500 text-sm mb-6">{"F\u00FCr detaillierte Informationen zu weiteren Modulen kontaktieren Sie uns bitte direkt."}</p>
-        <a href="#/kontakt" className="inline-flex items-center gap-2 text-brand-cyan hover:underline font-bold">
+        <Link to="/kontakt" className="inline-flex items-center gap-2 text-brand-cyan hover:underline font-bold">
           Kontakt aufnehmen <ExternalLink size={16}/>
-        </a>
+        </Link>
       </div>
     </div>
   );
