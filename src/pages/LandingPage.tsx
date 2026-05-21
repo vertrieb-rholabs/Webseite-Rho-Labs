@@ -89,8 +89,6 @@ export const SharedBackground: React.FC<{ scrollY: number }> = ({ scrollY }) => 
     <div className="absolute top-0 left-1/2 w-full h-full max-w-7xl -translate-x-1/2 overflow-hidden">
         <Meteors number={12} />
     </div>
-
-    <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 brightness-150 contrast-150 mix-blend-overlay"></div>
   </div>
 );
 
