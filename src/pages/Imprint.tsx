@@ -1,6 +1,6 @@
 import React from 'react';
 import { CONTACT_EMAIL } from '../constants';
-import { Building2, User, Mail, FileText, Scale, Gavel } from 'lucide-react';
+import { Building2, User, Mail, FileText, Scale, Gavel, Linkedin } from 'lucide-react';
 
 const Imprint: React.FC = () => {
   return (
@@ -40,7 +40,15 @@ const Imprint: React.FC = () => {
             <User size={24} />
             <h2 className="font-display font-bold text-xl text-white m-0">Inhaber</h2>
           </div>
-          <p className="text-slate-300">Patrick Feix</p>
+          <p className="text-slate-300 mb-3">Patrick Feix</p>
+          <a
+            href="https://www.linkedin.com/in/patrick-feix-0b0106399/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-brand-cyan hover:underline"
+          >
+            <Linkedin size={16} /> LinkedIn-Profil
+          </a>
         </div>
 
         <div className="p-8 rounded-2xl bg-brand-surface border border-white/5">
