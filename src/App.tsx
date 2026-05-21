@@ -1,42 +1,25 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import type { RouteRecord } from 'vite-react-ssg';
+import Layout from './Layout';
 import LandingPage from './pages/LandingPage';
 import ProductPage from './pages/ProductPage';
 import EvidencePage from './pages/EvidencePage';
 import ContactPage from './pages/ContactPage';
 import Imprint from './pages/Imprint';
 import Privacy from './pages/Privacy';
+import NotFound from './pages/NotFound';
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
-
-const App: React.FC = () => {
-  return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen flex flex-col font-body bg-brand-dark text-slate-300 selection:bg-brand-cyan selection:text-brand-dark">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/kognitives-training" element={<ProductPage />} />
-            <Route path="/evidenz" element={<EvidencePage />} />
-            <Route path="/kontakt" element={<ContactPage />} />
-            <Route path="/impressum" element={<Imprint />} />
-            <Route path="/datenschutz" element={<Privacy />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
-};
-
-export default App;
+export const routes: RouteRecord[] = [
+  {
+    path: '/',
+    Component: Layout,
+    children: [
+      { index: true, Component: LandingPage },
+      { path: 'kognitives-training', Component: ProductPage },
+      { path: 'evidenz', Component: EvidencePage },
+      { path: 'kontakt', Component: ContactPage },
+      { path: 'impressum', Component: Imprint },
+      { path: 'datenschutz', Component: Privacy },
+      { path: '*', Component: NotFound },
+    ],
+  },
+];

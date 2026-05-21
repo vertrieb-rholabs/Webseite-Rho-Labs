@@ -1,0 +1,45 @@
+diff --git a/node_modules/react-router-dom/dist/server.js b/node_modules/react-router-dom/dist/server.js
+new file mode 100644
+index 0000000..df19b68
+--- /dev/null
++++ b/node_modules/react-router-dom/dist/server.js
+@@ -0,0 +1,7 @@
++'use strict';
++const rr = require('react-router');
++module.exports = {
++  StaticRouterProvider: rr.StaticRouterProvider,
++  createStaticHandler: rr.createStaticHandler,
++  createStaticRouter: rr.createStaticRouter,
++};
+diff --git a/node_modules/react-router-dom/dist/server.mjs b/node_modules/react-router-dom/dist/server.mjs
+new file mode 100644
+index 0000000..bc2e8b5
+--- /dev/null
++++ b/node_modules/react-router-dom/dist/server.mjs
+@@ -0,0 +1,5 @@
++export {
++  StaticRouterProvider,
++  createStaticHandler,
++  createStaticRouter,
++} from 'react-router';
+diff --git a/node_modules/react-router-dom/package.json b/node_modules/react-router-dom/package.json
+index 6c9329d..68111ed 100644
+--- a/node_modules/react-router-dom/package.json
++++ b/node_modules/react-router-dom/package.json
+@@ -38,6 +38,16 @@
+         "default": "./dist/index.js"
+       }
+     },
++    "./server": {
++      "import": "./dist/server.mjs",
++      "require": "./dist/server.js",
++      "default": "./dist/server.mjs"
++    },
++    "./server.js": {
++      "import": "./dist/server.mjs",
++      "require": "./dist/server.js",
++      "default": "./dist/server.mjs"
++    },
+     "./package.json": "./package.json"
+   },
+   "wireit": {

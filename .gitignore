@@ -1,1 +1,4 @@
 node_modules/
+docs/
+.claude/
+claude-code-prompt-website-final.md
