@@ -90,7 +90,7 @@ export const SharedBackground: React.FC<{ scrollY: number }> = ({ scrollY }) => 
         <Meteors number={12} />
     </div>
 
-    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-150 contrast-150 mix-blend-overlay"></div>
+    <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 brightness-150 contrast-150 mix-blend-overlay"></div>
   </div>
 );
 
