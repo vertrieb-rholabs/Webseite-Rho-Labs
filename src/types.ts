@@ -42,3 +42,26 @@ export interface StatItem {
   value: string;
   label: string;
 }
+
+export type ProductStatus = 'available' | 'beta-soon' | 'in-development';
+
+export interface PipelineItem {
+  id: string;
+  name: string;
+  status: ProductStatus;
+  /** Fachliche Einordnung, z.B. "Kognition & Therapie" */
+  field: string;
+  description: string;
+  /** Interne Route — nur bei status 'available' gesetzt. */
+  href?: string;
+}
+
+export interface LabProject {
+  id: string;
+  name: string;
+  description: string;
+  href: string;
+  /** Herkunft/Rahmen, z.B. "Leibniz Universität Hannover" */
+  context: string;
+  tag: string;
+}

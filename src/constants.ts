@@ -14,7 +14,7 @@ import {
   Award,
   Layers
 } from 'lucide-react';
-import { ModuleItem, PricingTier, PricingSection, StatItem } from './types';
+import { ModuleItem, PricingTier, PricingSection, StatItem, PipelineItem, LabProject, ProductStatus } from './types';
 
 export const CONTACT_EMAIL = "kontakt.rholabs@gmail.com";
 export const SALES_EMAIL = "vertrieb.rholabs@gmail.com";
@@ -159,6 +159,66 @@ export const CORE_VALUES = [
     title: "Made in Germany",
     description: "Entwickelt unter Ber\u00FCcksichtigung der Datenschutz-Grundverordnung (DSGVO). Alle Nutzerdaten verbleiben lokal auf Ihrem Ger\u00E4t.",
     Icon: Award
+  }
+];
+
+export const STATUS_LABELS: Record<ProductStatus, string> = {
+  'available': "Verf\u00FCgbar",
+  'beta-soon': "Beta in Vorbereitung",
+  'in-development': "In Entwicklung"
+};
+
+// Single Source of Truth f\u00FCr Landing-Page-Sektion und Footer.
+// Status ehrlich halten: 'available' nur, was auch gekauft werden kann.
+export const PIPELINE: PipelineItem[] = [
+  {
+    id: "kognitives-training",
+    name: "Kognitives Training",
+    status: "available",
+    field: "Kognition & Training",
+    description: "Sieben Module f\u00FCr Ged\u00E4chtnis, Aufmerksamkeit und kognitive Flexibilit\u00E4t. Profilbasiert, auswertbar und vollst\u00E4ndig offline nutzbar.",
+    href: "/kognitives-training"
+  },
+  {
+    id: "rhocoat",
+    name: "RhoCoat",
+    status: "beta-soon",
+    field: "Optik & D\u00FCnnschicht",
+    description: "Berechnung und Optimierung optischer D\u00FCnnschichtsysteme nach Transfer-Matrix- und S-Matrix-Verfahren \u2014 mit Materialdatenbank und mehrkriterieller Optimierung.",
+  },
+  {
+    id: "rhooptix",
+    name: "RhoOptix",
+    status: "in-development",
+    field: "Optik & Photonik",
+    description: "Optische Systeme aufbauen, simulieren und analysieren: geometrische Optik und Wellenoptik in einer Desktop-Anwendung, inklusive Auswertung und Toleranzanalyse.",
+  },
+  {
+    id: "medipen",
+    name: "MediPen",
+    status: "in-development",
+    field: "Therapie & Dokumentation",
+    description: "Aus Stichpunkten strukturierte Therapieberichte f\u00FCr Ergo- und Logop\u00E4die-Praxen. Das Sprachmodell l\u00E4uft lokal \u2014 keine Patientendaten verlassen den Rechner.",
+  }
+];
+
+// Offene Projekte ohne Verkaufsabsicht \u2014 bewusst getrennt von PIPELINE.
+export const LAB_PROJECTS: LabProject[] = [
+  {
+    id: "klimalabor",
+    name: "Klimalabor",
+    description: "Vier Klimamodelle unterschiedlicher Komplexit\u00E4t, interaktiv nachvollziehbar. Zeigt, wie stark sich die Aussagen \u00E4ndern, wenn man an den Annahmen dreht.",
+    href: "https://klimalabor.rholabs.de/index.html",
+    context: "Schl\u00FCsselkompetenzen-Projekt, Leibniz Universit\u00E4t Hannover",
+    tag: "Lernwerkzeug"
+  },
+  {
+    id: "modeforge",
+    name: "ModeForge",
+    description: "Werkzeug zum Entwurf von Laser-Strahlf\u00FChrungen \u2014 quelloffen und frei nutzbar.",
+    href: "https://modeforge.rholabs.de",
+    context: "Frei verf\u00FCgbar, ohne Registrierung",
+    tag: "Open Source"
   }
 ];
 

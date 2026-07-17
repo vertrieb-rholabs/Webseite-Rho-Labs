@@ -1,9 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ChevronRight, Zap, Globe, Shield, Database, Award, Sparkles, Monitor, Download } from 'lucide-react';
-import { CORE_VALUES, CONTACT_EMAIL } from '../constants';
+import { ChevronRight, Zap, Globe, Shield, Database, Award, Sparkles, Monitor, Download, Boxes, FlaskConical, ExternalLink } from 'lucide-react';
+import { CORE_VALUES, CONTACT_EMAIL, PIPELINE, LAB_PROJECTS, STATUS_LABELS } from '../constants';
+import type { ProductStatus } from '../types';
 import { Link } from 'react-router-dom';
 
-const ScrollReveal: React.FC<{ children?: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
+const STATUS_STYLES: Record<ProductStatus, string> = {
+  'available': 'bg-brand-cyan/10 text-brand-cyan border-brand-cyan/30',
+  'beta-soon': 'bg-brand-purple/10 text-brand-purple border-brand-purple/30',
+  'in-development': 'bg-white/5 text-slate-400 border-white/10'
+};
+
+const ScrollReveal: React.FC<{ children?: React.ReactNode; delay?: number; className?: string }> = ({ children, delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -25,7 +32,7 @@ const ScrollReveal: React.FC<{ children?: React.ReactNode; delay?: number }> = (
   return (
     <div
       ref={ref}
-      className={`transition-all duration-[1200ms] ease-out ${
+      className={`transition-all duration-[1200ms] ease-out ${className} ${
         isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
       }`}
       style={{ transitionDelay: `${delay}ms` }}
@@ -243,6 +250,84 @@ const LandingPage: React.FC = () => {
                </div>
             </div>
           </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Pipeline */}
+      <section className="relative py-32 px-6 z-10 border-t border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 text-xs font-bold uppercase tracking-[0.2em] mb-8">
+                <Boxes size={14} /> Produktpalette
+              </span>
+              <h2 className="font-display font-black text-4xl md:text-6xl text-white mb-6 tracking-tighter">Woran wir arbeiten</h2>
+              <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                Rho-Labs entwickelt in zwei Feldern: Software für kognitives Training und therapeutische Praxis — und Werkzeuge für Optik und Photonik.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PIPELINE.map((item, idx) => (
+              <ScrollReveal key={item.id} delay={idx * 100} className="h-full">
+                <div className="h-full flex flex-col p-8 rounded-3xl bg-brand-surface/60 border border-white/10 backdrop-blur-sm hover:border-white/20 transition-colors">
+                  <span className={`self-start px-3 py-1 rounded-full border text-[10px] font-black uppercase tracking-widest mb-6 ${STATUS_STYLES[item.status]}`}>
+                    {STATUS_LABELS[item.status]}
+                  </span>
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-3">{item.field}</p>
+                  <h3 className="font-display font-bold text-2xl text-white mb-4 tracking-tight">{item.name}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">{item.description}</p>
+                  {item.href && (
+                    <Link to={item.href} className="inline-flex items-center gap-2 text-brand-cyan font-bold text-sm hover:gap-3 transition-all">
+                      Details ansehen <ChevronRight size={16} />
+                    </Link>
+                  )}
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Labor */}
+      <section className="relative py-32 px-6 z-10 border-t border-white/5 bg-brand-surface/40 backdrop-blur-md">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-brand-purple/10 text-brand-purple border border-brand-purple/20 text-xs font-bold uppercase tracking-[0.2em] mb-8">
+                <FlaskConical size={14} /> Aus dem Labor
+              </span>
+              <h2 className="font-display font-black text-4xl md:text-6xl text-white mb-6 tracking-tighter">Offene Projekte</h2>
+              <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                Neben den Produkten entstehen bei uns frei zugängliche Werkzeuge — aus Lehre, Forschung und Eigenbedarf.
+                Kostenlos, ohne Registrierung und kein Teil des Lizenzangebots.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {LAB_PROJECTS.map((project, idx) => (
+              <ScrollReveal key={project.id} delay={idx * 150} className="h-full">
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group h-full flex flex-col p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-brand-purple/40 hover:bg-white/[0.07] transition-all"
+                >
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <h3 className="font-display font-bold text-2xl text-white tracking-tight">{project.name}</h3>
+                    <ExternalLink size={18} className="text-slate-500 group-hover:text-brand-purple transition-colors shrink-0 mt-1.5" />
+                  </div>
+                  <span className="self-start px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400 text-[10px] font-black uppercase tracking-widest mb-5">
+                    {project.tag}
+                  </span>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-5 flex-1">{project.description}</p>
+                  <p className="text-slate-500 text-xs">{project.context}</p>
+                </a>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
     </div>

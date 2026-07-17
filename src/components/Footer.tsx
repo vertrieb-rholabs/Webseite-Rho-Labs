@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CONTACT_EMAIL, SALES_EMAIL } from '../constants';
+import { ExternalLink } from 'lucide-react';
+import { CONTACT_EMAIL, SALES_EMAIL, PIPELINE, LAB_PROJECTS, STATUS_LABELS } from '../constants';
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-brand-surface border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
              <Link to="/" className="flex items-center gap-2 mb-6">
               <span className="font-display font-bold text-2xl text-white tracking-tight">
@@ -21,9 +22,35 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Produkte</h4>
             <ul className="space-y-4 text-sm text-slate-400">
-              <li><Link to="/kognitives-training" className="hover:text-brand-cyan transition-colors">Kognitives Training</Link></li>
-              <li><span className="opacity-50 italic">MediPen (In Planung)</span></li>
-              <li><span className="opacity-50 italic">Optical Studio (In Planung)</span></li>
+              {PIPELINE.map((item) => (
+                <li key={item.id}>
+                  {item.href ? (
+                    <Link to={item.href} className="hover:text-brand-cyan transition-colors">{item.name}</Link>
+                  ) : (
+                    <span className="opacity-50">
+                      {item.name} <span className="italic">({STATUS_LABELS[item.status]})</span>
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Labor</h4>
+            <ul className="space-y-4 text-sm text-slate-400">
+              {LAB_PROJECTS.map((project) => (
+                <li key={project.id}>
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 hover:text-brand-purple transition-colors"
+                  >
+                    {project.name} <ExternalLink size={12} />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
