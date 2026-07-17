@@ -187,18 +187,18 @@ export const PIPELINE: PipelineItem[] = [
     description: "Berechnung und Optimierung optischer D\u00FCnnschichtsysteme nach Transfer-Matrix- und S-Matrix-Verfahren \u2014 mit Materialdatenbank und mehrkriterieller Optimierung.",
   },
   {
+    id: "medipen",
+    name: "MediPen",
+    status: "beta-soon",
+    field: "Therapie & Dokumentation",
+    description: "Aus Stichpunkten strukturierte Therapieberichte f\u00FCr Ergo- und Logop\u00E4die-Praxen. Das Sprachmodell l\u00E4uft lokal \u2014 keine Patientendaten verlassen den Rechner.",
+  },
+  {
     id: "rhooptix",
     name: "RhoOptix",
     status: "in-development",
     field: "Optik & Photonik",
     description: "Optische Systeme aufbauen, simulieren und analysieren: geometrische Optik und Wellenoptik in einer Desktop-Anwendung, inklusive Auswertung und Toleranzanalyse.",
-  },
-  {
-    id: "medipen",
-    name: "MediPen",
-    status: "in-development",
-    field: "Therapie & Dokumentation",
-    description: "Aus Stichpunkten strukturierte Therapieberichte f\u00FCr Ergo- und Logop\u00E4die-Praxen. Das Sprachmodell l\u00E4uft lokal \u2014 keine Patientendaten verlassen den Rechner.",
   }
 ];
 
