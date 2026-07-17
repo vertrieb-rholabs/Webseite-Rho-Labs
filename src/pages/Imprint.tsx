@@ -30,8 +30,7 @@ const Imprint: React.FC = () => {
             {"Feldstra\u00DFe 15"}<br />
             99848 Wutha-Farnroda<br />
             Deutschland<br /><br />
-            <strong>Steuernummer:</strong> 155/218/01562<br />
-            <strong>W-IdNr.:</strong> DE461250542
+            <strong>{"USt-IdNr.:"}</strong> DE461250542
           </address>
         </div>
 
