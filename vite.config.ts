@@ -4,11 +4,30 @@ import { defineConfig, type UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { } from 'vite-react-ssg';
 
+// Alle Seiten, die vorgerendert werden. Die drei /demo-Routen sind die
+// Weiterleitungsziele des Auslieferungsdienstes und muessen als eigene
+// Verzeichnisse mit index.html entstehen — sonst laeuft der
+// Bestaetigungsklick in den 404.
+const ROUTES = [
+  '/',
+  '/kognitives-training',
+  '/evidenz',
+  '/kontakt',
+  '/impressum',
+  '/datenschutz',
+  '/demo/danke',
+  '/demo/fertig',
+  '/demo/link-abgelaufen',
+  '/404',
+];
+
 export default defineConfig({
   base: '/',
   build: {
     outDir: 'docs',
     emptyOutDir: true,
+    // Der Trailer wird als Datei ausgeliefert, nicht als data:-URI eingebettet.
+    assetsInlineLimit: 4096,
   },
   server: {
     port: 3000,
@@ -18,15 +37,7 @@ export default defineConfig({
     entry: 'src/index.tsx',
     crittersOptions: false,
     dirStyle: 'nested',
-    includedRoutes: () => Promise.resolve([
-      '/',
-      '/kognitives-training',
-      '/evidenz',
-      '/kontakt',
-      '/impressum',
-      '/datenschutz',
-      '/404',
-    ]),
+    includedRoutes: () => Promise.resolve(ROUTES),
     // GitHub Pages erwartet docs/404.html als Top-Level-Custom-404.
     // nested-mode generiert docs/404/index.html; wir flatten das.
     onFinished: async (dir) => {

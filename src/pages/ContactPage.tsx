@@ -1,74 +1,160 @@
-import React from 'react';
-import { Mail, MessageSquare, ShoppingCart, Globe, Download, Sparkles } from 'lucide-react';
-import { CONTACT_EMAIL, SALES_EMAIL } from '../constants';
+import { Link } from 'react-router-dom';
+import { MessageSquare, ShoppingCart } from 'lucide-react';
+import Seo from '../components/Seo';
+import {
+  CONTACT_EMAIL,
+  DEMO_FORM_ACTION,
+  NEWSLETTER_EINWILLIGUNG,
+  SALES_EMAIL,
+} from '../constants';
 
-const ContactPage: React.FC = () => {
+export default function ContactPage() {
   return (
-    <div className="pt-40 pb-32 px-6 max-w-5xl mx-auto">
-      <div className="text-center mb-16">
-        <h1 className="font-display font-black text-5xl md:text-7xl text-white mb-6">Kontakt</h1>
-        <p className="text-xl text-slate-400">{"Fragen zur Software oder Lizenzierung? Wir sind f\u00FCr Sie da."}</p>
-      </div>
+    <>
+      <Seo
+        path="/kontakt"
+        title="Kontakt & Demo anfordern — Rho-Labs"
+        description="Demo-Schlüssel anfordern: 14 Tage, voller Funktionsumfang. Oder direkt schreiben — Antwort in der Regel innerhalb von 24 Stunden."
+      />
 
-      {/* Demo Request - Highlighted */}
-      <div className="relative mb-12 p-[2px] rounded-[2.5rem] bg-gradient-to-r from-brand-cyan via-brand-purple to-brand-cyan overflow-hidden">
-        <div className="relative bg-brand-surface rounded-[2.4rem] p-10 md:p-12 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-cyan/5 blur-[100px] rounded-full -mr-40 -mt-40" />
-          <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
-            <div className="shrink-0 w-20 h-20 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/20 flex items-center justify-center text-brand-cyan">
-              <Download size={40} />
-            </div>
-            <div className="flex-1 text-center md:text-left">
-              <div className="flex items-center gap-2 justify-center md:justify-start mb-3">
-                <Sparkles size={16} className="text-brand-cyan" />
-                <span className="text-brand-cyan font-black text-xs uppercase tracking-[0.2em]">Kostenlos testen</span>
+      <div className="wrap wrap--form section">
+        <p className="eyebrow" style={{ marginBottom: 16 }}>
+          Kontakt
+        </p>
+        <h1 className="h-page" style={{ marginBottom: 40 }}>
+          Demo holen oder Frage stellen
+        </h1>
+
+        <div className="grid grid--auto-320">
+          {/* ── Demo-Formular ───────────────────────────────────────────
+              Sendet unmittelbar an den Auslieferungsdienst; der antwortet
+              mit einer Weiterleitung auf /demo/danke/. Deshalb ein echtes
+              HTML-Formular ohne JavaScript — es funktioniert auch dann,
+              wenn das Skript der Seite nicht geladen hat.
+              ------------------------------------------------------------ */}
+          <div className="form-card">
+            <p className="eyebrow" style={{ letterSpacing: '0.2em', marginBottom: 14 }}>
+              Kostenlos testen
+            </p>
+            <h2>Demo-Schlüssel anfordern</h2>
+            <p className="form-card__lede">
+              14 Tage, voller Funktionsumfang, ein Gerät. Adresse eintragen,
+              Bestätigungslink in der E-Mail anklicken — den Schlüssel gibt es
+              dann sofort.
+            </p>
+
+            <form method="post" action={DEMO_FORM_ACTION} className="form">
+              <div className="field">
+                <label htmlFor="demo-email">E-Mail-Adresse</label>
+                <input
+                  id="demo-email"
+                  type="email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                  placeholder="name@beispiel.de"
+                />
               </div>
-              <h2 className="font-display font-bold text-3xl text-white mb-4">Kostenlose Demo anfragen</h2>
-              <p className="text-slate-400 mb-6">{"Testen Sie Rho-Labs Kognitives Training unverbindlich. Schreiben Sie uns eine E-Mail und wir senden Ihnen eine Demo-Version zu."}</p>
-              <a 
-                href={`mailto:${CONTACT_EMAIL}?subject=Kostenlose Demo anfragen&body=Guten Tag,%0D%0A%0D%0Aich interessiere mich für eine kostenlose Demo-Version von Rho-Labs Kognitives Training.%0D%0A%0D%0ABitte senden Sie mir die Demo-Version zu.%0D%0A%0D%0AMit freundlichen Grüßen`}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-brand-cyan text-brand-dark font-black rounded-full hover:shadow-[0_0_40px_rgba(0,242,255,0.4)] transition-all transform hover:-translate-y-1"
+
+              <div className="field">
+                <label htmlFor="demo-name">
+                  Name <span className="field__hint">— freiwillig, für die Anrede</span>
+                </label>
+                <input
+                  id="demo-name"
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  maxLength={80}
+                  placeholder="Wie sollen wir dich ansprechen?"
+                />
+              </div>
+
+              {/* Honigtopf. Für Menschen unsichtbar, für Bots verlockend —
+                  ist das Feld gefüllt, verwirft der Server die Anfrage. */}
+              <div className="honeypot" aria-hidden="true">
+                <label htmlFor="webseite">Webseite</label>
+                <input id="webseite" type="text" name="webseite" tabIndex={-1} autoComplete="off" />
+              </div>
+
+              <label className="consent">
+                <input type="checkbox" required />
+                <span>
+                  Ich bin einverstanden, dass meine E-Mail-Adresse zur Zusendung
+                  des Demo-Schlüssels verarbeitet wird. Näheres in der{' '}
+                  <Link to="/datenschutz">Datenschutzerklärung</Link>.
+                </span>
+              </label>
+
+              {/* Zweite Einwilligung, deutlich abgesetzt: sie betrifft etwas
+                  anderes als die Demo und muss nach Art. 7 Abs. 2 DSGVO klar
+                  unterscheidbar sein. Optional und nicht vorbelegt — die Demo
+                  hängt nicht daran (Art. 7 Abs. 4 DSGVO). */}
+              <label className="consent consent--optional">
+                <input type="checkbox" name="newsletter" value="ja" />
+                <span>
+                  {NEWSLETTER_EINWILLIGUNG}{' '}
+                  <span className="consent__aside">
+                    Kein Pflichtfeld — die Demo bekommst du auch ohne.
+                  </span>
+                </span>
+              </label>
+
+              <button type="submit" className="form__submit">
+                Kostenlose Demo anfordern
+              </button>
+            </form>
+
+            <p className="form__note">
+              Ohne das zweite Häkchen bekommst du nur den Demo-Schlüssel und
+              sonst nichts. Eine Demo je Adresse und Jahr. Der
+              Bestätigungslink gilt 24 Stunden.
+            </p>
+          </div>
+
+          {/* ── Direkte Wege ───────────────────────────────────────────── */}
+          <div className="stack">
+            <div
+              className="card card--edge card--hover-purple contact-card"
+              data-edge="1"
+              style={{ padding: 28 }}
+            >
+              <span
+                className="icon-box icon-box--sm icon-box--purple"
+                style={{ marginBottom: 16 }}
+                aria-hidden="true"
               >
-                <Mail size={20} /> Demo per E-Mail anfragen
+                <MessageSquare size={17} />
+              </span>
+              <h3>Allgemeine Anfragen</h3>
+              <p>
+                Technische Fragen, Rückmeldungen oder Anpassungen an der
+                Software.
+              </p>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="link-purple">
+                {CONTACT_EMAIL}
               </a>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="p-10 rounded-[2.5rem] bg-brand-surface border border-white/5 hover:border-brand-purple/30 transition-all group">
-          <div className="w-14 h-14 rounded-2xl bg-brand-purple/10 flex items-center justify-center text-brand-purple mb-8 group-hover:scale-110 transition-transform">
-            <MessageSquare size={28} />
-          </div>
-          <h2 className="font-display font-bold text-3xl text-white mb-4">Allgemeine Anfragen</h2>
-          <p className="text-slate-400 mb-8">{"Kontaktieren Sie uns direkt f\u00FCr technische Fragen, Feedback oder individuelle Software-Anpassungen."}</p>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center gap-2 text-brand-purple font-black text-lg hover:underline">
-            {CONTACT_EMAIL} <Mail size={20}/>
-          </a>
-        </div>
+            <div
+              className="card card--edge card--hover-purple contact-card"
+              data-edge="1"
+              style={{ padding: 28 }}
+            >
+              <span className="icon-box icon-box--sm" style={{ marginBottom: 16 }} aria-hidden="true">
+                <ShoppingCart size={17} />
+              </span>
+              <h3>Vertrieb &amp; Lizenzen</h3>
+              <p>Bestellungen, Angebote, Volumenlizenzen für Einrichtungen.</p>
+              <a href={`mailto:${SALES_EMAIL}`}>{SALES_EMAIL}</a>
+            </div>
 
-        <div className="p-10 rounded-[2.5rem] bg-brand-surface border border-white/5 hover:border-brand-cyan/30 transition-all group">
-          <div className="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center text-brand-cyan mb-8 group-hover:scale-110 transition-transform">
-            <ShoppingCart size={28} />
+            <div className="info-card">
+              <p>Antwort in der Regel innerhalb von 24 Stunden, spätestens nach 48.</p>
+            </div>
           </div>
-          <h2 className="font-display font-bold text-3xl text-white mb-4">Vertrieb & Lizenzen</h2>
-          <p className="text-slate-400 mb-8">{"F\u00FCr Fragen zu Lizenzen, Bestellungen oder Angeboten erreichen Sie uns direkt per E-Mail."}</p>
-          <a href={`mailto:${SALES_EMAIL}`} className="inline-flex items-center gap-2 text-brand-cyan font-black text-lg hover:underline">
-            {SALES_EMAIL} <Mail size={20}/>
-          </a>
         </div>
       </div>
-      
-      <div className="mt-20 p-10 rounded-[2.5rem] bg-white/5 border border-white/10 text-center">
-        <h3 className="font-display font-bold text-2xl text-white mb-4 flex items-center justify-center gap-2"><Globe size={24} className="text-brand-cyan"/> Support-Hinweis</h3>
-        <p className="text-slate-400 text-sm max-w-2xl mx-auto mb-6">
-          {"Wir bearbeiten Anfragen in der Regel innerhalb von 24\u201348 Stunden. F\u00FCr technische Notf\u00E4lle bei Bestandskunden nutzen Sie bitte die priorisierte E-Mail aus Ihrem Kundenkonto."}
-        </p>
-        <p className="text-brand-cyan font-bold">{CONTACT_EMAIL}</p>
-      </div>
-    </div>
+    </>
   );
-};
-
-export default ContactPage;
+}

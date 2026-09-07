@@ -7,6 +7,9 @@
     "dev": "vite",
     "build": "vite-react-ssg build",
     "preview": "vite preview",
+    "medien": "node scripts/medien-pruefen.mjs",
+    "hydration": "npx --yes -p puppeteer-core node scripts/hydration-check.mjs",
+    "pruefen": "npm run medien && tsc --noEmit && npm run build",
     "postinstall": "patch-package"
   },
   "dependencies": {

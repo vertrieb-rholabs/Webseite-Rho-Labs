@@ -1,108 +1,98 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { Linkedin } from 'lucide-react';
+import Seo from '../components/Seo';
 import { CONTACT_EMAIL } from '../constants';
-import { Building2, User, Mail, FileText, Scale, Gavel, Linkedin } from 'lucide-react';
 
-const Imprint: React.FC = () => {
+export default function Imprint() {
   return (
-    <div className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
-      <h1 className="font-display font-black text-4xl md:text-5xl text-white mb-4">Impressum</h1>
-      <p className="text-slate-400 text-lg mb-12">{"Angaben gem\u00E4\u00DF \u00A7 5 DDG (Digitale-Dienste-Gesetz)"}</p>
+    <>
+      <Seo
+        path="/impressum"
+        title="Impressum — Rho-Labs"
+        description="Angaben gemäß § 5 DDG: Rho-Labs, Inhaber Patrick Feix, Wutha-Farnroda."
+      />
 
-      <div className="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/10 flex gap-4 items-start mb-12">
-        <span className="text-amber-500 text-2xl">{"\u2139\uFE0F"}</span>
-        <p className="text-slate-300 text-sm leading-relaxed">
-          <strong>Hinweis:</strong> Die von Rho-Labs angebotene Software dient ausschließlich dem
-          <strong> unterstützenden kognitiven Training</strong>. Sie stellt kein Medizinprodukt dar, 
-          ersetzt keine ärztliche oder therapeutische Diagnostik und erhebt keinen Anspruch auf 
-          medizinische Wirksamkeit.
+      <div className="wrap wrap--legal section--tight">
+        <p className="eyebrow" style={{ marginBottom: 16 }}>
+          Impressum
         </p>
-      </div>
+        <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3.4vw, 44px)', marginBottom: 28 }}>
+          Angaben gemäß § 5 DDG
+        </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-8 rounded-2xl bg-brand-surface border border-white/5">
-          <div className="flex items-center gap-3 mb-6 text-brand-cyan">
-            <Building2 size={24} />
-            <h2 className="font-display font-bold text-xl text-white m-0">Unternehmensangaben</h2>
-          </div>
-          <address className="not-italic text-slate-300 leading-relaxed">
-            <strong>{"Rho-Labs \u2013 Einzelunternehmen"}</strong><br />
-            Patrick Feix<br />
-            {"Feldstra\u00DFe 15"}<br />
-            99848 Wutha-Farnroda<br />
-            Deutschland<br /><br />
-            <strong>{"USt-IdNr.:"}</strong> DE461250542
+        <div className="legal-block" style={{ marginBottom: 20 }}>
+          <address>
+            Rho-Labs — Einzelunternehmen
+            <br />
+            Inhaber: Patrick Feix
+            <br />
+            Feldstraße 15
+            <br />
+            99848 Wutha-Farnroda
+            <br />
+            Deutschland
           </address>
         </div>
 
-        <div className="p-8 rounded-2xl bg-brand-surface border border-white/5">
-          <div className="flex items-center gap-3 mb-6 text-brand-cyan">
-            <User size={24} />
-            <h2 className="font-display font-bold text-xl text-white m-0">Inhaber</h2>
-          </div>
-          <p className="text-slate-300 mb-3">Patrick Feix</p>
-          <a
-            href="https://www.linkedin.com/in/patrick-feix-0b0106399/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-brand-cyan hover:underline"
-          >
-            <Linkedin size={16} /> LinkedIn-Profil
-          </a>
-        </div>
-
-        <div className="p-8 rounded-2xl bg-brand-surface border border-white/5">
-          <div className="flex items-center gap-3 mb-6 text-brand-cyan">
-            <Mail size={24} />
-            <h2 className="font-display font-bold text-xl text-white m-0">Kontakt</h2>
-          </div>
-          <p className="text-slate-300">
-            <strong>E-Mail:</strong> <a href={`mailto:${CONTACT_EMAIL}`} className="text-brand-cyan hover:underline">{CONTACT_EMAIL}</a>
-          </p>
-        </div>
-
-        <div className="p-8 rounded-2xl bg-brand-surface border border-white/5">
-          <div className="flex items-center gap-3 mb-6 text-brand-cyan">
-            <FileText size={24} />
-            <h2 className="font-display font-bold text-xl text-white m-0">Inhaltlich Verantwortlich</h2>
-          </div>
-          <p className="text-slate-400 text-sm mb-2">{`nach \u00A7 18 Abs. 2 MStV`}</p>
-          <p className="text-slate-300">
-            Patrick Feix<br />
-            {"Feldstra\u00DFe 15"}<br />
-            99848 Wutha-Farnroda
-          </p>
-        </div>
-        
-        <div className="p-8 rounded-2xl bg-brand-surface border border-white/5 md:col-span-2">
-          <div className="flex items-center gap-3 mb-6 text-brand-cyan">
-            <Scale size={24} />
-            <h2 className="font-display font-bold text-xl text-white m-0">EU-Streitschlichtung</h2>
-          </div>
-          <p className="text-slate-300 mb-4">
-            {"Die Europ\u00E4ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: "}
-            <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-brand-cyan hover:underline ml-1">
-              https://ec.europa.eu/consumers/odr/
+        <div className="grid grid--auto-240" style={{ marginBottom: 20 }}>
+          <div className="legal-block" style={{ padding: 24 }}>
+            <p className="legal-label">Kontakt</p>
+            <a href={`mailto:${CONTACT_EMAIL}`} style={{ fontSize: 14.5, fontWeight: 600 }}>
+              {CONTACT_EMAIL}
             </a>
-          </p>
-          <p className="text-slate-400 text-sm">Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
-        </div>
-
-        <div className="p-8 rounded-2xl bg-brand-surface border border-white/5 md:col-span-2">
-          <div className="flex items-center gap-3 mb-6 text-brand-cyan">
-            <Gavel size={24} />
-            <h2 className="font-display font-bold text-xl text-white m-0">Verbraucherstreitbeilegung</h2>
+            <p className="legal-aside">
+              Für eine unmittelbare Rückmeldung erreichen Sie uns außerdem über
+              das <Link to="/kontakt">Kontaktformular</Link>.
+            </p>
+            {/* Aus Commit b6b834d — im Entwurf nicht enthalten, bewusst behalten. */}
+            <a
+              href="https://www.linkedin.com/in/patrick-feix-0b0106399/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="legal-link"
+            >
+              <Linkedin size={15} aria-hidden="true" /> LinkedIn-Profil des Inhabers
+            </a>
           </div>
-          <p className="text-slate-300">
-            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+
+          {/* Der Entwurf führt hier zusätzlich die Steuernummer und die
+              Bezeichnung „W-IdNr.“. Beides ist bewusst nicht übernommen:
+              Commit e4e6b50 hat die Steuernummer im Juli 2026 entfernt (in
+              § 5 Abs. 1 Nr. 6 DDG nicht aufgeführt, personenbezogen, ein
+              bekanntes Vehikel für gefälschte Rechnungen) und die Nummer
+              korrekt als USt-IdNr. benannt — das Format DE + 9 Ziffern ist
+              das der USt-IdNr.; eine W-IdNr. nach § 139c AO trüge zusätzlich
+              ein fünfstelliges Unterscheidungsmerkmal. Der Entwurf ist an
+              dieser Stelle älter als diese Entscheidung. */}
+          <div className="legal-block" style={{ padding: 24 }}>
+            <p className="legal-label">Steuerliche Angaben</p>
+            <p className="legal-mono">USt-IdNr. DE461250542</p>
+            <p className="legal-aside">
+              Kleinunternehmen gemäß § 19 UStG — es wird keine Umsatzsteuer
+              berechnet.
+            </p>
+          </div>
+        </div>
+
+        <p className="note">Stand: März 2026</p>
+
+        <div className="legal-block" style={{ marginTop: 40 }}>
+          <h2>Verantwortlich für den Inhalt</h2>
+          <p>
+            Patrick Feix, Anschrift wie oben. Inhaltlich verantwortlich gemäß
+            § 18 Abs. 2 MStV.
+          </p>
+        </div>
+
+        <div className="legal-block" style={{ marginTop: 20 }}>
+          <h2>Streitbeilegung</h2>
+          <p>
+            Wir sind nicht bereit oder verpflichtet, an
+            Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+            teilzunehmen.
           </p>
         </div>
       </div>
-
-      <div className="mt-12 pt-8 border-t border-white/5 text-slate-500 text-sm">
-        <strong>Stand dieses Impressums:</strong> März 2026
-      </div>
-    </div>
+    </>
   );
-};
-
-export default Imprint;
+}

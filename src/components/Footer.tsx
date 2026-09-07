@@ -1,34 +1,69 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'lucide-react';
-import { CONTACT_EMAIL, SALES_EMAIL, PIPELINE, LAB_PROJECTS, STATUS_LABELS } from '../constants';
+import { Facebook, Linkedin } from 'lucide-react';
+import {
+  LAB_PROJECTS,
+  PIPELINE,
+  SALES_EMAIL,
+  SOZIALE_PROFILE,
+  STATUS_LABELS,
+} from '../constants';
 
-const Footer: React.FC = () => {
+const PROFIL_SYMBOL: Record<string, typeof Linkedin> = {
+  LinkedIn: Linkedin,
+  Facebook,
+};
+
+export default function Footer() {
   return (
-    <footer className="bg-brand-surface border-t border-white/5 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-1">
-             <Link to="/" className="flex items-center gap-2 mb-6">
-              <span className="font-display font-bold text-2xl text-white tracking-tight">
-                Rho<span className="text-brand-cyan">-Labs</span>
+    <footer className="footer">
+      <div className="footer__inner">
+        <div className="footer__cols">
+          <div className="footer__about">
+            <Link to="/" className="brand" style={{ marginBottom: 16 }}>
+              <img src="/logo.png" alt="" width={26} height={26} />
+              <span className="brand__word">
+                Rho<span>-Labs</span>
               </span>
             </Link>
-            <p className="text-slate-400 leading-relaxed text-sm">
-              {"Spezialisierte Desktop-Software f\u00FCr kognitives Training und wissenschaftliche Anwendungen. Lokal. Fundiert. Durchdacht."}
+            <p>
+              Desktop-Software für kognitives Training und wissenschaftliche
+              Anwendungen. Lokal. Fundiert. Durchdacht.
             </p>
+
+            {SOZIALE_PROFILE.length > 0 && (
+              <div className="footer__profile">
+                {SOZIALE_PROFILE.map((profil) => {
+                  const Symbol = PROFIL_SYMBOL[profil.name];
+                  return (
+                    <a
+                      key={profil.name}
+                      href={profil.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer__profil"
+                      aria-label={`Rho-Labs auf ${profil.name}`}
+                      title={`Rho-Labs auf ${profil.name}`}
+                    >
+                      {Symbol ? <Symbol size={17} aria-hidden="true" /> : profil.name}
+                    </a>
+                  );
+                })}
+              </div>
+            )}
           </div>
-          
+
           <div>
-            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Produkte</h4>
-            <ul className="space-y-4 text-sm text-slate-400">
+            <h4>Produkte</h4>
+            <ul>
               {PIPELINE.map((item) => (
                 <li key={item.id}>
                   {item.href ? (
-                    <Link to={item.href} className="hover:text-brand-cyan transition-colors">{item.name}</Link>
+                    <Link to={item.href} className="footer__link">
+                      {item.name}
+                    </Link>
                   ) : (
-                    <span className="opacity-50">
-                      {item.name} <span className="italic">({STATUS_LABELS[item.status]})</span>
+                    <span className="footer__soon">
+                      {item.name} — {STATUS_LABELS[item.status]}
                     </span>
                   )}
                 </li>
@@ -37,17 +72,17 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Labor</h4>
-            <ul className="space-y-4 text-sm text-slate-400">
+            <h4>Labor</h4>
+            <ul>
               {LAB_PROJECTS.map((project) => (
                 <li key={project.id}>
                   <a
                     href={project.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 hover:text-brand-purple transition-colors"
+                    className="footer__link"
                   >
-                    {project.name} <ExternalLink size={12} />
+                    {project.name}
                   </a>
                 </li>
               ))}
@@ -55,35 +90,51 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Information</h4>
-            <ul className="space-y-4 text-sm text-slate-400">
-              <li><Link to="/evidenz" className="hover:text-brand-cyan transition-colors">Wiss. Hintergrund</Link></li>
-              <li><Link to="/kontakt" className="hover:text-brand-cyan transition-colors">Kontakt</Link></li>
-              <li><Link to="/impressum" className="hover:text-brand-cyan transition-colors">Impressum</Link></li>
-              <li><Link to="/datenschutz" className="hover:text-brand-cyan transition-colors">Datenschutz</Link></li>
+            <h4>Information</h4>
+            <ul>
+              <li>
+                <Link to="/evidenz" className="footer__link">
+                  Wiss. Hintergrund
+                </Link>
+              </li>
+              <li>
+                <Link to="/kontakt" className="footer__link">
+                  Kontakt
+                </Link>
+              </li>
+              <li>
+                <Link to="/impressum" className="footer__link">
+                  Impressum
+                </Link>
+              </li>
+              <li>
+                <Link to="/datenschutz" className="footer__link">
+                  Datenschutz
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-display font-bold text-white text-sm uppercase tracking-widest mb-6">Kontakt</h4>
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <a href={`mailto:${SALES_EMAIL}`} className="text-sm font-bold text-brand-cyan hover:underline">{SALES_EMAIL}</a>
-              <p className="text-xs text-slate-400 mt-2">Antwort in der Regel innerhalb von 24 Stunden.</p>
-            </div>
+            <h4>Vertrieb</h4>
+            <a href={`mailto:${SALES_EMAIL}`} style={{ fontSize: 14, fontWeight: 600 }}>
+              {SALES_EMAIL}
+            </a>
+            <p className="note" style={{ margin: '10px 0 0', lineHeight: 1.6 }}>
+              Rho-Labs — Patrick Feix
+              <br />
+              Feldstraße 15, 99848 Wutha-Farnroda
+              <br />
+              Antwort in der Regel innerhalb von 24 Stunden.
+            </p>
           </div>
         </div>
 
-        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <span>{`\u00A9 ${new Date().getFullYear()} Rho-Labs \u2013 Patrick Feix. Made in Germany.`}</span>
-          <div className="flex items-center gap-4">
-            <span className="px-2 py-0.5 bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 rounded uppercase tracking-tighter font-black">
-              Kein Medizinprodukt
-            </span>
-          </div>
+        <div className="footer__bottom">
+          <span>© {new Date().getFullYear()} Rho-Labs — Patrick Feix. Made in Germany.</span>
+          <span className="footer__stamp">Kein Medizinprodukt</span>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

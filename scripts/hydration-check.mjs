@@ -1,18 +1,31 @@
-// Ad-hoc Hydration- und Asset-Check fuer den Pre-Rendered Build.
+// Ad-hoc Hydration- und Asset-Check fuer Pre-Rendered Builds.
 //
 // Benutzung (puppeteer-core ist keine permanente Dependency):
-//   1) npm run build
-//   2) npx --yes serve docs -l 5173   (in eigenem Terminal lassen)
-//   3) npx --yes -p puppeteer-core node scripts/hydration-check.mjs
+//   npx --yes -p puppeteer-core node scripts/hydration-check.mjs [base-url]
+//
+// Default base ist http://localhost:5173. Fuer Live-Domain:
+//   npx --yes -p puppeteer-core node scripts/hydration-check.mjs https://rholabs.de
 //
 // Berichtet pro Route: HTTP-Status, Console-Errors/Warnings, Hydration-Flags,
 // fehlgeschlagene Subresource-Requests. Exit 0 bei sauberen Hydration-Flags.
 
 import puppeteer from 'puppeteer-core';
+import { browserPfad } from './browser.mjs';
 
-const EDGE = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
-const BASE = 'http://localhost:5173';
-const ROUTES = ['/', '/kognitives-training', '/evidenz', '/kontakt', '/impressum', '/datenschutz', '/foo-bar'];
+const EDGE = browserPfad();
+const BASE = process.argv[2] || 'http://localhost:5173';
+const ROUTES = [
+  '/',
+  '/kognitives-training',
+  '/evidenz',
+  '/kontakt',
+  '/impressum',
+  '/datenschutz',
+  '/demo/danke/',
+  '/demo/fertig/',
+  '/demo/link-abgelaufen/',
+  '/foo-bar',
+];
 
 const browser = await puppeteer.launch({
   executablePath: EDGE,

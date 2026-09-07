@@ -1,50 +1,187 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { EVIDENZ_SOURCES } from '../constants';
-import { BookOpen, ExternalLink, GraduationCap } from 'lucide-react';
+import { BookOpen, Info } from 'lucide-react';
+import Seo from '../components/Seo';
+import Closer from '../components/Closer';
+import EvidenzText from '../components/EvidenzText';
+import {
+  EVIDENZ,
+  EVIDENZ_ERKLAERUNG,
+  EVIDENZ_HINWEIS,
+  EVIDENZ_STAND,
+  grundstufe,
+  type EvidenzQuelle,
+  type EvidenzSpiel,
+} from '../data/evidenz';
 
-const EvidencePage: React.FC = () => {
+const STUFEN_KLASSE = {
+  STARK: 'stufe stufe--stark',
+  MODERAT: 'stufe stufe--moderat',
+  SCHWACH: 'stufe stufe--schwach',
+} as const;
+
+function Einstufung({
+  titel,
+  wert,
+}: {
+  titel: string;
+  wert: EvidenzSpiel['paradigma'];
+}) {
+  if (!wert) return null;
   return (
-    <div className="pt-40 pb-32 px-6 max-w-4xl mx-auto">
-      <div className="flex items-center gap-4 mb-8">
-        <GraduationCap className="text-brand-cyan" size={40} />
-        <h1 className="font-display font-black text-4xl md:text-6xl text-white">Wissenschaftlicher Hintergrund</h1>
-      </div>
-      
-      <div className="p-8 rounded-3xl bg-white/5 border border-white/10 mb-16">
-        <p className="text-slate-300 leading-relaxed mb-6">
-          {"Die in Rho-Labs eingesetzten Trainingsparadigmen basieren auf etablierten Verfahren der kognitiven Psychologie und Neuropsychologie. Nachfolgend finden Sie Referenzen zu den zugrundeliegenden Methoden."}
-        </p>
-        <div className="flex items-start gap-3 p-4 bg-brand-cyan/10 rounded-xl text-xs text-brand-cyan">
-           <BookOpen size={18} className="shrink-0" />
-           <p>{"Diese Referenzen belegen die wissenschaftliche Grundlage der verwendeten Trainingsmethoden. Sie stellen keine Wirksamkeitsnachweise f\u00FCr diese spezifische Software dar."}</p>
-        </div>
-      </div>
-
-      <div className="space-y-12">
-        {EVIDENZ_SOURCES.map((src, idx) => (
-          <div key={idx} className="p-8 rounded-3xl bg-brand-surface border border-white/5">
-            <h3 className="font-display font-bold text-2xl text-white mb-6 border-b border-white/5 pb-4">{src.module}</h3>
-            <ul className="space-y-6">
-              {src.references.map((ref, i) => (
-                <li key={i} className="text-slate-400 text-sm leading-relaxed italic relative pl-6">
-                  <span className="absolute left-0 top-1 text-brand-cyan font-bold">{"\u00BB"}</span>
-                  {ref}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-20 text-center">
-        <p className="text-slate-500 text-sm mb-6">{"F\u00FCr detaillierte Informationen zu weiteren Modulen kontaktieren Sie uns bitte direkt."}</p>
-        <Link to="/kontakt" className="inline-flex items-center gap-2 text-brand-cyan hover:underline font-bold">
-          Kontakt aufnehmen <ExternalLink size={16}/>
-        </Link>
-      </div>
+    <div className="einstufung">
+      <p className="einstufung__titel">{titel}</p>
+      <p>
+        <span className={STUFEN_KLASSE[grundstufe(wert.stufe)]}>{wert.stufe}</span>
+        {wert.einschraenkung && (
+          <span className="einstufung__zusatz">{wert.einschraenkung}</span>
+        )}
+      </p>
     </div>
   );
-};
+}
 
-export default EvidencePage;
+function Quelle({ q }: { q: EvidenzQuelle }) {
+  const autoren =
+    q.autoren.length === 0
+      ? ''
+      : q.autoren.join('; ') + (q.weitereAutoren > 0 ? ` u. a. (${q.weitereAutoren} weitere)` : '');
+  const band = [q.band, q.seiten].filter(Boolean).join(', ');
+
+  return (
+    <li>
+      {autoren && <>{autoren} </>}
+      {q.jahr && <>({q.jahr}). </>}
+      {q.titel}. <em>{q.zeitschrift}</em>
+      {band && <>, {band}</>}.{' '}
+      {q.url && (
+        <a href={q.url} target="_blank" rel="noopener noreferrer">
+          {q.doi ? `DOI ${q.doi}` : 'Quelle'}
+        </a>
+      )}
+    </li>
+  );
+}
+
+export default function EvidencePage() {
+  const belegt = EVIDENZ.filter((s) => s.belegt);
+  const ohneBeleg = EVIDENZ.filter((s) => !s.belegt);
+
+  return (
+    <>
+      <Seo
+        path="/evidenz"
+        title="Wissenschaftlicher Hintergrund — Rho-Labs"
+        description={`Auf welchem Verfahren jede Übung beruht und wie gut die Trainingswirkung untersucht ist — für ${belegt.length} von ${EVIDENZ.length} Übungen mit geprüften Quellen, getrennt nach Verfahren und Training.`}
+      />
+
+      <div className="wrap wrap--text section">
+        <p className="eyebrow" style={{ marginBottom: 16 }}>
+          Wissenschaftlicher Hintergrund
+        </p>
+        <h1 className="h-page">Woher die Übungen kommen</h1>
+        <p style={{ fontSize: 17.5, lineHeight: 1.7, color: '#94a3b8', margin: '0 0 32px' }}>
+          Für jede Übung steht hier zweierlei getrennt: auf welchem Verfahren sie
+          beruht — und was das Üben nachweislich bringt. Beides wird oft
+          vermischt, und genau das soll diese Seite verhindern.
+        </p>
+
+        {/* Pflichthinweis aus dem Register. Er MUSS hier stehen: die Quellen
+            sind einzeln lesbar, ein Verweis auf das Register genügt dafür
+            nicht. */}
+        <div className="disclaimer" style={{ marginBottom: 20 }}>
+          <span className="icon-box icon-box--sm icon-box--grey" aria-hidden="true">
+            <Info size={17} />
+          </span>
+          <p>{EVIDENZ_HINWEIS}</p>
+        </div>
+
+        <div className="info-card info-card--cyan" style={{ marginBottom: 20 }}>
+          <h3>
+            <BookOpen size={17} aria-hidden="true" /> Zwei Fragen, zwei Antworten
+          </h3>
+          <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: '0 0 8px' }}>
+            <strong style={{ color: '#fff' }}>Verfahren</strong> — {EVIDENZ_ERKLAERUNG.paradigma}
+          </p>
+          <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: '0 0 12px' }}>
+            <strong style={{ color: '#fff' }}>Training</strong> — {EVIDENZ_ERKLAERUNG.training}
+          </p>
+          <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#94a3b8', margin: 0 }}>
+            Ein starkes Verfahren mit schwacher Trainingsevidenz ist der{' '}
+            <span className="mark">Normalfall</span>, kein Mangel. Eine
+            Einschränkung wie „für nahe Aufgaben" gehört zur Aussage — wir lassen
+            sie nirgends weg.
+          </p>
+        </div>
+
+        <div className="info-card" style={{ marginBottom: 44 }}>
+          <p>
+            Jede DOI wurde maschinell gegen <strong>Crossref</strong> geprüft;
+            Autor, Jahr, Titel und Zeitschrift stammen von dort, nicht aus einer
+            Zusammenfassung. Stand des Registers: {EVIDENZ_STAND}.
+          </p>
+        </div>
+
+        {/* ── Übungen mit Beleg ───────────────────────────────────────── */}
+        <div className="stack">
+          {belegt.map((s) => (
+            <div className="legal-block" key={s.key}>
+              <div className="evidenz__kopf">
+                <h2>{s.label}</h2>
+                {s.kategorie && <span className="badge badge--dev">{s.kategorie}</span>}
+              </div>
+              {s.domaenen && <p className="evidenz__domaenen">{s.domaenen}</p>}
+
+              <div className="evidenz__stufen">
+                <Einstufung titel="Verfahren" wert={s.paradigma} />
+                <Einstufung titel="Training" wert={s.training} />
+              </div>
+
+              {s.evidenztext && (
+                <p className="evidenz__text">
+                  <EvidenzText text={s.evidenztext} />
+                </p>
+              )}
+
+              {s.quellen.length > 0 && (
+                <ul className="reflist" style={{ marginTop: 18 }}>
+                  {s.quellen.map((q, i) => (
+                    <Quelle key={q.doi || i} q={q} />
+                  ))}
+                </ul>
+              )}
+
+              {s.quellenstatus !== 'dokumentiert' && (
+                <p className="evidenz__status">{s.quellenstatus}</p>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* ── Übungen ohne Beleg ──────────────────────────────────────── */}
+        {ohneBeleg.length > 0 && (
+          <>
+            <h2 className="h-section" style={{ margin: '56px 0 16px', fontSize: 'clamp(22px, 2.4vw, 30px)' }}>
+              Übungen ohne dokumentierten Beleg
+            </h2>
+            <div className="info-card" style={{ marginBottom: 20 }}>
+              <p>
+                Diese {ohneBeleg.length} Übungen stammen aus der ersten Fassung der
+                Anwendung. Für sie ist <span className="mark">keine Quelle hinterlegt</span>.
+                Wir führen sie hier auf, statt sie zu verschweigen — sie werden
+                aber weder in der Anwendung noch hier als belegt dargestellt.
+              </p>
+            </div>
+            <div className="grid grid--auto-240" style={{ gap: 12 }}>
+              {ohneBeleg.map((s) => (
+                <div className="evidenz__offen" key={s.key}>
+                  {s.label}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <Closer />
+    </>
+  );
+}
