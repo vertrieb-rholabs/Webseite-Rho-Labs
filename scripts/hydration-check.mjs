@@ -17,13 +17,20 @@ const BASE = process.argv[2] || 'http://localhost:5173';
 const ROUTES = [
   '/',
   '/kognitives-training',
+  '/home',
   '/evidenz',
   '/kontakt',
   '/impressum',
   '/datenschutz',
+  '/agb',
+  '/widerruf',
+  '/lizenzbedingungen',
   '/demo/danke/',
   '/demo/fertig/',
   '/demo/link-abgelaufen/',
+  '/kauf/fertig/',
+  '/kauf/abgebrochen/',
+  '/kauf/in-arbeit/',
   '/foo-bar',
 ];
 

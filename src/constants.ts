@@ -30,15 +30,66 @@ import type {
    Die Ziele der Weiterleitungen sind dort fest verdrahtet und zeigen auf
    /demo/danke/, /demo/fertig/ und /demo/link-abgelaufen/ — mit
    abschliessendem Schraegstrich. Die Routen hier muessen dazu passen.
+   Dasselbe gilt fuer den Kaufweg: /kauf/fertig/, /kauf/abgebrochen/ und
+   /kauf/in-arbeit/.
    ---------------------------------------------------------------------- */
 
 export const SITE_URL = 'https://rholabs.de';
 export const CONTACT_EMAIL = 'kontakt.rholabs@gmail.com';
 export const SALES_EMAIL = 'vertrieb.rholabs@gmail.com';
 
+/**
+ * Basisadresse des Auslieferungsdienstes.
+ *
+ * Ueber VITE_API_BASIS ueberschreibbar, damit ein oertlicher Lauf gegen den
+ * eigenen Rechner zeigt und nicht gegen die Produktion — sonst ginge eine
+ * Probebestellung als echte Bestellung durch. Ohne gesetzte Variable gilt die
+ * Produktion, damit die veroeffentlichte Seite auch ohne .env stimmt.
+ */
+const API_BASIS = (import.meta.env.VITE_API_BASIS ?? 'https://fulfillment.rholabs.de').replace(
+  /\/+$/,
+  '',
+);
+
 /** POST-Ziel des Demo-Formulars. express.urlencoded — also kein enctype setzen. */
-export const DEMO_FORM_ACTION =
-  'https://fulfillment.rholabs.de/api/public/demo/anfordern';
+export const DEMO_FORM_ACTION = `${API_BASIS}/api/public/demo/anfordern`;
+
+/**
+ * POST-Ziel des Kaufformulars der Home-Version. Der Dienst antwortet mit einer
+ * Weiterleitung auf die PayPal-Freigabeseite; von dort geht es auf
+ * /kauf/fertig, /kauf/abgebrochen oder /kauf/in-arbeit zurueck.
+ */
+export const KAUF_FORM_ACTION = `${API_BASIS}/api/public/kauf/start`;
+
+/**
+ * Pruefung eines Vorteilscodes: GET mit ?code=… , Antwort { gueltig, preis,
+ * preis_regulaer }. Wird nur abgerufen, wenn in der Adresszeile ein Code
+ * steht, der dem Format unten entspricht — ohne ?ref= ruft die Seite nichts
+ * ab.
+ *
+ * Die Antwort ist reine ANZEIGE. Massgeblich ist allein, was der Dienst beim
+ * Absenden noch einmal selbst prueft und rechnet.
+ */
+export const PARTNER_PRUEF_URL = `${API_BASIS}/api/public/partner/pruefen`;
+
+/* ── Format der Vorteilscodes ─────────────────────────────────────────────
+   Abgestimmt mit dem Auslieferungsdienst (Codeformat im Architekturplan,
+   Abschnitt D): acht Zeichen ohne I/L/O/U/0/1, weil die in Handschrift und
+   Vorlesen verwechselt werden. In der Anzeige stehen sie als "ABCD-2345"
+   gruppiert, deshalb toleriert die Pruefung Bindestriche und
+   Kleinschreibung. Wer das hier aendert, muss den Dienst mitziehen.
+   ---------------------------------------------------------------------- */
+
+export const VORTEILSCODE_ZEICHEN = 'ABCDEFGHJKMNPQRSTVWXYZ23456789';
+export const VORTEILSCODE_LAENGE = 8;
+
+/**
+ * Wert, mit dem der Dienst auf /home zurueckleitet, wenn der Code zwischen
+ * Anzeige und Absenden ungueltig geworden ist. Er wird ausdruecklich NICHT
+ * stillschweigend teurer verkauft — stattdessen kommt der Kaeufer mit
+ * ?ref=ungueltig zurueck und sieht einen Hinweis.
+ */
+export const VORTEILSCODE_UNGUELTIG = 'ungueltig';
 
 /** Leitet auf das juengste Release des Auslieferungskanals weiter. */
 export const DOWNLOAD_URL = 'https://download.rholabs.de/download';
@@ -75,6 +126,26 @@ export const SOZIALE_PROFILE: SozialesProfil[] = [
 export const NEWSLETTER_EINWILLIGUNG =
   'Ich möchte gelegentlich Neuigkeiten zu neuen Produkten und Versionen per E-Mail erhalten. ' +
   'Die Einwilligung kann ich jederzeit formlos widerrufen.';
+
+/**
+ * Wortlaut der beiden Bestaetigungen im Kaufformular der Home-Version.
+ *
+ * TODO(Rechtstext): Beide Saetze sind ein PLATZHALTER und noch nicht
+ * anwaltlich abgestimmt — der endgueltige Wortlaut wird zugeliefert. Danach
+ * muessen sie zeichengenau mit der Fassung uebereinstimmen, die der
+ * Auslieferungsdienst zu jeder Bestellung ablegt (orders.einwilligung), sonst
+ * laesst sich nach einer Textaenderung nicht mehr belegen, wozu jemand
+ * zugestimmt hat. Dasselbe Verfahren wie bei NEWSLETTER_EINWILLIGUNG.
+ */
+export const KAUF_EINWILLIGUNG = {
+  agb:
+    'Ich habe die Allgemeinen Geschäftsbedingungen und die Lizenzbedingungen ' +
+    'gelesen und stimme ihnen zu.',
+  sofortBereit:
+    'Ich verlange ausdrücklich, dass Sie mit der Bereitstellung der Software vor ' +
+    'Ablauf der Widerrufsfrist beginnen. Mir ist bekannt, dass ich mit Beginn der ' +
+    'Bereitstellung mein Widerrufsrecht verliere.',
+};
 
 export const MDR_DISCLAIMER =
   'Wichtiger Hinweis: Rho-Labs Kognitives Training ist kein Medizinprodukt und kein zugelassenes Therapieinstrument im Sinne der EU-Medizinprodukteverordnung (MDR 2017/745). Die Software dient ausschließlich dem allgemeinen kognitiven Training und der persönlichen Leistungsförderung. Sie ersetzt keine ärztliche oder therapeutische Behandlung. Die dargestellten Auswertungen sind keine medizinischen Diagnosen.';
@@ -310,6 +381,14 @@ export const SYSTEM_REQUIREMENTS: string[] = [
    Zwei Kaufwege je Karte: vorbereitete Bestellmail (Rechnung) und ein
    echter PayPal-Link. Die Enterprise-Karte hat bewusst keinen PayPal-Knopf,
    weil der Preis erst vereinbart wird.
+
+   PLANS ist die Liste der gewerblichen Lizenzen und nichts sonst. Die
+   Home-Version steht bewusst NICHT darin, sondern als eigener Eintrag
+   HOME_PLAN darunter: ProductPage.tsx rendert jeden PLANS-Eintrag mit
+   ctaLink als aeussere Adresse (mailto: oder PayPal). Eine hier angehaengte
+   Home-Karte bekaeme damit einen Kaufknopf, der am Checkout vorbeifuehrt —
+   und an der Button-Loesung nach § 312j BGB gleich mit. Auf
+   /kognitives-training wird auf Home nur verwiesen, gekauft wird auf /home.
    ---------------------------------------------------------------------- */
 
 const orderMail = (subject: string, body: string) =>
@@ -332,11 +411,11 @@ export const PLANS: PricingTier[] = [
     paypalLink: 'https://www.paypal.com/ncp/payment/GLU7XDSD8ZMXJ',
     features: [
       { text: '1 Gerät / Installation' },
-      { text: `Alle ${GAME_COUNT} Übungen`, highlight: true },
-      { text: 'Unbegrenzte Nutzerprofile', highlight: true },
-      { text: 'Statistik & Auswertungen', highlight: true },
-      { text: 'Export als PDF und CSV', highlight: true },
-      { text: 'Trainingsablauf-Editor' },
+      { text: `Alle ${GAME_COUNT} Übungen` },
+      { text: 'Klientenverwaltung: unbegrenzt viele Profile', highlight: true },
+      { text: 'Trainingsablauf-Editor', highlight: true },
+      { text: 'Statistik & Auswertungen je Profil' },
+      { text: 'Export als PDF und CSV' },
       { text: 'Kostenlose Patches & Bugfixes' },
       { text: 'Offline nutzbar' },
     ],
@@ -356,11 +435,11 @@ export const PLANS: PricingTier[] = [
     paypalLink: 'https://www.paypal.com/ncp/payment/7RPJTHYFAX4QQ',
     features: [
       { text: '3 Geräte / Installationen', highlight: true },
-      { text: `Alle ${GAME_COUNT} Übungen`, highlight: true },
-      { text: 'Unbegrenzte Nutzerprofile', highlight: true },
-      { text: 'Statistik & Auswertungen', highlight: true },
-      { text: 'Export als PDF und CSV', highlight: true },
-      { text: 'Trainingsablauf-Editor' },
+      { text: `Alle ${GAME_COUNT} Übungen` },
+      { text: 'Klientenverwaltung: unbegrenzt viele Profile', highlight: true },
+      { text: 'Trainingsablauf-Editor', highlight: true },
+      { text: 'Statistik & Auswertungen je Profil' },
+      { text: 'Export als PDF und CSV' },
       { text: 'Technischer Support inklusive', highlight: true },
       { text: 'Kostenlose Patches & Bugfixes' },
       { text: 'Offline nutzbar' },
@@ -382,6 +461,48 @@ export const PLANS: PricingTier[] = [
     ],
   },
 ];
+
+/**
+ * Die Home-Version fuer Privatkunden — einzeln gefuehrt, nicht in PLANS.
+ *
+ * Gekauft wird ausschliesslich ueber das Formular auf /home; der Knopf zeigt
+ * deshalb auf die Sprungmarke des Formulars und nicht nach draussen
+ * (`ctaIntern`). Den Preis rechnet der Server selbst aus seinem Katalog — die
+ * Angabe hier ist Anzeige, nie Grundlage der Zahlung.
+ */
+export const HOME_PLAN: PricingTier = {
+  id: 'home',
+  name: 'Home-Lizenz',
+  price: '39,90 €',
+  // Wird nur angezeigt, wenn der Dienst einen Vorteilscode bestaetigt hat.
+  // Die Zahl dient als Rueckfallebene fuer die Anzeige, falls die Antwort
+  // keinen brauchbaren Betrag enthaelt — gerechnet wird sie nie hier.
+  vorteilspreis: '35,90 €',
+  subtext: 'Einmaliger Kauf · 1 Gerät · kein Abo',
+  ctaText: 'Zum Kaufformular',
+  ctaLink: '#kaufen',
+  ctaIntern: true,
+  features: [
+    { text: `Alle ${GAME_COUNT} Übungen`, highlight: true },
+    { text: 'Ein persönliches Profil', highlight: true },
+    { text: 'Persönliche Statistik und Auswertung' },
+    { text: 'Trainingsverlauf über die Zeit' },
+    { text: 'Export der eigenen Daten als PDF und CSV' },
+    { text: 'Einmaliger Kauf, kein Abonnement', highlight: true },
+    { text: 'Kostenlose Patches & Bugfixes' },
+    { text: 'Offline nutzbar' },
+    { text: 'Für Windows 10 und 11', highlight: true },
+  ],
+};
+
+/**
+ * Pflichtangabe unter jeder Preisangabe. Steht auf /kognitives-training und
+ * auf /home — deshalb an einer Stelle, damit beide Seiten nicht
+ * auseinanderlaufen.
+ */
+export const PREIS_HINWEIS =
+  'Alle Preise sind Endpreise. Gemäß §19 UStG wird keine Umsatzsteuer berechnet. ' +
+  'Derzeit ausschließlich in Deutschland erhältlich.';
 
 /* ── Wissenschaftlicher Hintergrund ───────────────────────────────────── */
 
@@ -466,8 +587,9 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
   {
     title: 'Zahlungsabwicklung',
     paragraphs: [
-      'Für die Zahlung bieten wir PayPal und Banküberweisung an.',
+      'Für die Zahlung bieten wir PayPal und Banküberweisung an. Die Home-Version wird ausschließlich über PayPal bezahlt.',
       'Bei Zahlung per PayPal werden Sie auf die Website der PayPal (Europe) S.à r.l. et Cie, S.C.A., 22-24 Boulevard Royal, L-2449 Luxemburg, weitergeleitet. Dort gelten die Datenschutzbestimmungen von PayPal: https://www.paypal.com/de/webapps/mpp/ua/privacy-full',
+      'Beim Kauf der Home-Version legt unser Auslieferungsdienst die Zahlung bei PayPal an und leitet Sie anschließend zur Freigabe dorthin weiter. Übermittelt werden dabei der Verwendungszweck und der Betrag; eine Lieferanschrift wird nicht abgefragt. Nach der Freigabe kehren Sie auf unsere Seite zurück. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO — ohne Zahlung kommt der Kauf nicht zustande.',
       'Bei Zahlung per Banküberweisung werden keine Daten an Dritte übermittelt.',
     ],
   },
@@ -475,6 +597,18 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     title: 'Trainings- und Nutzerdaten',
     paragraphs: [
       'Profile, Trainingsergebnisse, Verlaufsdaten und Berichte entstehen auf dem Gerät und bleiben dort. Sie werden nicht an uns oder an Dritte übertragen. Der Lizenzschlüssel wird verschlüsselt über den Schlüsselspeicher des Betriebssystems abgelegt.',
+    ],
+  },
+  {
+    title: 'Kauf der Home-Version',
+    paragraphs: [
+      'Wenn du über das Kaufformular auf /home die Home-Version bestellst, verarbeiten wir deine E-Mail-Adresse, deinen Namen, deine IP-Adresse zum Zeitpunkt der Bestellung und den Zeitpunkt selbst.',
+      'Zweck: Abwicklung des Kaufs, Ausstellung des Lizenzschlüssels, Erstellung der Rechnung und Schutz des Formulars vor missbräuchlicher Nutzung. Der Name erscheint auf der Rechnung. Eine Postanschrift fragen wir nicht ab; bei einer Kleinbetragsrechnung nach § 33 UStDV ist sie nicht erforderlich.',
+      'Einwilligungsprotokoll: Zu deiner Bestätigung der Allgemeinen Geschäftsbedingungen und deiner Zustimmung zur sofortigen Bereitstellung speichern wir jeweils den Wortlaut, dem du zugestimmt hast, den Zeitpunkt und deine IP-Adresse. Wir müssen belegen können, dass und wozu du zugestimmt hast; ohne diesen Nachweis könnten wir dir die Lizenz nicht sofort ausliefern.',
+      'Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Erfüllung des Vertrages). Für die Speicherung der IP-Adresse im Einwilligungsprotokoll zusätzlich Art. 6 Abs. 1 lit. c DSGVO in Verbindung mit den Nachweispflichten aus §§ 312f, 356 BGB sowie Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist der Schutz des Formulars vor Missbrauch.',
+      'Abruf beim Auslieferungsdienst: Das Kaufformular sendet unmittelbar an unseren eigenen Auslieferungsdienst unter fulfillment.rholabs.de. Dabei erfährt dieser Dienst deine IP-Adresse und die üblichen Verbindungsdaten. Er läuft auf unserem Server in Deutschland; ein Dritter ist daran nicht beteiligt. Solange du das Formular nicht absendest, wird von dort nichts geladen und nichts abgerufen.',
+      'Speicherdauer: Bestellung, Rechnung und Einwilligungsprotokoll bewahren wir für die Dauer der gesetzlichen Aufbewahrungsfristen auf (§ 147 AO, § 257 HGB).',
+      'Empfänger: PayPal für die Zahlung (siehe Zahlungsabwicklung) und unser E-Mail-Anbieter für den Versand von Lizenzschlüssel und Rechnung. Eine darüber hinausgehende Weitergabe findet nicht statt.',
     ],
   },
   {
@@ -505,6 +639,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     paragraphs: [
       'Die Website wird als vorgerenderte, statische Seite über GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA) ausgeliefert. Beim Abruf verarbeitet GitHub technisch notwendige Verbindungsdaten wie IP-Adresse, Zeitpunkt und angeforderte Datei in Server-Protokollen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist der sichere und zuverlässige Betrieb der Website. Grundlage der Übermittlung in die USA sind die Standardvertragsklauseln der EU-Kommission. Einzelheiten: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement',
       'Schriften, Bilder und der Trailer werden von unserer eigenen Domain geladen. Es werden keine Schriften, Skripte oder Bibliotheken von Dritten nachgeladen. Wir setzen keine Cookies, betreiben keine Analyse und binden kein Tracking ein.',
+      'Das gilt auch für die Seite der Home-Version: Sie lädt nichts von PayPal und nichts von unserem Auslieferungsdienst nach. Erst wenn du das Kaufformular absendest, verbindet sich dein Browser mit unserem Auslieferungsdienst — und erst danach leitet dieser dich zu PayPal weiter.',
     ],
   },
   {

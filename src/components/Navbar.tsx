@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
+// Die drei /demo/- und die drei /kauf/-Seiten stehen hier bewusst nicht:
+// sie sind Weiterleitungsziele des Auslieferungsdienstes, tragen noindex und
+// haben ohne den vorangegangenen Schritt keinen Sinn.
 const LINKS = [
   { to: '/', label: 'Start', end: true },
   { to: '/kognitives-training', label: 'Kognitives Training' },
+  { to: '/home', label: 'Für zu Hause' },
   { to: '/evidenz', label: 'Evidenz' },
   { to: '/kontakt', label: 'Kontakt' },
 ];

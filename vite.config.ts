@@ -4,20 +4,27 @@ import { defineConfig, type UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { } from 'vite-react-ssg';
 
-// Alle Seiten, die vorgerendert werden. Die drei /demo-Routen sind die
-// Weiterleitungsziele des Auslieferungsdienstes und muessen als eigene
-// Verzeichnisse mit index.html entstehen — sonst laeuft der
-// Bestaetigungsklick in den 404.
+// Alle Seiten, die vorgerendert werden. Die drei /demo- und die drei
+// /kauf-Routen sind die Weiterleitungsziele des Auslieferungsdienstes und
+// muessen als eigene Verzeichnisse mit index.html entstehen — sonst laeuft
+// der Bestaetigungsklick oder der Rueckweg der Zahlung in den 404.
 const ROUTES = [
   '/',
   '/kognitives-training',
+  '/home',
   '/evidenz',
   '/kontakt',
   '/impressum',
   '/datenschutz',
+  '/agb',
+  '/widerruf',
+  '/lizenzbedingungen',
   '/demo/danke',
   '/demo/fertig',
   '/demo/link-abgelaufen',
+  '/kauf/fertig',
+  '/kauf/abgebrochen',
+  '/kauf/in-arbeit',
   '/404',
 ];
 

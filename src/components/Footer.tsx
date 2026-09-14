@@ -68,6 +68,14 @@ export default function Footer() {
                   )}
                 </li>
               ))}
+              {/* Home ist kein eigenes Produkt, sondern eine Ausführung des
+                  Kognitiven Trainings — deshalb nicht in PIPELINE, aber hier
+                  erreichbar. */}
+              <li>
+                <Link to="/home" className="footer__link">
+                  … für zu Hause
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -110,6 +118,21 @@ export default function Footer() {
               <li>
                 <Link to="/datenschutz" className="footer__link">
                   Datenschutz
+                </Link>
+              </li>
+              <li>
+                <Link to="/agb" className="footer__link">
+                  AGB
+                </Link>
+              </li>
+              <li>
+                <Link to="/widerruf" className="footer__link">
+                  Widerruf
+                </Link>
+              </li>
+              <li>
+                <Link to="/lizenzbedingungen" className="footer__link">
+                  Lizenzbedingungen
                 </Link>
               </li>
             </ul>

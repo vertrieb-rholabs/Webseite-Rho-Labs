@@ -49,12 +49,20 @@ export interface PricingTier {
   id: string;
   name: string;
   price: string;
+  /** Vorteilspreis über einen Partnerlink. Wird erst mit der ?ref=-Auswertung angezeigt. */
+  vorteilspreis?: string;
   subtext: string;
   badge?: string;
   isFeatured?: boolean;
   features: PricingFeature[];
   ctaText: string;
   ctaLink: string;
+  /**
+   * Der Knopf zeigt auf ein Ziel innerhalb der Seite — eine Route oder eine
+   * Sprungmarke. Ohne diese Angabe ist `ctaLink` eine äußere Adresse
+   * (mailto: oder PayPal) und wird als solche ausgezeichnet.
+   */
+  ctaIntern?: boolean;
   paypalLink?: string;
 }
 

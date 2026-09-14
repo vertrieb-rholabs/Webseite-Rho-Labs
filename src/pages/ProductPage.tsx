@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, Download, Info } from 'lucide-react';
+import { ArrowRight, Check, Download, Home, Info } from 'lucide-react';
 import Seo from '../components/Seo';
 import Trailer from '../components/Trailer';
 import Closer from '../components/Closer';
@@ -12,8 +12,10 @@ import {
   DOWNLOAD_URL,
   GAME_COUNT,
   GAMES,
+  HOME_PLAN,
   MDR_DISCLAIMER,
   PLANS,
+  PREIS_HINWEIS,
   SHOT_KATALOG,
   SHOT_RADAR,
   SHOT_VERLAUF,
@@ -316,7 +318,10 @@ export default function ProductPage() {
             <p className="lede">
               Keine laufenden Kosten. Sicherheits-Patches und Bugfixes sind
               kostenlos; größere Feature-Updates werden als optionale Upgrades
-              angeboten.
+              angeboten. Die Lizenzen auf dieser Seite sind für die Arbeit mit
+              anderen gedacht — <span className="mark">Klientenverwaltung</span>{' '}
+              und <span className="mark">Trainingsabläufe</span> sind ihr
+              eigentlicher Unterschied zur Home-Version.
             </p>
           </div>
 
@@ -365,10 +370,32 @@ export default function ProductPage() {
             ))}
           </div>
 
-          <p className="price-note">
-            Alle Preise sind Endpreise. Gemäß §19 UStG wird keine Umsatzsteuer
-            berechnet. Derzeit ausschließlich in Deutschland erhältlich.
-          </p>
+          {/* Querverweis auf die Home-Version. Bewusst als eigener Baustein
+              und nicht als vierte Preiskarte: die Karten oben stammen aus
+              PLANS, und jeder Knopf dort führt nach draußen (Bestellmail oder
+              PayPal-Link). Home wird über das Formular auf /home gekauft —
+              eine Karte hier bekäme einen Knopf, der daran vorbeiführt. */}
+          <div className="info-card info-card--cyan" style={{ marginTop: 28 }}>
+            <h3>
+              <Home size={17} aria-hidden="true" /> Allein und privat trainieren?
+            </h3>
+            <p
+              style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: '0 0 16px' }}
+            >
+              Für den privaten Gebrauch gibt es die {HOME_PLAN.name} zu{' '}
+              {HOME_PLAN.price} — alle {GAME_COUNT} Übungen, ein persönliches
+              Profil, eigene Statistik, Trainingsverlauf und Export der eigenen
+              Daten, einmalig bezahlt. Der Export ist also{' '}
+              <span className="mark">kein</span> Unterschied zwischen den
+              Ausführungen; der Unterschied sind die Klientenverwaltung und die
+              Trainingsabläufe.
+            </p>
+            <Link to="/home" className="link-arrow">
+              Zur Home-Version <ArrowRight size={15} strokeWidth={2.2} />
+            </Link>
+          </div>
+
+          <p className="price-note">{PREIS_HINWEIS}</p>
         </div>
       </section>
 
