@@ -112,6 +112,10 @@ export default function HomePage() {
   const [suchParameter] = useSearchParams();
   const [preisstand, setPreisstand] = useState<Preisstand>({ art: 'prueft' });
   const [linkAbgelaufen, setLinkAbgelaufen] = useState(false);
+  // Rueckweg des Dienstes bei unvollstaendigem Formular. Absichtlich ohne
+  // Angabe, welches Feld fehlte - das weiss der Absender selbst, und der
+  // Dienst verraet es bewusst nicht.
+  const [eingabefehler, setEingabefehler] = useState(false);
   const refFeld = useRef<HTMLInputElement>(null);
 
   /* Auswertung erst nach dem Einhängen. Würde der Code schon beim Rendern
@@ -124,6 +128,7 @@ export default function HomePage() {
     // Rückweg des Dienstes: der Code war beim Absenden nicht mehr gültig.
     // Ruhiger Hinweis, keine Schuldzuweisung — gekauft werden kann trotzdem.
     setLinkAbgelaufen((roh ?? '').trim().toLowerCase() === VORTEILSCODE_UNGUELTIG);
+    setEingabefehler(suchParameter.get('fehler') === 'eingabe');
 
     const code = vorteilscodeNormalisieren(roh);
     // Deckungsgleich mit dem Inline-Skript; trägt zusätzlich den Seitenwechsel
@@ -290,6 +295,29 @@ export default function HomePage() {
             </p>
             {preisstand.art === 'vorteil' && (
               <p className="vorteil-note">Vorteilspreis über Ihre Einrichtung</p>
+            )}
+
+            {/* Die drei Rueckwege des Dienstes. Ohne diese Hinweise stuende der
+                Kaeufer vor einem stillschweigend veraenderten Preis oder einem
+                Formular, das ihn wortlos zurueckgeschickt hat. */}
+            {linkAbgelaufen && (
+              <div className="callout callout--knapp">
+                <p>Der Vorteilslink gilt nicht mehr. Sie können die Home-Version
+                weiterhin zum regulären Preis erwerben.</p>
+              </div>
+            )}
+            {preisstand.art === 'unbestaetigt' && (
+              <div className="callout callout--knapp">
+                <p>Der Vorteilspreis lässt sich gerade nicht bestätigen. Hier steht
+                der reguläre Preis; falls Ihr Vorteilslink gilt, wird er beim
+                Bezahlen berücksichtigt.</p>
+              </div>
+            )}
+            {eingabefehler && (
+              <div className="callout callout--knapp">
+                <p>Der Kauf ließ sich nicht starten. Bitte prüfen Sie die Angaben im
+                Formular weiter unten und senden Sie es erneut ab.</p>
+              </div>
             )}
             <p className="plan__sub">{HOME_PLAN.subtext}</p>
 

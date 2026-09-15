@@ -1248,6 +1248,18 @@ textarea {
   margin: 0;
 }
 
+/* Knappe Fassung fuer Hinweise INNERHALB einer Karte (Preiskarte der
+   Home-Seite). Die volle Polsterung von .callout sprengt dort das Mass,
+   sobald mehrere Rueckmeldungen untereinander stehen koennen. */
+.callout--knapp {
+  padding: 11px 13px;
+  margin: 12px 0 0;
+}
+
+.callout--knapp p {
+  font-size: 12.5px;
+}
+
 .info-card {
   padding: 22px 26px;
   border-radius: 16px;
