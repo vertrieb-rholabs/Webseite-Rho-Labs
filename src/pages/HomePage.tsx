@@ -433,10 +433,30 @@ export default function HomePage() {
               />
             </div>
 
-            {/* Vorteilscode aus einem Partnerlink. Bleibt vorerst leer — die
-                Auswertung von ?ref= kommt in einer späteren Welle. Das Feld
-                steht schon hier, damit der Feldvertrag zum Dienst passt. */}
-            <input type="hidden" name="ref" defaultValue="" />
+            {/* Vorteilscode aus dem Partnerlink.
+                Er wird auf ZWEI Wegen gefüllt, und beide sind nötig:
+
+                1. Das Inline-Skript direkt darunter. Es läuft synchron beim
+                   Aufbau der Seite — also bevor React auch nur geladen ist.
+                   Ohne diesen Weg könnte ein schneller Absender das Formular
+                   abschicken, während die Seite noch 35,90 € anzeigt, der
+                   Dienst aber mangels Code 39,90 € berechnet. Genau dieser
+                   stille Aufschlag ist verboten.
+                2. Der useEffect weiter oben, über `refFeld`. Er trägt den
+                   Seitenwechsel innerhalb der Anwendung, bei dem kein HTML
+                   mehr geparst wird und das Inline-Skript folglich nicht
+                   noch einmal läuft.
+
+                Deshalb braucht das Feld BEIDES: eine `id` für den ersten Weg
+                und `ref` für den zweiten. */}
+            <input
+              type="hidden"
+              id={REF_FELD_ID}
+              name="ref"
+              ref={refFeld}
+              defaultValue=""
+            />
+            <script dangerouslySetInnerHTML={{ __html: REF_INLINE_SKRIPT }} />
 
             {/* Honigtopf. Für Menschen unsichtbar, für Bots verlockend — ist
                 das Feld gefüllt, verwirft der Server die Anfrage. */}

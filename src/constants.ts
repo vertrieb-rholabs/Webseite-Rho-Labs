@@ -137,6 +137,18 @@ export const NEWSLETTER_EINWILLIGUNG =
  * laesst sich nach einer Textaenderung nicht mehr belegen, wozu jemand
  * zugestimmt hat. Dasselbe Verfahren wie bei NEWSLETTER_EINWILLIGUNG.
  */
+/**
+ * Die beiden Sätze an den Ankreuzfeldern des Kaufformulars.
+ *
+ * WORTGLEICH zu `EINWILLIGUNG_AGB_TEXT` und `EINWILLIGUNG_SOFORT_TEXT` im
+ * Auslieferungsdienst (Rholabs-fullfilment, src/main/kauf.ts). Der Dienst legt
+ * bei jedem Kauf ab, WOZU zugestimmt wurde — zusammen mit Zeitstempel und IP.
+ * Weicht der dortige Wortlaut von dem hier ab, bezeugt das Protokoll eine
+ * Zustimmung, die der Käufer nie gesehen hat.
+ *
+ * Wird hier etwas geändert, MUSS es dort mitgeändert werden, und die Fassung
+ * `EINWILLIGUNG_FASSUNG` bekommt eine neue Nummer.
+ */
 export const KAUF_EINWILLIGUNG = {
   agb:
     'Ich habe die Allgemeinen Geschäftsbedingungen und die Lizenzbedingungen ' +
