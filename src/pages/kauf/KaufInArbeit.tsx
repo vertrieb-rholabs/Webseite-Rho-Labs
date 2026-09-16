@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import StatusPage from '../demo/StatusPage';
 import { CONTACT_EMAIL } from '../../constants';
@@ -5,30 +6,36 @@ import { CONTACT_EMAIL } from '../../constants';
 /**
  * Ziel, wenn die Zahlung durch ist, die Auslieferung aber noch hakt.
  *
- * Der Ton ist Absicht: Es ist nichts verloren gegangen, die Bestellung liegt
- * vor, und wir melden uns von selbst. Beunruhigen wäre hier falsch — aber
- * verschweigen auch, deshalb steht der Kontaktweg gleich dabei.
+ * Der Ton ist Absicht: beunruhigen waere falsch, verschweigen auch. Die
+ * Seite kennt den einzelnen Vorgang trotzdem nicht — deshalb der
+ * Bedingungssatz, und deshalb kein „erneut versuchen“: wer wirklich
+ * bezahlt hat, soll nicht ein zweites Mal bestellen.
  */
 export default function KaufInArbeit() {
   return (
     <StatusPage
       path="/kauf/in-arbeit/"
-      title="Deine Zahlung ist angekommen"
+      title="Wenn die Auslieferung noch dauert"
       tone="amber"
       icon={<Clock size={24} />}
-      body="Die Auslieferung des Lizenzschlüssels dauert diesmal etwas länger. Deine Bestellung ist erfasst und geht nicht verloren — wir stellen sie von Hand zu, in der Regel noch am selben Werktag."
+      body="Wenn die Zahlung durch ist, der Lizenzschlüssel aber noch nicht im Postfach liegt: Die Bestellung geht nicht verloren. Wir stellen sie von Hand zu, in der Regel noch am selben Werktag. Bitte bestellen Sie nicht erneut."
       note={
         <>
-          Du musst nichts weiter tun und bitte nicht erneut bestellen. Wenn du
-          nachfragen möchtest, genügt eine kurze Mail an{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> — am besten mit
-          der E-Mail-Adresse, die du bei der Bestellung angegeben hast.
+          Wenn Sie nachfragen möchten, genügt eine kurze Mail an{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          {' '}— am besten mit der E-Mail-Adresse, die Sie bei der Bestellung
+          angegeben haben.
         </>
       }
       action={
-        <a href={`mailto:${CONTACT_EMAIL}`} className="btn btn--ghost">
-          Nachfragen
-        </a>
+        <div className="btn-row btn-row--center">
+          <Link to="/kontakt" className="btn btn--primary">
+            Kontakt
+          </Link>
+          <Link to="/home" className="btn btn--ghost">
+            Zur Home-Version
+          </Link>
+        </div>
       }
     />
   );

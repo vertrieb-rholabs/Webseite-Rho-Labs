@@ -4,6 +4,7 @@ import { ArrowRight, Check, Info, Monitor } from 'lucide-react';
 import Seo from '../components/Seo';
 import {
   APP_VERSION,
+  CONTACT_EMAIL,
   GAME_COUNT,
   HOME_PLAN,
   KAUF_EINWILLIGUNG,
@@ -11,7 +12,6 @@ import {
   MDR_DISCLAIMER,
   PARTNER_PRUEF_URL,
   PREIS_HINWEIS,
-  SALES_EMAIL,
   SYSTEM_REQUIREMENTS,
   VORTEILSCODE_LAENGE,
   VORTEILSCODE_UNGUELTIG,
@@ -90,6 +90,30 @@ type Preisstand =
   | { art: 'vorteil'; preis: string; regulaer: string }
   | { art: 'unbestaetigt' };
 
+/**
+ * Rueckweg-Kennung des Auslieferungsdienstes auf /home?fehler=…
+ *
+ * `eingabe` — Angaben unvollstaendig oder ungueltig; der Leser soll etwas
+ * aendern. `zuviele` — Ratengrenze; warten. `zahlung` — PayPal liess sich
+ * nicht starten; liegt nicht am Formular. Alles andere wird ignoriert, damit
+ * ein unbekannter Wert nicht wie ein Tippfehler aussieht.
+ */
+type Formfehler = 'eingabe' | 'zuviele' | 'zahlung';
+
+const FORMFEHLER_TEXT: Record<Formfehler, string> = {
+  eingabe:
+    'Der Kauf ließ sich nicht starten. Bitte prüfen Sie die Angaben im Formular und senden Sie es erneut ab.',
+  zuviele:
+    'Zu viele Versuche in kurzer Zeit. Bitte warten Sie einen Moment und versuchen Sie es dann erneut.',
+  zahlung:
+    'Die Zahlung ließ sich gerade nicht starten. Das liegt nicht an Ihren Angaben. Bitte versuchen Sie es später erneut.',
+};
+
+function formfehlerLesen(wert: string | null): Formfehler | null {
+  if (wert === 'eingabe' || wert === 'zuviele' || wert === 'zahlung') return wert;
+  return null;
+}
+
 const EURO = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
 
 /** Gibt den formatierten Betrag zurück, wenn die Zahl brauchbar ist. */
@@ -112,10 +136,9 @@ export default function HomePage() {
   const [suchParameter] = useSearchParams();
   const [preisstand, setPreisstand] = useState<Preisstand>({ art: 'prueft' });
   const [linkAbgelaufen, setLinkAbgelaufen] = useState(false);
-  // Rueckweg des Dienstes bei unvollstaendigem Formular. Absichtlich ohne
-  // Angabe, welches Feld fehlte - das weiss der Absender selbst, und der
-  // Dienst verraet es bewusst nicht.
-  const [eingabefehler, setEingabefehler] = useState(false);
+  // Rueckweg des Dienstes, wenn der Kauf nicht gestartet werden konnte.
+  // Die Kennung sagt, ob der Leser etwas aendern soll oder warten muss.
+  const [formfehler, setFormfehler] = useState<Formfehler | null>(null);
   const refFeld = useRef<HTMLInputElement>(null);
 
   /* Auswertung erst nach dem Einhängen. Würde der Code schon beim Rendern
@@ -128,7 +151,7 @@ export default function HomePage() {
     // Rückweg des Dienstes: der Code war beim Absenden nicht mehr gültig.
     // Ruhiger Hinweis, keine Schuldzuweisung — gekauft werden kann trotzdem.
     setLinkAbgelaufen((roh ?? '').trim().toLowerCase() === VORTEILSCODE_UNGUELTIG);
-    setEingabefehler(suchParameter.get('fehler') === 'eingabe');
+    setFormfehler(formfehlerLesen(suchParameter.get('fehler')));
 
     const code = vorteilscodeNormalisieren(roh);
     // Deckungsgleich mit dem Inline-Skript; trägt zusätzlich den Seitenwechsel
@@ -297,9 +320,10 @@ export default function HomePage() {
               <p className="vorteil-note">Vorteilspreis über Ihre Einrichtung</p>
             )}
 
-            {/* Die drei Rueckwege des Dienstes. Ohne diese Hinweise stuende der
-                Kaeufer vor einem stillschweigend veraenderten Preis oder einem
-                Formular, das ihn wortlos zurueckgeschickt hat. */}
+            {/* Rueckwege des Dienstes. Ohne diese Hinweise stuende der Kaeufer
+                vor einem stillschweigend veraenderten Preis oder einer
+                Meldung, die einen Serverfehler wie einen Tippfehler aussehen
+                laesst. */}
             {linkAbgelaufen && (
               <div className="callout callout--knapp">
                 <p>Der Vorteilslink gilt nicht mehr. Sie können die Home-Version
@@ -313,10 +337,9 @@ export default function HomePage() {
                 Bezahlen berücksichtigt.</p>
               </div>
             )}
-            {eingabefehler && (
+            {formfehler && (
               <div className="callout callout--knapp">
-                <p>Der Kauf ließ sich nicht starten. Bitte prüfen Sie die Angaben im
-                Formular weiter unten und senden Sie es erneut ab.</p>
+                <p>{FORMFEHLER_TEXT[formfehler]}</p>
               </div>
             )}
             <p className="plan__sub">{HOME_PLAN.subtext}</p>
@@ -395,7 +418,7 @@ export default function HomePage() {
 
         <div className="form-card">
           <p className="eyebrow" style={{ letterSpacing: '0.2em', marginBottom: 14 }}>
-            {HOME_PLAN.price} · einmalig · für Windows 10/11
+            {preisAktuell} · einmalig · für Windows 10/11
           </p>
           <h2>Rho-Labs Kognitives Training — Home</h2>
           <p className="form-card__lede">
@@ -404,7 +427,29 @@ export default function HomePage() {
             99848 Wutha-Farnroda.
           </p>
 
+          {formfehler && (
+            <div className="callout" style={{ marginBottom: 24 }}>
+              <p>{FORMFEHLER_TEXT[formfehler]}</p>
+            </div>
+          )}
+
           <form method="post" action={KAUF_FORM_ACTION} className="form">
+            {/* Ohne JavaScript bleibt das versteckte ref-Feld leer: der Code
+                aus der Adresszeile kommt nicht an, und der Dienst rechnet den
+                Vollpreis. Der Kauf selbst geht trotzdem — das muss hier
+                stehen, sonst sucht, wer einen Vorteilslink hat, den Fehler
+                bei sich. */}
+            <noscript>
+              <div className="callout">
+                <p>
+                  Der Kauf funktioniert auch ohne JavaScript, zum regulären
+                  Preis. Ein Vorteilslink kann ohne JavaScript nicht
+                  berücksichtigt werden. Bei Fragen erreichen Sie uns unter{' '}
+                  <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                </p>
+              </div>
+            </noscript>
+
             <div className="field">
               <label htmlFor="kauf-email">E-Mail-Adresse</label>
               <input
@@ -498,14 +543,14 @@ export default function HomePage() {
             </label>
 
             <button type="submit" className="form__submit">
-              Zahlungspflichtig bestellen
+              Zahlungspflichtig bestellen · {preisAktuell}
             </button>
           </form>
 
           <p className="form__note">
-            Mit „Zahlungspflichtig bestellen“ wirst du zu PayPal weitergeleitet
-            und schließt dort die Zahlung ab. Bricht die Zahlung ab, wird nichts
-            berechnet.
+            Mit „Zahlungspflichtig bestellen“ werden Sie zu PayPal
+            weitergeleitet und schließen dort die Zahlung ab. Bricht die
+            Zahlung ab, wird nichts berechnet.
           </p>
         </div>
 

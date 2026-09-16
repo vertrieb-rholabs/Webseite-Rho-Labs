@@ -58,6 +58,12 @@ export const DEMO_FORM_ACTION = `${API_BASIS}/api/public/demo/anfordern`;
  * POST-Ziel des Kaufformulars der Home-Version. Der Dienst antwortet mit einer
  * Weiterleitung auf die PayPal-Freigabeseite; von dort geht es auf
  * /kauf/fertig, /kauf/abgebrochen oder /kauf/in-arbeit zurueck.
+ *
+ * Scheitert der Start, leitet der Dienst auf /home zurueck — mit einer
+ * Kennung, die sagt, ob der Leser etwas aendern soll oder warten muss:
+ *   ?fehler=eingabe  — Angaben unvollstaendig oder ungueltig
+ *   ?fehler=zuviele  — Ratengrenze, spaeter erneut
+ *   ?fehler=zahlung  — PayPal-Auftrag liess sich nicht anlegen
  */
 export const KAUF_FORM_ACTION = `${API_BASIS}/api/public/kauf/start`;
 
