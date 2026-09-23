@@ -580,6 +580,14 @@ function dienstFehlt(rel) {
    fällt dieser Test und sagt, welcher Satz der Erklärung nicht mehr trägt.
    Eine Zusage mit Frist kommt erst zurück, wenn es einen Lauf gibt, der nach
    einer Frist löscht — dann fällt (c1) oder (c3).
+
+   NACHTRAG 23.09.2026, abends — der Aktivierungsvertrag. Der Dienst hat die
+   Freigabe umgebaut: `activationFreigeben` ist entfallen, an ihre Stelle trat
+   `platzFreigebenAtomar` (Prüfen, Löschen und Vermerk in EINER Transaktion).
+   Ab Version 1.8.0 sendet die Anwendung auch bei der Aktivierung den
+   vollständigen Schlüssel, und der Dienst vermerkt einmalig, dass er vorlag
+   (`schluesselVorlageVermerken`). Die Erklärung nennt beides; (b) und (c)
+   halten es fest.
    -------------------------------------------------------------------------- */
 test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut', () => {
   const html = seite(path.join('datenschutz', 'index.html'));
@@ -626,6 +634,13 @@ test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut'
     ['auf einem von zwei Wegen', 'die Speicherdauer nennt nicht beide Löschwege'],
     ['nach einer Frist von selbst löscht, gibt es nicht',
       'dass es weiterhin keinen Bereinigungslauf gibt, steht nicht da'],
+    // Seit dem Aktivierungsvertrag (23.09.2026, abends).
+    ['Ab Version 1.8.0 ist das der vollständige Lizenzschlüssel',
+      'dass die Aktivierung jetzt den vollen Schlüssel überträgt, fehlt'],
+    ['ältere Versionen senden nur seine Kennung', 'was die Altversionen senden, fehlt'],
+    ['Vorlage des vollständigen Schlüssels', 'der Vermerk über die Vorlage des Schlüssels fehlt'],
+    ['vermerken wir bei der zugehörigen Bestellung einmalig',
+      'dass der Vorlage-Vermerk nur einmal geschrieben wird, fehlt'],
   ]) {
     assert.ok(
       aktivierung.includes(stueck),
@@ -660,7 +675,7 @@ test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut'
     `Der Dienst löscht Aktivierungen jetzt an ${fundstellen.length} Stellen `
     + `(${fundstellen.join(', ') || 'keine'}) statt an genau zweien — dem `
     + 'Geräte-Reset (`deleteActivation`) und der Selbstbedienung '
-    + '(`activationFreigeben`). Kam ein Bereinigungslauf hinzu, darf die '
+    + '(`platzFreigebenAtomar`). Kam ein Bereinigungslauf hinzu, darf die '
     + 'Datenschutzerklärung die Löschung wieder zusagen; fiel ein Weg weg, '
     + 'nennt sie einen Weg zu viel. Beide Stellen nachziehen.',
   );
@@ -672,10 +687,12 @@ test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut'
     'Der Geräte-Reset löscht nicht mehr alle Aktivierungen EINER Lizenz — dann '
     + 'stimmt „wenn wir eine Lizenz auf ein anderes Gerät umbinden" nicht mehr.',
   );
-  const freigabeFn = /export function activationFreigeben\([\s\S]*?\n\}/.exec(datenbank);
+  // Bis zur schließenden Klammer am Zeilenanfang, auf die ein Zeilenende folgt —
+  // sonst endete der Ausschnitt schon am Parametertyp (`}): PlatzFreigabe {`).
+  const freigabeFn = /export function platzFreigebenAtomar\([\s\S]*?\n\}\r?\n/.exec(datenbank);
   assert.ok(
     freigabeFn,
-    '`activationFreigeben` fehlt in database.ts. Dann gibt es den Löschweg '
+    '`platzFreigebenAtomar` fehlt in database.ts. Dann gibt es den Löschweg '
     + '„Freigabe eines Geräteplatzes" nicht mehr, den die Erklärung beschreibt.',
   );
   assert.match(
@@ -683,6 +700,20 @@ test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut'
     /DELETE FROM activations WHERE key_id = \? AND hardware_fingerprint = \? AND is_revoked = 0/,
     'Die Selbstbedienung löscht nicht mehr genau EINE nicht gesperrte Zeile. '
     + 'Dann stimmen „dieses einen Geräts" und „nicht gesperrt" nicht mehr.',
+  );
+  assert.match(
+    freigabeFn[0], /addAuditEntry\(args\.orderId, 'aktivierung_freigegeben', args\.vermerk\)/,
+    'Der Vermerk `aktivierung_freigegeben` entsteht nicht mehr in derselben '
+    + 'Freigabe. Die Erklärung beschreibt ihn.',
+  );
+  const vorlageFn = /export function schluesselVorlageVermerken\([\s\S]*?\n\}\r?\n/.exec(datenbank);
+  assert.ok(
+    vorlageFn
+      && /JSON\.stringify\(\{ quelle \}\)/.test(vorlageFn[0])
+      && /WHERE NOT EXISTS/.test(vorlageFn[0]),
+    'Der Vermerk über die Vorlage des vollständigen Schlüssels trägt jetzt mehr '
+    + 'als die Quelle, oder er wird mehr als einmal geschrieben. Dann stimmen '
+    + '„einmalig" und „ohne den Prüfwert … und ohne deine IP-Adresse" nicht mehr.',
   );
 
   // c3) Wer löscht? Je genau EIN Aufrufer — der Reset im Adminbereich, die
@@ -697,8 +728,8 @@ test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut'
     + 'ist dann nicht mehr der einzige Weg dorthin.',
   );
   assert.deepEqual(
-    aufrufer('activationFreigeben'), ['routes.ts'],
-    '`activationFreigeben` wird nicht mehr genau einmal aufgerufen. Die '
+    aufrufer('platzFreigebenAtomar'), ['routes.ts'],
+    '`platzFreigebenAtomar` wird nicht mehr genau einmal aufgerufen. Die '
     + 'Selbstbedienung ist dann nicht mehr der einzige Weg dorthin.',
   );
   const oeffentlich = routen.indexOf('export function createPublicRouter');
@@ -717,42 +748,69 @@ test('12 mittel — der Aktivierungsabschnitt sagt, was der Dienst wirklich tut'
   const ende = routen.indexOf('return router;', anfang);
   const handler = ohneKommentare(routen.slice(anfang, ende > anfang ? ende : undefined));
 
+  // Seit dem Aktivierungsvertrag (23.09.2026): Die Freigabe läuft über
+  // `platzFreigebenAtomar`, die Antworten über `antworteFreigabe`, und die
+  // Herkunft (IP + Sperrstand) über `herkunftDerAnfrage`.
+  const freigabeAufruf = handler.indexOf('platzFreigebenAtomar({');
   assert.ok(
-    handler.includes('activationFreigeben(keyId, hardware_fingerprint)'),
+    freigabeAufruf > -1,
     'Die Freigabe wird nicht mehr im Endpunkt selbst ausgeführt — etwa erst '
     + 'später in einer Warteschlange. Dann stimmt „Meldet er die Freigabe als '
     + 'erfolgt, ist der Datensatz bereits gelöscht" nicht mehr.',
   );
-  const erfolg = [...handler.matchAll(/deactivated: true/g)].map((m) => m.index);
+  const erfolg = [...handler.matchAll(/antworteFreigabe\(res, 'freigegeben'/g)].map((m) => m.index);
   assert.ok(
-    erfolg.length === 1
-      && erfolg[0] > handler.indexOf('activationFreigeben(keyId, hardware_fingerprint)'),
-    'Der Endpunkt meldet „deactivated: true" nicht mehr genau einmal und erst '
+    erfolg.length === 1 && erfolg[0] > freigabeAufruf,
+    'Der Endpunkt meldet „freigegeben" nicht mehr genau einmal und erst '
     + 'NACH dem Löschen.',
   );
   assert.match(
-    handler, /order\.license_key !== license_key/,
+    routen, /deactivated: code === 'freigegeben'/,
+    '`antworteFreigabe` meldet „deactivated: true" jetzt auch für andere '
+    + 'Ausgänge als die vollzogene Freigabe.',
+  );
+  assert.match(
+    handler, /order\.license_key !== licenseKey/,
     'Der Endpunkt vergleicht den vollständigen Lizenzschlüssel nicht mehr mit '
     + 'der Bestellung. Dann stimmt „nur, wenn ihm der vollständige '
     + 'Lizenzschlüssel … vorliegt" nicht mehr.',
   );
   assert.ok(
-    handler.indexOf('checkRateLimit(ip)') > -1
-      && handler.indexOf('checkRateLimit(ip)') < handler.indexOf('req.body'),
+    handler.indexOf('herkunftDerAnfrage(req)') > -1
+      && handler.indexOf('herkunftDerAnfrage(req)') < handler.indexOf('req.body'),
     'Die Ratenbegrenzung läuft nicht mehr vor dem Auslesen der Anfrage. Dann '
     + 'stimmt „bevor er die Lizenz überhaupt prüft" für die Freigabe nicht mehr.',
   );
   // Die IP darf nur in die Ratenbegrenzung gehen, nirgends sonst hin.
-  const ohneErlaubteIp = handler
-    .replace(/const ip = req\.ip \|\| req\.socket\.remoteAddress \|\| 'unknown';/, '')
-    .replace(/checkRateLimit\(ip\)|recordFailure\(ip\)/g, '');
-  assert.doesNotMatch(
-    ohneErlaubteIp, /\bip\b/,
-    'Der Endpunkt verwendet die IP-Adresse jetzt außerhalb der Ratenbegrenzung. '
-    + 'Dann stimmt „in unsere Datenbank gelangen sie nicht" nicht mehr.',
+  const herkunftFn = ohneKommentare(
+    (/function herkunftDerAnfrage\([\s\S]*?\n\}/.exec(routen) || [''])[0],
   );
-  const vermerk = /addAuditEntry\([^,]+,\s*'aktivierung_freigegeben',\s*JSON\.stringify\(\{([\s\S]*?)\}\)\)/
-    .exec(handler);
+  assert.ok(
+    herkunftFn.includes('checkRateLimit(ip)'),
+    '`herkunftDerAnfrage` prüft die Ratenbegrenzung nicht mehr.',
+  );
+  assert.doesNotMatch(
+    herkunftFn
+      .replace(/const ip = req\.ip \|\| req\.socket\.remoteAddress \|\| 'unknown';/, '')
+      .replace(/checkRateLimit\(ip\)|return \{ ip,/g, ''),
+    /\bip\b/,
+    '`herkunftDerAnfrage` verwendet die IP-Adresse jetzt für mehr als die '
+    + 'Ratenbegrenzung.',
+  );
+  const ohneNachweisFn = ohneKommentare(
+    (/function freigabeOhneNachweis\([\s\S]*?\n\}/.exec(routen) || [''])[0],
+  );
+  assert.doesNotMatch(
+    ohneNachweisFn.replace(/recordFailure\(herkunft\.ip\)/g, ''), /\.ip\b/,
+    'Eine Ablehnung der Freigabe verwendet die IP-Adresse jetzt außerhalb der '
+    + 'Ratenbegrenzung.',
+  );
+  assert.doesNotMatch(
+    handler, /\bip\b|\.ip\b/,
+    'Der Endpunkt verwendet die IP-Adresse jetzt selbst. Dann stimmt „in unsere '
+    + 'Datenbank gelangen sie nicht" nicht mehr.',
+  );
+  const vermerk = /vermerk:\s*JSON\.stringify\(\{([\s\S]*?)\}\)/.exec(handler);
   assert.ok(
     vermerk,
     'Der Vermerk `aktivierung_freigegeben` bei der Bestellung fehlt oder hat '
