@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "medien": "node scripts/medien-pruefen.mjs",
     "hydration": "npx --yes -p puppeteer-core node scripts/hydration-check.mjs",
+    "lesetests": "node --test scripts/befunde.test.mjs scripts/widerruf.test.mjs scripts/telefon.test.mjs",
+    "ablauf": "npx --yes -p puppeteer-core node --test scripts/ablauf.test.mjs",
     "pruefen": "npm run medien && tsc --noEmit && npm run build",
     "postinstall": "patch-package"
   },

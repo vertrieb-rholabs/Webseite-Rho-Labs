@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Nur Seiten mit eigenständigem Wert für die Suche.
-  Die drei /demo/-Bestätigungsseiten und die 404 tragen noindex und fehlen
-  hier bewusst.
+  Die drei /demo/- und die drei /kauf/-Bestätigungsseiten und die 404 tragen
+  noindex und fehlen hier bewusst.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -14,6 +14,12 @@
   <url>
     <loc>https://rholabs.de/kognitives-training</loc>
     <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rholabs.de/home</loc>
+    <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -38,6 +44,38 @@
   <url>
     <loc>https://rholabs.de/datenschutz</loc>
     <lastmod>2026-09-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://rholabs.de/agb</loc>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://rholabs.de/widerruf</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <!--
+    Die Widerrufsfunktion nach § 356a BGB. Sie steht hier und traegt KEIN
+    noindex: Absatz 1 Satz 3 verlangt, dass sie staendig verfuegbar und leicht
+    zugaenglich ist. Wer sie sucht, soll sie finden.
+
+    Die Ergebnisseite /vertrag-widerrufen/eingegangen fehlt hier bewusst und
+    traegt noindex, wie die uebrigen Bestaetigungsseiten.
+  -->
+  <url>
+    <loc>https://rholabs.de/vertrag-widerrufen</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://rholabs.de/lizenzbedingungen</loc>
+    <lastmod>2026-09-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

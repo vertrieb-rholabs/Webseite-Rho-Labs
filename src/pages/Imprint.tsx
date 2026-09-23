@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Linkedin } from 'lucide-react';
 import Seo from '../components/Seo';
-import { CONTACT_EMAIL } from '../constants';
+import { CONTACT_EMAIL, KONTAKT_TELEFON } from '../constants';
 
 export default function Imprint() {
   return (
@@ -37,6 +37,9 @@ export default function Imprint() {
         <div className="grid grid--auto-240" style={{ marginBottom: 20 }}>
           <div className="legal-block" style={{ padding: 24 }}>
             <p className="legal-label">Kontakt</p>
+            <p className="legal-mono" style={{ marginBottom: 8 }}>
+              Telefon: {KONTAKT_TELEFON}
+            </p>
             <a href={`mailto:${CONTACT_EMAIL}`} style={{ fontSize: 14.5, fontWeight: 600 }}>
               {CONTACT_EMAIL}
             </a>

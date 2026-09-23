@@ -1248,6 +1248,43 @@ textarea {
   margin: 0;
 }
 
+/* Knappe Fassung fuer Hinweise INNERHALB einer Karte (Preiskarte der
+   Home-Seite). Die volle Polsterung von .callout sprengt dort das Mass,
+   sobald mehrere Rueckmeldungen untereinander stehen koennen. */
+.callout--knapp {
+  padding: 11px 13px;
+  margin: 12px 0 0;
+}
+
+.callout--knapp p {
+  font-size: 12.5px;
+}
+
+/* ── Rueckwege des Auslieferungsdienstes ────────────────────────────────────
+   Die Hinweise zu `?fehler=…` und `?ref=ungueltig` stehen vorgerendert und
+   verborgen im ausgelieferten HTML; ein synchrones Skript deckt den passenden
+   auf, noch bevor React eingehaengt ist (src/rueckwege.ts).
+
+   `[hidden]` bekommt hier ausdruecklich `display: none`: Das Attribut wirkt
+   sonst nur ueber die schwache Regel des Browsers, und jede Klasse mit einem
+   eigenen `display` schluege sie. Ein Hinweis, der sich nicht verbirgt,
+   stuende auf jeder frisch geoeffneten Seite — und behauptete einen Fehler,
+   den es nicht gab.
+
+   Der Behaelter selbst hat kein eigenes Mass: Solange kein Kasten sichtbar
+   ist, nimmt er nichts ein. Den Abstand traegt der Kasten. */
+[hidden] {
+  display: none !important;
+}
+
+.rueckwege > .callout {
+  margin-bottom: 24px;
+}
+
+.rueckwege > .callout--knapp {
+  margin: 12px 0 0;
+}
+
 .info-card {
   padding: 22px 26px;
   border-radius: 16px;
@@ -1528,7 +1565,8 @@ textarea {
   color: var(--text);
 }
 
-.field input {
+.field input,
+.field textarea {
   width: 100%;
   padding: 13px 15px;
   border-radius: 10px;
@@ -1539,11 +1577,25 @@ textarea {
   transition: border-color 0.2s, background 0.2s;
 }
 
-.field input::placeholder {
+/* Das Freitextfeld der Widerrufsfunktion (§ 356a Abs. 2 Nr. 2). Es erbt die
+   Schrift AUSDRUECKLICH: ohne `font-family: inherit` setzt der Browser fuer
+   textarea eine Monospace-Schrift, und das Feld faellt aus der Seite.
+   Senkrecht veraenderbar, waagerecht nicht — ein breiter gezogenes Feld
+   spraengte die Karte. */
+.field textarea {
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 108px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
   color: var(--text-dim);
 }
 
-.field input:hover {
+.field input:hover,
+.field textarea:hover {
   border-color: rgba(255, 255, 255, 0.22);
 }
 
@@ -1612,11 +1664,82 @@ textarea {
   box-shadow: 0 0 30px rgba(34, 211, 238, 0.5);
 }
 
+/* Gesperrt, solange die Preisprüfung läuft. Sonst sieht der Knopf weiter
+   klickbar aus. */
+.form__submit:disabled,
+.form__submit:disabled:hover {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .form__note {
   font-size: 12px;
   line-height: 1.6;
   color: var(--text-dim);
   margin: 16px 0 0;
+}
+
+/* § 312j Abs. 1 — Lieferbeschränkung und Zahlungsmittel, am Beginn
+   der Bestellung, nicht erst am Knopf. */
+.bestellrahmen {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.bestellrahmen p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-bright);
+}
+
+/* § 312j Abs. 2 — unmittelbar vor dem Knopf, optisch abgesetzt. */
+.pflichtblock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.55);
+}
+
+.pflichtblock p,
+.pflichtblock li {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-bright);
+}
+
+.pflichtblock strong {
+  color: var(--text-white);
+}
+
+.pflichtblock p.pflichtblock__kopf {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan-light);
+}
+
+.pflichtblock p.pflichtblock__preis {
+  font-size: 16.5px;
+  line-height: 1.5;
+  color: var(--text-white);
+}
+
+.pflichtblock__liste {
+  margin: 0;
+  padding-left: 1.2em;
 }
 
 .contact-card h3 {
@@ -1725,6 +1848,34 @@ textarea {
   line-height: 1.75;
   color: var(--text-card);
   margin: 0;
+}
+
+.legal-block ul,
+.legal-block ol {
+  margin: 0;
+  padding-left: 1.25em;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--text-card);
+}
+
+.legal-block li + li {
+  margin-top: 8px;
+}
+
+.legal-block li > ul {
+  margin-top: 8px;
+}
+
+.legal-block blockquote {
+  margin: 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--cyan);
+  background: rgba(34, 211, 238, 0.05);
+}
+
+.legal-block blockquote p {
+  color: var(--text);
 }
 
 .legal-block address {
@@ -2011,6 +2162,48 @@ textarea {
 
 .footer__soon {
   color: var(--text-faint);
+}
+
+/* Der Link zur Widerrufsfunktion (§ 356a BGB).
+   Absatz 1 Satz 3 verlangt, dass die Funktion „hervorgehoben platziert" ist.
+   In einer Liste grauer Links waere sie das nicht — deshalb hier heller,
+   halbfett und mit etwas Luft darueber abgesetzt. Sie ist kein Rechtstext
+   unter anderen, sondern die AUSUEBUNG eines Rechts. */
+.footer__link--widerruf {
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+.footer__link--widerruf:hover {
+  color: var(--cyan);
+}
+
+.footer__widerruf {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Der sichtbare Hinweis auf die Widerrufsfunktion auf den Kaufseiten
+   (§ 356a Abs. 1 Satz 3: „hervorgehoben platziert").
+   Ein eigener Satz, keine graue Fussnote — aber auch kein Knopf: er soll
+   leicht zu finden sein und nicht mit der Bestellung konkurrieren. */
+.widerruf-hinweis {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.widerruf-hinweis a {
+  color: var(--cyan);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.widerruf-hinweis a:hover {
+  color: var(--text-white);
 }
 
 .footer__bottom {

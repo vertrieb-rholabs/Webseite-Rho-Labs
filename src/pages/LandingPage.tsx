@@ -55,8 +55,13 @@ export default function LandingPage() {
               Kognitives Training ansehen
             </Link>
           </div>
+          {/* „Windows 10 und 11" — dieselbe Zusage wie im Pflichtblock der
+              Kaufseite, in den Vertragsbedingungen und in der
+              Bestaetigungsmail. Bis zum 22.09.2026 stand hier „Windows 10 oder
+              neuer"; das ist eine weitere Zusage als die, die der Vertrag
+              traegt. */}
           <p className="hero__meta">
-            Version {APP_VERSION} · Windows 10 oder neuer · Demo 14 Tage, voller
+            Version {APP_VERSION} · Windows 10 und 11 · Demo 14 Tage, voller
             Funktionsumfang
           </p>
         </div>
@@ -99,7 +104,7 @@ export default function LandingPage() {
                 {GAME_COUNT} Übungen in vier Aufgabenbereichen, drei
                 Schwierigkeitsstufen je Übung, unbegrenzt viele Nutzerprofile und
                 eine Auswertung, die sich als PDF ausgeben lässt. Nach der
-                Aktivierung läuft alles offline.
+                Aktivierung läuft die gekaufte Anwendung offline.
               </p>
               <div className="tag-row">
                 <span className="tag">Einstieg · Aufbau · Herausforderung</span>

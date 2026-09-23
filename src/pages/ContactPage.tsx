@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { MessageSquare, ShoppingCart } from 'lucide-react';
 import Seo from '../components/Seo';
 import {
-  CONTACT_EMAIL,
   DEMO_FORM_ACTION,
+  LIZENZ_SUPPORT_EMAIL,
   NEWSLETTER_EINWILLIGUNG,
   SALES_EMAIL,
 } from '../constants';
@@ -42,6 +42,32 @@ export default function ContactPage() {
               Bestätigungslink in der E-Mail anklicken — den Schlüssel gibt es
               dann sofort.
             </p>
+
+            {/* Nachgetragen am 22.09.2026. Die Demo ist die EINE Ausführung,
+                die sich wieder meldet: Sie fragt die Uhrzeit unseres Dienstes
+                ab, und eine erfolgreiche Abfrage gibt jeweils nur bis zu 72
+                Stunden Offlinezeit frei (`demo-clock.cjs:2`, OFFLINE_MS).
+                Wer das nicht weiß, nimmt die Demo mit auf eine Woche ohne
+                Netz und steht am vierten Tag vor einer gesperrten Anwendung —
+                mitten in den zugesagten 14 Tagen. Die Datenschutzerklärung
+                beschreibt die Abfrage seit dem 22.09.2026 richtig; hier steht,
+                was sie für die Benutzung bedeutet.
+
+                Die Demo-Schlüsselmail des Dienstes sagte an dieser Stelle
+                bis zum 22.09.2026 das Gegenteil („vollständig offline",
+                mailer.ts). Inzwischen nennt sie dieselben 72 Stunden (Stand
+                23.09.2026); `befunde.test.mjs` (Test 19) hält Mail und diese
+                Seite zusammen. */}
+            <div className="callout" style={{ marginBottom: 24 }}>
+              <p>
+                <strong>Die Demo braucht zwischendurch Internet.</strong> Sie
+                prüft die Restlaufzeit bei uns nach; eine erfolgreiche Prüfung
+                gibt jeweils bis zu 72 Stunden Offline-Nutzung frei. Länger
+                ohne Verbindung bleibt sie gesperrt, bis das Gerät wieder
+                online war. Die gekaufte Fassung tut das nicht — sie läuft
+                nach der Aktivierung offline.
+              </p>
+            </div>
 
             <form method="post" action={DEMO_FORM_ACTION} className="form">
               <div className="field">
@@ -126,13 +152,19 @@ export default function ContactPage() {
               >
                 <MessageSquare size={17} />
               </span>
-              <h3>Allgemeine Anfragen</h3>
+              <h3>Allgemeine Anfragen und gekaufte Lizenzen</h3>
+              {/* Hier steht ausdruecklich, was zu einer BESTEHENDEN Lizenz
+                  gehoert. Der Aktivierungsdienst nannte im Fehlerfall die
+                  Vertriebsadresse, die abgenommenen Lizenzbedingungen diese —
+                  fuer denselben Vorgang. Es gilt diese; siehe
+                  LIZENZ_SUPPORT_EMAIL in constants.ts. */}
               <p>
                 Technische Fragen, Rückmeldungen oder Anpassungen an der
-                Software.
+                Software. Ebenso alles zu einer bereits gekauften Lizenz:
+                Aktivierung, Gerätewechsel und Lizenzschlüssel.
               </p>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="link-purple">
-                {CONTACT_EMAIL}
+              <a href={`mailto:${LIZENZ_SUPPORT_EMAIL}`} className="link-purple">
+                {LIZENZ_SUPPORT_EMAIL}
               </a>
             </div>
 
@@ -144,8 +176,13 @@ export default function ContactPage() {
               <span className="icon-box icon-box--sm" style={{ marginBottom: 16 }} aria-hidden="true">
                 <ShoppingCart size={17} />
               </span>
-              <h3>Vertrieb &amp; Lizenzen</h3>
-              <p>Bestellungen, Angebote, Volumenlizenzen für Einrichtungen.</p>
+              <h3>Vertrieb gewerblicher Lizenzen</h3>
+              <p>
+                Angebote, Volumenlizenzen und Bestellungen für Einrichtungen —
+                also Verträge, die noch nicht bestehen. Zu einer bereits
+                gekauften Lizenz schreiben Sie bitte an{' '}
+                <a href={`mailto:${LIZENZ_SUPPORT_EMAIL}`}>{LIZENZ_SUPPORT_EMAIL}</a>.
+              </p>
               <a href={`mailto:${SALES_EMAIL}`}>{SALES_EMAIL}</a>
             </div>
 
