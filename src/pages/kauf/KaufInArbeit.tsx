@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import StatusPage from '../demo/StatusPage';
-import { CONTACT_EMAIL } from '../../constants';
+import {
+  CONTACT_EMAIL, WIDERRUF_FUNKTION_LABEL, WIDERRUF_FUNKTION_PFAD,
+} from '../../constants';
 
 /**
  * Ziel, wenn die Zahlung durch ist, die Auslieferung aber noch hakt.
@@ -28,14 +30,30 @@ export default function KaufInArbeit() {
         </>
       }
       action={
-        <div className="btn-row btn-row--center">
-          <Link to="/kontakt" className="btn btn--primary">
-            Kontakt
-          </Link>
-          <Link to="/home" className="btn btn--ghost">
-            Zur Home-Version
-          </Link>
-        </div>
+        <>
+          {/* § 356a Abs. 1 Satz 3 — „hervorgehoben platziert und für den
+              Verbraucher leicht zugänglich". Gerade hier: Wer auf dieser
+              Seite landet, hat bezahlt und keine Lizenz — bei ihm läuft die
+              Widerrufsfrist nach § 356 Abs. 6 Nr. 2 GANZ SICHER noch, weil die
+              Bestätigung nach § 312f noch nicht hinausging.
+
+              Ein eigener Satz über den Knöpfen, nicht als btn--primary: der
+              Kontaktweg soll die naheliegende Wahl bleiben — die meisten wollen
+              ihre Lizenz, nicht ihr Geld zurück. Wer widerrufen will, findet es
+              trotzdem sofort. */}
+          <p className="widerruf-hinweis" style={{ marginBottom: 20 }}>
+            Sie möchten den Kauf stattdessen rückgängig machen?{' '}
+            <Link to={WIDERRUF_FUNKTION_PFAD}>{WIDERRUF_FUNKTION_LABEL}</Link>
+          </p>
+          <div className="btn-row btn-row--center">
+            <Link to="/kontakt" className="btn btn--primary">
+              Kontakt
+            </Link>
+            <Link to="/home" className="btn btn--ghost">
+              Zur Home-Version
+            </Link>
+          </div>
+        </>
       }
     />
   );

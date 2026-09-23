@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import { Facebook, Linkedin } from 'lucide-react';
 import {
   LAB_PROJECTS,
+  LIZENZ_SUPPORT_EMAIL,
   PIPELINE,
   SALES_EMAIL,
   SOZIALE_PROFILE,
   STATUS_LABELS,
+  WIDERRUF_FUNKTION_LABEL,
+  WIDERRUF_FUNKTION_PFAD,
 } from '../constants';
 
 const PROFIL_SYMBOL: Record<string, typeof Linkedin> = {
@@ -135,6 +138,27 @@ export default function Footer() {
                   Lizenzbedingungen
                 </Link>
               </li>
+              {/* Die Widerrufsfunktion nach § 356a BGB.
+
+                  Absatz 1 Satz 3 verlangt, dass sie waehrend des Fristlaufs
+                  auf der Online-Benutzeroberflaeche STAENDIG VERFUEGBAR,
+                  hervorgehoben platziert und leicht zugaenglich ist. Die
+                  Fusszeile steht auf jeder Seite — das traegt die staendige
+                  Verfuegbarkeit. Abgesetzt und halbfett, weil sie sonst der
+                  siebte graue Link unter sechs anderen waere.
+
+                  Der Link „Widerruf" darueber bleibt und meint etwas anderes:
+                  die BELEHRUNG. Dieser hier ist die AUSUEBUNG. Die
+                  Beschriftung ist die des Gesetzes und kommt aus einer
+                  Konstante, damit sie nirgends abweicht. */}
+              <li className="footer__widerruf">
+                <Link
+                  to={WIDERRUF_FUNKTION_PFAD}
+                  className="footer__link footer__link--widerruf"
+                >
+                  {WIDERRUF_FUNKTION_LABEL}
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -143,6 +167,19 @@ export default function Footer() {
             <a href={`mailto:${SALES_EMAIL}`} style={{ fontSize: 14, fontWeight: 600 }}>
               {SALES_EMAIL}
             </a>
+            {/* Zwei Adressen, und der Kaeufer muss nicht raten, welche.
+                Der Aktivierungsdienst und die Lizenzbedingungen nannten fuer
+                denselben Vorgang — die Umbindung einer Lizenz auf ein neues
+                Geraet — verschiedene Adressen. Es gilt die der abgenommenen
+                Lizenzbedingungen: LIZENZ_SUPPORT_EMAIL. „Vertrieb" bleibt der
+                Weg fuer Angebote und gewerbliche Bestellungen. */}
+            <p className="note" style={{ margin: '10px 0 0', lineHeight: 1.6 }}>
+              Angebote und gewerbliche Bestellungen.
+              <br />
+              Zu einer gekauften Lizenz — Aktivierung, Gerätewechsel,
+              Lizenzschlüssel —{' '}
+              <a href={`mailto:${LIZENZ_SUPPORT_EMAIL}`}>{LIZENZ_SUPPORT_EMAIL}</a>
+            </p>
             <p className="note" style={{ margin: '10px 0 0', lineHeight: 1.6 }}>
               Rho-Labs — Patrick Feix
               <br />

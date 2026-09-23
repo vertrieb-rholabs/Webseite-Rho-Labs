@@ -17,6 +17,8 @@ import DemoExpired from './pages/demo/DemoExpired';
 import KaufFertig from './pages/kauf/KaufFertig';
 import KaufAbgebrochen from './pages/kauf/KaufAbgebrochen';
 import KaufInArbeit from './pages/kauf/KaufInArbeit';
+import WiderrufErklaeren from './pages/WiderrufErklaeren';
+import WiderrufEingegangen from './pages/widerruf/WiderrufEingegangen';
 
 /**
  * Die drei Routen unter /demo/ sind die fest verdrahteten Weiterleitungsziele
@@ -29,6 +31,12 @@ import KaufInArbeit from './pages/kauf/KaufInArbeit';
  * Fuer die drei Routen unter /kauf/ gilt dasselbe: sie sind die Rueckwege des
  * Checkouts (Zahlung fertig, abgebrochen, bezahlt aber noch nicht
  * ausgeliefert).
+ *
+ * /vertrag-widerrufen traegt die Widerrufsfunktion nach § 356a BGB. Ihre
+ * Adresse steht wortgleich im amtlichen Baustein der Widerrufsbelehrung
+ * (`seite-widerruf.md` und `rechtstexte.ts` im Dienst); wer sie umbenennt,
+ * laesst eine Belehrung ins Leere zeigen. /vertrag-widerrufen/eingegangen ist
+ * das Weiterleitungsziel des Dienstes nach geglueckter Eingangsbestaetigung.
  *
  * Jede neue Route gehoert an drei weitere Stellen: die ROUTES-Liste in
  * vite.config.ts (Vorrendern), die Liste in scripts/hydration-check.mjs und
@@ -55,6 +63,14 @@ export const routes: RouteRecord[] = [
       { path: 'kauf/fertig', Component: KaufFertig },
       { path: 'kauf/abgebrochen', Component: KaufAbgebrochen },
       { path: 'kauf/in-arbeit', Component: KaufInArbeit },
+      // Die Widerrufsfunktion nach § 356a BGB. `vertrag-widerrufen` ist die
+      // Adresse, die WORTGLEICH im amtlichen Baustein der Widerrufsbelehrung
+      // steht — hier umbenennen heisst: eine Belehrung, die ins Leere zeigt.
+      // `vertrag-widerrufen/eingegangen` ist das Weiterleitungsziel des
+      // Dienstes nach geglueckter Eingangsbestaetigung, mit abschliessendem
+      // Schraegstrich wie die /demo- und /kauf-Seiten.
+      { path: 'vertrag-widerrufen', Component: WiderrufErklaeren },
+      { path: 'vertrag-widerrufen/eingegangen', Component: WiderrufEingegangen },
       { path: '*', Component: NotFound },
     ],
   },

@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Mail } from 'lucide-react';
 import StatusPage from '../demo/StatusPage';
-import { CONTACT_EMAIL, DOWNLOAD_URL } from '../../constants';
+import {
+  CONTACT_EMAIL, DOWNLOAD_URL, WIDERRUF_FUNKTION_LABEL, WIDERRUF_FUNKTION_PFAD,
+} from '../../constants';
 
 /**
  * Ziel nach einer Zahlung (return_url des Auslieferungsdienstes).
@@ -33,17 +35,32 @@ export default function KaufFertig() {
         </>
       }
       action={
-        <div className="btn-row btn-row--center">
-          <Link to="/kontakt" className="btn btn--primary">
-            Kontakt
-          </Link>
-          <Link to="/home#kaufen" className="btn btn--ghost">
-            Erneut versuchen
-          </Link>
-          <Link to="/home" className="btn btn--ghost">
-            Zur Home-Version
-          </Link>
-        </div>
+        <>
+          {/* § 356a Abs. 1 Satz 3 — „hervorgehoben platziert und für den
+              Verbraucher leicht zugänglich".
+
+              Diese Seite kennt den Vorgang nicht und weiß deshalb nicht, ob
+              das Widerrufsrecht schon nach § 356 Abs. 6 Nr. 2 erloschen ist.
+              Genau darum steht der Link hier: Die Seite darf ihn nicht
+              weglassen, weil sie ihn für entbehrlich HÄLT. Ob das Recht im
+              Einzelfall noch besteht, entscheidet nicht diese Seite — und
+              schon gar nicht dadurch, dass sie den Weg dorthin verschweigt. */}
+          <p className="widerruf-hinweis" style={{ marginBottom: 20 }}>
+            Sie möchten den Vertrag widerrufen?{' '}
+            <Link to={WIDERRUF_FUNKTION_PFAD}>{WIDERRUF_FUNKTION_LABEL}</Link>
+          </p>
+          <div className="btn-row btn-row--center">
+            <Link to="/kontakt" className="btn btn--primary">
+              Kontakt
+            </Link>
+            <Link to="/home#kaufen" className="btn btn--ghost">
+              Erneut versuchen
+            </Link>
+            <Link to="/home" className="btn btn--ghost">
+              Zur Home-Version
+            </Link>
+          </div>
+        </>
       }
     />
   );

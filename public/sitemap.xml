@@ -55,9 +55,23 @@
   </url>
   <url>
     <loc>https://rholabs.de/widerruf</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <!--
+    Die Widerrufsfunktion nach § 356a BGB. Sie steht hier und traegt KEIN
+    noindex: Absatz 1 Satz 3 verlangt, dass sie staendig verfuegbar und leicht
+    zugaenglich ist. Wer sie sucht, soll sie finden.
+
+    Die Ergebnisseite /vertrag-widerrufen/eingegangen fehlt hier bewusst und
+    traegt noindex, wie die uebrigen Bestaetigungsseiten.
+  -->
+  <url>
+    <loc>https://rholabs.de/vertrag-widerrufen</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://rholabs.de/lizenzbedingungen</loc>

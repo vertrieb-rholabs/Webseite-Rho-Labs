@@ -31,6 +31,8 @@ const ROUTES = [
   '/kauf/fertig/',
   '/kauf/abgebrochen/',
   '/kauf/in-arbeit/',
+  '/vertrag-widerrufen',
+  '/vertrag-widerrufen/eingegangen/',
   '/foo-bar',
 ];
 

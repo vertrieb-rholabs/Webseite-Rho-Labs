@@ -70,9 +70,9 @@ export default function ProductPage() {
             PDF.
           </p>
           <p style={{ fontSize: 14.5, color: '#64748b', margin: '0 0 36px' }}>
-            Auslieferung als Installer (EXE). Nach der einmaligen Aktivierung
-            läuft die Anwendung offline; Trainingsdaten verlassen das Gerät
-            nicht.
+            Auslieferung als Installer (EXE) für Windows 10/11 in 64-Bit (x64).
+            Nach der einmaligen Aktivierung läuft die gekaufte Anwendung
+            offline; Trainingsdaten verlassen das Gerät nicht.
           </p>
           <div className="btn-row btn-row--center">
             <Link to="/kontakt" className="btn btn--primary">
@@ -350,31 +350,47 @@ export default function ProductPage() {
                   ))}
                 </ul>
 
+                {/* EIN Knopf je Karte, und er öffnet eine Bestellmail.
+                    Darunter stand bis zum 22.09.2026 ein zweiter — „Sofort
+                    per PayPal kaufen" — mit einem direkten Link auf
+                    paypal.com. Der ist weg; warum, steht über `PLANS` in
+                    `constants.ts`. Kurz: Auf der PayPal-Seite steht der
+                    Bestellknopf, und die gehört uns nicht — die Pflichtangaben
+                    nach § 312j Abs. 2 BGB und die Schaltflächenlösung nach
+                    Abs. 3 ließen sich dort nicht anbringen. */}
                 <a
                   href={plan.ctaLink}
                   className={`plan__cta${plan.isFeatured ? ' plan__cta--primary' : ''}`}
                 >
                   {plan.ctaText}
                 </a>
-                {plan.paypalLink && (
-                  <a
-                    href={plan.paypalLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="plan__paypal"
-                  >
-                    Sofort per PayPal kaufen
-                  </a>
-                )}
               </div>
             ))}
           </div>
 
+          {/* Wer hier kauft, und was das für den Ablauf heißt. Steht UNTER den
+              Karten und ÜBER dem Verweis auf Home, weil es beides erklärt. */}
+          <div className="info-card" style={{ marginTop: 28 }}>
+            <h3>
+              <Info size={17} aria-hidden="true" /> Diese drei Lizenzen richten
+              sich an Einrichtungen und Fachkräfte
+            </h3>
+            <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: 0 }}>
+              Einzel, Team und Enterprise sind für die Arbeit mit Klientinnen
+              und Klienten bestimmt. Es gibt dafür keinen Sofortkauf auf dieser
+              Seite: Der Knopf öffnet eine Bestellmail, und der Vertrag kommt
+              erst mit unserem Angebot und der Rechnung zustande. Für den
+              privaten Gebrauch ist die {HOME_PLAN.name} gedacht — sie wird auf{' '}
+              <Link to="/home">/home</Link> gekauft, mit vollständigem
+              Bestellvorgang, Widerrufsrecht und Lizenzschlüssel per E-Mail.
+            </p>
+          </div>
+
           {/* Querverweis auf die Home-Version. Bewusst als eigener Baustein
               und nicht als vierte Preiskarte: die Karten oben stammen aus
-              PLANS, und jeder Knopf dort führt nach draußen (Bestellmail oder
-              PayPal-Link). Home wird über das Formular auf /home gekauft —
-              eine Karte hier bekäme einen Knopf, der daran vorbeiführt. */}
+              PLANS, und jeder Knopf dort führt nach draußen (Bestellmail).
+              Home wird über das Formular auf /home gekauft — eine Karte hier
+              bekäme einen Knopf, der daran vorbeiführt. */}
           <div className="info-card info-card--cyan" style={{ marginTop: 28 }}>
             <h3>
               <Home size={17} aria-hidden="true" /> Allein und privat trainieren?
@@ -399,26 +415,37 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* ── Kaufprozess ──────────────────────────────────────────────── */}
+      {/* ── Kaufprozess ──────────────────────────────────────────────────
+          Bis zum 22.09.2026 standen hier zwei Optionen; „Option 1 — PayPal"
+          beschrieb den Sofortkauf über den direkten PayPal-Link. Der Weg ist
+          weg, also auch seine Beschreibung. Was bleibt, ist der Weg über die
+          Bestellmail — und der ist jetzt in seinen wirklichen Schritten
+          aufgeschrieben, damit niemand den entscheidenden übersieht: Der
+          Vertrag entsteht erst mit dem Angebot, nicht mit dem Klick. */}
       <section className="wrap wrap--narrow section--tight">
         <div className="howto">
-          <h3>So funktioniert der Kauf</h3>
+          <h3>So läuft die Bestellung</h3>
           <div className="grid grid--auto-280" style={{ gap: 28 }}>
             <div className="howto__step">
-              <p>Option 1 — PayPal</p>
+              <p>1 — Anfrage</p>
               <p>
-                Auf „Sofort per PayPal kaufen“ klicken. Nach Zahlungseingang
-                kommt der Lizenzschlüssel automatisch per E-Mail, in der Regel
-                innerhalb weniger Minuten. Bitte die E-Mail-Adresse im
-                Verwendungszweck angeben.
+                Auf „Lizenz anfragen“ klicken und die vorbereitete Bestellmail
+                abschicken. Ein Klick allein bestellt noch nichts.
               </p>
             </div>
             <div className="howto__step">
-              <p>Option 2 — Rechnung</p>
+              <p>2 — Angebot und Rechnung</p>
               <p>
-                Auf „Lizenz erwerben“ klicken und die vorbereitete Bestellmail
-                abschicken. Sie erhalten eine Rechnung per E-Mail, zahlbar per
-                PayPal oder Banküberweisung; danach kommt der Lizenzschlüssel.
+                Sie erhalten von uns ein Angebot mit allen Angaben zum Vertrag
+                und die Rechnung per E-Mail, zahlbar per PayPal oder
+                Banküberweisung. Erst damit kommt der Vertrag zustande.
+              </p>
+            </div>
+            <div className="howto__step">
+              <p>3 — Lizenzschlüssel</p>
+              <p>
+                Nach Zahlungseingang kommt der Lizenzschlüssel per E-Mail,
+                zusammen mit dem Downloadlink.
               </p>
             </div>
           </div>

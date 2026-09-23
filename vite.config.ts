@@ -1,5 +1,5 @@
 import path from 'path';
-import { renameSync, rmdirSync } from 'node:fs';
+import { renameSync, rmdirSync, rmSync } from 'node:fs';
 import { defineConfig, type UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { } from 'vite-react-ssg';
@@ -25,6 +25,8 @@ const ROUTES = [
   '/kauf/fertig',
   '/kauf/abgebrochen',
   '/kauf/in-arbeit',
+  '/vertrag-widerrufen',
+  '/vertrag-widerrufen/eingegangen',
   '/404',
 ];
 
@@ -52,6 +54,26 @@ export default defineConfig({
       const flat = path.resolve(dir, '404.html');
       renameSync(nested, flat);
       rmdirSync(path.resolve(dir, '404'));
+
+      /* Und das Bauverzeichnis raus, bevor es veroeffentlicht wird.
+         ------------------------------------------------------------------
+         `docs/.vite/` entsteht beim Bauen und wird zum Vorrendern gebraucht
+         — danach von niemandem mehr. Die Seite laedt es nicht, der Browser
+         fragt es nie an. Veroeffentlicht wird es trotzdem: Die eingesetzte
+         Action `actions/upload-pages-artifact@v3` packt Punktverzeichnisse
+         mit ein, ausgenommen nur `.git` und `.github`.
+
+         Darin steht der gesamte Modulbestand mit ABSOLUTEN Pfaden. Oertlich
+         gebaut sind das die Pfade dieses Rechners, samt Kontoname; im
+         Lauf der Werkbank die Verzeichnisstruktur des Laeufers. Beides
+         gehoert nicht auf eine oeffentliche Seite und wird dort fuer nichts
+         gebraucht.
+
+         `onFinished` laeuft, wenn alle Seiten geschrieben sind; danach
+         greift niemand mehr darauf zu. `force` haelt den Lauf am Leben,
+         falls eine kuenftige Fassung das Verzeichnis gar nicht erst
+         anlegt. */
+      rmSync(path.resolve(dir, '.vite'), { recursive: true, force: true });
     },
   },
   plugins: [react()],
