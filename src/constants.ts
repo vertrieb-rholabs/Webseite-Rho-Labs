@@ -208,7 +208,7 @@ export const VORTEILSCODE_UNGUELTIG = 'ungueltig';
 /** Leitet auf das juengste Release des Auslieferungskanals weiter. */
 export const DOWNLOAD_URL = 'https://download.rholabs.de/download';
 
-export const APP_VERSION = '1.7.0';
+export const APP_VERSION = '1.8.0';
 
 /* ── Unternehmensprofile ──────────────────────────────────────────────────
    Reine <a href>-Verweise: es wird nichts von Facebook oder LinkedIn
