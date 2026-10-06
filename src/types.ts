@@ -99,11 +99,6 @@ export interface LabProject {
   tag: string;
 }
 
-export interface EvidenceEntry {
-  module: string;
-  references: string[];
-}
-
 export interface PrivacySection {
   title: string;
   paragraphs: string[];

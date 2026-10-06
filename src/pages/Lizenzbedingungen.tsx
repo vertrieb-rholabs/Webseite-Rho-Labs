@@ -32,7 +32,7 @@ export default function Lizenzbedingungen() {
         "."
       }
             </p>
-            <p>{"Stand: 21. September 2026"}</p>
+            <p>{"Stand: 6. Oktober 2026"}</p>
           </div>
         </div>
         <div className="legal-block">
@@ -40,7 +40,7 @@ export default function Lizenzbedingungen() {
           <div className="stack" style={{ gap: 14 }}>
             <p>{"Die Home-Lizenz betrifft die Windows-Anwendung „Rho-Labs Kognitives Training“ als digitalen Inhalt, der nicht auf einem körperlichen Datenträger überlassen wird. Sie erhalten die Anwendung als Download eines Installers und einen Lizenzschlüssel per E-Mail. Die Anwendung ist derzeit für Windows 10 und Windows 11 bestimmt."}</p>
             <p>{"Mit der Home-Lizenz räumen wir Ihnen ein einfaches Recht ein, die Anwendung in der Home-Ausstattung nach diesen Bedingungen zu nutzen. Das Urheberrecht an der Anwendung bleibt, soweit es uns zusteht, bei uns."}</p>
-            <p>{"Die Software ist kein Medizinprodukt und kein zugelassenes Therapieinstrument im Sinne der Verordnung (EU) 2017/745 über Medizinprodukte (MDR). Sie dient ausschließlich dem allgemeinen kognitiven Training. Sie ersetzt keine ärztliche oder therapeutische Behandlung. Auswertungen sind keine medizinischen Diagnosen. Das beschreibt den Vertragsgegenstand."}</p>
+            <p>{"Die Software ist eine Software für kognitives Training. Sie ist kein Medizinprodukt im Sinne der Verordnung (EU) 2017/745 (MDR) und nicht dazu bestimmt, Krankheiten, Verletzungen oder Behinderungen zu erkennen, zu überwachen, zu behandeln, zu lindern, auszugleichen oder ihnen vorzubeugen. Trainingsergebnisse sind keine Diagnose und keine Grundlage für medizinische oder therapeutische Entscheidungen. Das beschreibt den Vertragsgegenstand."}</p>
           </div>
         </div>
         <div className="legal-block">
@@ -128,7 +128,7 @@ export default function Lizenzbedingungen() {
           <div className="stack" style={{ gap: 14 }}>
             <p>{"Es gilt die gesetzliche Mängelhaftung für digitale Produkte nach den §§ 327 ff. BGB. Gegenüber Verbrauchern kann sie nicht ausgeschlossen, beschränkt oder verkürzt werden."}</p>
             <p>{"Für die Haftung gelten die Allgemeinen Geschäftsbedingungen unter /agb. Diese Lizenzbedingungen enthalten keine eigene Haftungsregelung."}</p>
-            <p>{"Die Einordnung der Software in Abschnitt 1 (kein Medizinprodukt, kein Therapieinstrument, keine Diagnose) beschreibt den Vertragsgegenstand. Sie ist kein Ausschluss der gesetzlichen Haftung, insbesondere nicht bei einer Verletzung von Leben, Körper oder Gesundheit."}</p>
+            <p>{"Die Einordnung der Software in Abschnitt 1 (kein Medizinprodukt, keine medizinische Zweckbestimmung, keine Diagnose) beschreibt den Vertragsgegenstand. Sie ist kein Ausschluss der gesetzlichen Haftung, insbesondere nicht bei einer Verletzung von Leben, Körper oder Gesundheit."}</p>
           </div>
         </div>
         </div>

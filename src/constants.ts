@@ -13,7 +13,6 @@ import {
 import type {
   CategoryInfo,
   Demonstration,
-  EvidenceEntry,
   Game,
   GameCategory,
   LabProject,
@@ -263,8 +262,20 @@ export const KAUF_EINWILLIGUNG = {
     'Bereitstellung mein Widerrufsrecht verliere.',
 };
 
-export const MDR_DISCLAIMER =
-  'Wichtiger Hinweis: Rho-Labs Kognitives Training ist kein Medizinprodukt und kein zugelassenes Therapieinstrument im Sinne der EU-Medizinprodukteverordnung (MDR 2017/745). Die Software dient ausschließlich dem allgemeinen kognitiven Training und der persönlichen Leistungsförderung. Sie ersetzt keine ärztliche oder therapeutische Behandlung. Die dargestellten Auswertungen sind keine medizinischen Diagnosen.';
+/**
+ * Zweckbestimmung der Software — der Standardtext aus R1 Abschnitt 1.4
+ * (Pilotprogramm), ueberall wortgleich. Sie steht in den Hinweiskaesten der
+ * Produkt-, Home-, Evidenz- und Pilotseite und in § 5 Abs. 1 der
+ * Pilotbedingungen. Wer sie aendert, aendert sie dort mit.
+ *
+ * Hier stand bis zum 06.10.2026 der „MDR-Hinweis" (`MDR_DISCLAIMER`) mit den
+ * Wendungen „zugelassenes Therapieinstrument", „persoenliche
+ * Leistungsfoerderung" und „Auswertungen sind keine medizinischen
+ * Diagnosen". Die neue Fassung benennt, wozu die Software NICHT bestimmt ist,
+ * statt sich ueber die Behandlung zu definieren.
+ */
+export const ZWECKBESTIMMUNG =
+  'Rho-Labs Kognitives Training ist eine Software für kognitives Training. Sie bietet Übungen zu Gedächtnis, Aufmerksamkeit, räumlichem Denken und Denken/Planen mit einstellbarer Schwierigkeit sowie eine Übersicht über den eigenen Trainingsverlauf. Die Software ist kein Medizinprodukt. Sie ist nicht dazu bestimmt, Krankheiten, Verletzungen oder Behinderungen zu erkennen, zu überwachen, zu behandeln, zu lindern, auszugleichen oder ihnen vorzubeugen. Die Trainingsergebnisse sind keine Diagnose und keine Grundlage für medizinische oder therapeutische Entscheidungen.';
 
 /* ── Spielekatalog ────────────────────────────────────────────────────── */
 
@@ -500,9 +511,8 @@ export const DEMONSTRATIONS: Demonstration[] = [
 ];
 
 export const USE_CASES: string[] = [
-  'Teams in der kognitiven Förderung',
+  'Teams, die kognitives Training anbieten',
   'Senioren- und Betreuungseinrichtungen, Tagesbetreuung',
-  'Betriebliches Gesundheitsmanagement',
   'Forschung und Lehre',
   'Privater Gebrauch',
 ];
@@ -618,7 +628,7 @@ export const PLANS: PricingTier[] = [
     features: [
       { text: '1 Gerät / Installation' },
       { text: `Alle ${GAME_COUNT} Übungen` },
-      { text: 'Klientenverwaltung: unbegrenzt viele Profile', highlight: true },
+      { text: 'Profilverwaltung: unbegrenzt viele Profile', highlight: true },
       { text: 'Trainingsablauf-Editor', highlight: true },
       { text: 'Statistik & Auswertungen je Profil' },
       { text: 'Export als PDF und CSV' },
@@ -641,7 +651,7 @@ export const PLANS: PricingTier[] = [
     features: [
       { text: '3 Geräte / Installationen', highlight: true },
       { text: `Alle ${GAME_COUNT} Übungen` },
-      { text: 'Klientenverwaltung: unbegrenzt viele Profile', highlight: true },
+      { text: 'Profilverwaltung: unbegrenzt viele Profile', highlight: true },
       { text: 'Trainingsablauf-Editor', highlight: true },
       { text: 'Statistik & Auswertungen je Profil' },
       { text: 'Export als PDF und CSV' },
@@ -659,7 +669,7 @@ export const PLANS: PricingTier[] = [
     ctaLink: `mailto:${SALES_EMAIL}?subject=${encodeURIComponent('Anfrage Enterprise-Lizenz')}`,
     features: [
       { text: 'Volumenrabatte' },
-      { text: 'Anpassung der Normwerte' },
+      { text: 'Anpassung von Übungsinhalten und Schwierigkeitsstufen' },
       { text: 'White-Labeling auf Anfrage' },
       { text: 'Feature-Entwicklung auf Wunsch' },
       { text: 'Gerätezahl nach Absprache', highlight: true },
@@ -731,74 +741,6 @@ export const HOME_PLAN: PricingTier = {
  */
 export const PREIS_HINWEIS =
   'Alle Preise sind Endpreise. Gemäß §19 UStG wird keine Umsatzsteuer berechnet.';
-
-/* ── Wissenschaftlicher Hintergrund ───────────────────────────────────── */
-
-export const EVIDENCE: EvidenceEntry[] = [
-  {
-    module: 'Rückblick-Spiel (Arbeitsgedächtnis)',
-    references: [
-      'Kirchner, W.K. (1958). Age differences in short-term retention of rapidly changing information. Journal of Experimental Psychology, 55(4), 352–358.',
-      'Jaeggi, S.M., Buschkuehl, M., Jonides, J. & Perrig, W.J. (2008). Improving fluid intelligence with training on working memory. PNAS, 105(19), 6829–6833. DOI: 10.1073/pnas.0801268105',
-      'Owen, A.M., McMillan, K.M., Laird, A.R. & Bullmore, E. (2005). N-back working memory paradigm: A meta-analysis of normative functional neuroimaging studies. Human Brain Mapping, 25(1), 46–59.',
-    ],
-  },
-  {
-    module: 'Aufmerksamkeit halten (Daueraufmerksamkeit)',
-    references: [
-      'Rosvold, H.E., Mirsky, A.F., Sarason, I., Bransome, E.D. & Beck, L.H. (1956). A continuous performance test of brain damage. Journal of Consulting Psychology, 20(5), 343–350.',
-      'Riccio, C.A., Reynolds, C.R. & Lowe, P.A. (2001). Clinical Applications of Continuous Performance Tests. New York: Wiley.',
-      'Conners, C.K. (2000). Conners’ Continuous Performance Test II (CPT II). Toronto: Multi-Health Systems.',
-    ],
-  },
-  {
-    module: 'Was liegt wo? und Muster (räumliche Merkspanne)',
-    references: [
-      'Corsi, P.M. (1972). Human memory and the medial temporal region of the brain. Dissertation Abstracts International, 34(2-B), 891.',
-      'Kessels, R.P.C., van Zandvoort, M.J.E., Postma, A., Kappelle, L.J. & de Haan, E.H.F. (2000). The Corsi Block-Tapping Task: Standardization and normative data. Applied Neuropsychology, 7(4), 252–258. DOI: 10.1207/S15324826AN0704_8',
-      'Berch, D.B., Krikorian, R. & Huha, E.M. (1998). The Corsi block-tapping task: Methodological and theoretical considerations. Brain and Cognition, 38(3), 317–338.',
-    ],
-  },
-  {
-    module: 'Rückwärts-Muster (Manipulation statt Speicherung)',
-    references: [
-      'Kessels, R.P.C., van Zandvoort, M.J.E., Postma, A., Kappelle, L.J. & de Haan, E.H.F. (2000). The Corsi Block-Tapping Task: Standardization and normative data. Applied Neuropsychology, 7(4), 252–258. DOI: 10.1207/S15324826AN0704_8',
-      'Melby-Lervåg, M., Redick, T.S. & Hulme, C. (2016). Working memory training does not improve performance on measures of intelligence or other measures of „far transfer“. Perspectives on Psychological Science. DOI: 10.1177/1745691616635612',
-    ],
-  },
-  {
-    module: 'Simon (Sequenzgedächtnis)',
-    references: [
-      'Baddeley, A.D. (2000). The episodic buffer: A new component of working memory? Trends in Cognitive Sciences, 4(11), 417–423.',
-      'Conway, C.M. & Christiansen, M.H. (2001). Sequential learning in non-human primates. Trends in Cognitive Sciences, 5(12), 539–546.',
-      'Kessels, R.P.C., van den Berg, E., Ruis, C. & Brands, A.M.A. (2008). The backward span of the Corsi Block-Tapping Task and its association with the WAIS-III Digit Span. Assessment, 15(4), 426–434.',
-    ],
-  },
-  {
-    module: 'Wortliste (verbales Gedächtnis)',
-    references: [
-      'Rey, A. (1941). L’examen psychologique dans les cas d’encéphalopathie traumatique. Archives de Psychologie, 28, 215–285.',
-      'Helmstaedter, C., Lendt, M. & Lux, S. (2001). Verbaler Lern- und Merkfähigkeitstest (VLMT). Göttingen: Beltz Test.',
-      'Lezak, M.D., Howieson, D.B., Bigler, E.D. & Tranel, D. (2012). Neuropsychological Assessment (5th ed.). New York: Oxford University Press.',
-    ],
-  },
-  {
-    module: 'Muster merken (visuelles Kurzzeitgedächtnis)',
-    references: [
-      'Della Sala, S., Gray, C., Baddeley, A. & Wilson, L. (1997). The Visual Patterns Test: A new test of short-term visual recall. Feltham, UK: Thames Valley Test Company.',
-      'Luck, S.J. & Vogel, E.K. (1997). The capacity of visual working memory for features and conjunctions. Nature, 390(6657), 279–281. DOI: 10.1038/36846',
-      'Alvarez, G.A. & Cavanagh, P. (2004). The capacity of visual short-term memory is set both by visual information load and by number of objects. Psychological Science, 15(2), 106–111.',
-    ],
-  },
-  {
-    module: 'Memo-Match (visuelles Wiedererkennen)',
-    references: [
-      'Klingberg, T., Fernell, E., Olesen, P.J. et al. (2005). Computerized training of working memory in children with ADHD — A randomized, controlled trial. Journal of the American Academy of Child & Adolescent Psychiatry, 44(2), 177–186.',
-      'Gathercole, S.E. & Alloway, T.P. (2008). Working Memory and Learning: A Practical Guide for Teachers. London: SAGE Publications.',
-      'Unsworth, N. & Engle, R.W. (2007). The nature of individual differences in working memory capacity. Psychological Review, 114(1), 104–132.',
-    ],
-  },
-];
 
 /* ── Datenschutz ──────────────────────────────────────────────────────── */
 

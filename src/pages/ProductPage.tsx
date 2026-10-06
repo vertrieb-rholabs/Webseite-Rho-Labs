@@ -13,7 +13,6 @@ import {
   GAME_COUNT,
   GAMES,
   HOME_PLAN,
-  MDR_DISCLAIMER,
   PLANS,
   PREIS_HINWEIS,
   SHOT_KATALOG,
@@ -23,6 +22,7 @@ import {
   STATS_FEATURES,
   SYSTEM_REQUIREMENTS,
   USE_CASES,
+  ZWECKBESTIMMUNG,
   countByCategory,
 } from '../constants';
 import type { GameCategory } from '../types';
@@ -172,7 +172,7 @@ export default function ProductPage() {
       <section className="wrap section">
         <div className="intro" style={{ marginBottom: 40 }}>
           <p className="eyebrow">Auswertung</p>
-          <h2 className="h-section">Statistik, die man vorlegen kann</h2>
+          <h2 className="h-section">Trainingsverlauf auf einen Blick</h2>
           <p className="lede">
             Jede Einheit wird protokolliert und lässt sich auswerten — nach
             Übung, nach Aufgabenbereich und über die Zeit. Der Bericht geht als
@@ -319,7 +319,7 @@ export default function ProductPage() {
               Keine laufenden Kosten. Sicherheits-Patches und Bugfixes sind
               kostenlos; größere Feature-Updates werden als optionale Upgrades
               angeboten. Die Lizenzen auf dieser Seite sind für die Arbeit mit
-              anderen gedacht — <span className="mark">Klientenverwaltung</span>{' '}
+              anderen gedacht — <span className="mark">Profilverwaltung</span>{' '}
               und <span className="mark">Trainingsabläufe</span> sind ihr
               eigentlicher Unterschied zur Home-Version.
             </p>
@@ -376,8 +376,8 @@ export default function ProductPage() {
               sich an Einrichtungen und Fachkräfte
             </h3>
             <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: 0 }}>
-              Einzel, Team und Enterprise sind für die Arbeit mit Klientinnen
-              und Klienten bestimmt. Es gibt dafür keinen Sofortkauf auf dieser
+              Einzel, Team und Enterprise richten sich an Praxen, Einrichtungen
+              und Fachkräfte, die mit mehreren Personen trainieren. Es gibt dafür keinen Sofortkauf auf dieser
               Seite: Der Knopf öffnet eine Bestellmail, und der Vertrag kommt
               erst mit unserem Angebot und der Rechnung zustande. Für den
               privaten Gebrauch ist die {HOME_PLAN.name} gedacht — sie wird auf{' '}
@@ -403,7 +403,7 @@ export default function ProductPage() {
               Profil, eigene Statistik, Trainingsverlauf und Export der eigenen
               Daten, einmalig bezahlt. Der Export ist also{' '}
               <span className="mark">kein</span> Unterschied zwischen den
-              Ausführungen; der Unterschied sind die Klientenverwaltung und die
+              Ausführungen; der Unterschied sind die Profilverwaltung und die
               Trainingsabläufe.
             </p>
             <Link to="/home" className="link-arrow">
@@ -452,7 +452,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* ── Sonderanforderungen und MDR-Hinweis ──────────────────────── */}
+      {/* ── Sonderanforderungen und Zweckbestimmung ──────────────────────── */}
       <section
         className="wrap wrap--narrow"
         style={{ paddingBottom: 'clamp(56px, 7vw, 96px)' }}
@@ -463,7 +463,6 @@ export default function ProductPage() {
             <p>
               Wir entwickeln gegen Aufpreis Funktionen nach Ihren Anforderungen —
               von zugeschnittenen Übungen bis zu eigenen Auswertungen.
-              Enterprise-Kunden können außerdem Normwerte anpassen lassen.
             </p>
             <a
               href={`mailto:kontakt.rholabs@gmail.com?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
@@ -477,7 +476,7 @@ export default function ProductPage() {
             <span className="icon-box icon-box--sm icon-box--grey" aria-hidden="true">
               <Info size={17} />
             </span>
-            <p>{MDR_DISCLAIMER}</p>
+            <p>{ZWECKBESTIMMUNG}</p>
           </div>
         </div>
       </section>

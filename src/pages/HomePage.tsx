@@ -9,7 +9,6 @@ import {
   HOME_PLAN,
   KAUF_EINWILLIGUNG,
   KAUF_FORM_ACTION,
-  MDR_DISCLAIMER,
   PARTNER_PRUEF_URL,
   PREIS_HINWEIS,
   SYSTEM_REQUIREMENTS,
@@ -18,6 +17,7 @@ import {
   VORTEILSCODE_ZEICHEN,
   WIDERRUF_FUNKTION_LABEL,
   WIDERRUF_FUNKTION_PFAD,
+  ZWECKBESTIMMUNG,
 } from '../constants';
 import {
   VORAB_MERKMAL,
@@ -509,7 +509,7 @@ export default function HomePage() {
             <p className="lede" style={{ marginBottom: 24 }}>
               Home ist nicht beschnitten, sondern anders geschnitten: Der
               Übungskatalog ist vollständig, die Auswertung ebenso. Was fehlt,
-              ist die Verwaltung fremder Klienten — die braucht zu Hause
+              ist die Verwaltung mehrerer Profile — die braucht zu Hause
               niemand.
             </p>
             <ul className="checklist" style={{ marginBottom: 24 }}>
@@ -626,10 +626,10 @@ export default function HomePage() {
               </h3>
               <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: 0 }}>
                 Die kostenlose Demo läuft 14 Tage mit dem vollen
-                Professional-Umfang — also mit Klientenverwaltung und
-                Trainingsablauf-Editor. Die Home-Version hat{' '}
+                Professional-Umfang — also mit Profilverwaltung für mehrere
+                Personen und Trainingsablauf-Editor. Die Home-Version hat{' '}
                 <span className="mark">ein Profil</span> und keine
-                Klientenverwaltung. Wer von der Demo zu Home wechselt, behält
+                Profilverwaltung. Wer von der Demo zu Home wechselt, behält
                 alle {GAME_COUNT} Übungen, Statistik und Export, verliert aber
                 die mehreren Profile und die Trainingsabläufe.
               </p>
@@ -638,7 +638,7 @@ export default function HomePage() {
             <div className="info-card info-card--purple">
               <h3>Für Einrichtungen und Praxen</h3>
               <p>
-                Wer mit mehreren Klienten arbeitet, Trainingsabläufe
+                Wer mit mehreren Personen trainiert, Trainingsabläufe
                 zusammenstellt und auf mehreren Geräten installieren möchte, ist
                 bei den gewerblichen Lizenzen richtig.
               </p>
@@ -914,7 +914,7 @@ export default function HomePage() {
         <p className="price-note">{PREIS_HINWEIS}</p>
       </section>
 
-      {/* SmartScreen-Hinweis und MDR. Die Systemanforderungen stehen im
+      {/* SmartScreen-Hinweis und Zweckbestimmung. Die Systemanforderungen stehen im
           Pflichtblock vor dem Knopf, nicht noch einmal hier. */}
       <section
         className="wrap wrap--narrow"
@@ -945,7 +945,7 @@ export default function HomePage() {
             <span className="icon-box icon-box--sm icon-box--grey" aria-hidden="true">
               <Info size={17} />
             </span>
-            <p>{MDR_DISCLAIMER}</p>
+            <p>{ZWECKBESTIMMUNG}</p>
           </div>
         </div>
       </section>
