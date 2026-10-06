@@ -138,6 +138,34 @@ export const KAUF_FORM_ACTION = `${API_BASIS}/api/public/kauf/start`;
  */
 export const WIDERRUF_FORM_ACTION = `${API_BASIS}/api/public/widerruf/eingabe`;
 
+/* ── Pilotprogramm ─────────────────────────────────────────────────────────
+   Drei Adressen des Auslieferungsdienstes (Rholabs-fullfilment,
+   `src/main/pilot.ts`, Router `/api/public/pilot`). Die Weiterleitungsziele
+   des Dienstes stehen dort fest und zeigen auf die Seiten dieser Website:
+
+     Bewerbung gespeichert   -> /pilotpartner/danke
+     Bewerbung gescheitert   -> /pilotpartner?fehler=eingabe|zu_viele|intern#bewerbung
+     Zustimmung gespeichert  -> /pilotpartner/zustimmung/fertig
+     Zustimmung gescheitert  -> /pilotpartner/zustimmung/fehler?grund=abgelaufen|fassung|eingabe|zu_viele|intern
+
+   Der Einmal-Link in der Mail fuehrt auf /pilotpartner/zustimmung?t=<Token>.
+   `scripts/pilot.test.mjs` haelt Felder, Grenzen und Ziele gegen den Dienst.
+   ---------------------------------------------------------------------- */
+
+/** POST-Ziel der Bewerbung (urlencoded, ohne enctype). */
+export const PILOT_BEWERBUNG_ACTION = `${API_BASIS}/api/public/pilot/bewerbung`;
+
+/** POST-Ziel der Zustimmung zu den Pilotbedingungen (urlencoded, ohne enctype). */
+export const PILOT_ZUSTIMMUNG_ACTION = `${API_BASIS}/api/public/pilot/zustimmung`;
+
+/**
+ * GET: zeigt zu einem Einmal-Link das Angebot an — `{ gueltig, einrichtung,
+ * geplanter_start, letzter_nutzungstag, geraete, fassung }`. Der Token geht
+ * als Abfrageparameter `t` mit; die Seite loggt ihn nicht und gibt ihn nie
+ * weiter.
+ */
+export const PILOT_ZUSTIMMUNG_INFO_URL = `${API_BASIS}/api/public/pilot/zustimmung/info`;
+
 /**
  * Beschriftung und Pfad der Widerrufsfunktion — WORTGLEICH an jeder Stelle.
  *

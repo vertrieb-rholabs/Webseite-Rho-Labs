@@ -9,6 +9,8 @@ interface StatusPageProps {
   body: ReactNode;
   note: ReactNode;
   action: ReactNode;
+  /** Optional: zusaetzlicher Block zwischen Text und Hinweis (z. B. Rueckweg-Hinweise). */
+  extra?: ReactNode;
 }
 
 /**
@@ -26,6 +28,7 @@ export default function StatusPage({
   body,
   note,
   action,
+  extra,
 }: StatusPageProps) {
   return (
     <>
@@ -38,6 +41,7 @@ export default function StatusPage({
           </span>
           <h1>{title}</h1>
           <p className="status-page__body">{body}</p>
+          {extra}
           <p className="status-page__note">{note}</p>
           {action}
         </div>

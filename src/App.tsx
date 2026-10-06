@@ -19,6 +19,12 @@ import KaufAbgebrochen from './pages/kauf/KaufAbgebrochen';
 import KaufInArbeit from './pages/kauf/KaufInArbeit';
 import WiderrufErklaeren from './pages/WiderrufErklaeren';
 import WiderrufEingegangen from './pages/widerruf/WiderrufEingegangen';
+import PilotPartner from './pages/PilotPartner';
+import PilotBedingungen from './pages/PilotBedingungen';
+import PilotDanke from './pages/pilot/PilotDanke';
+import PilotZustimmung from './pages/pilot/PilotZustimmung';
+import PilotZustimmungFertig from './pages/pilot/PilotZustimmungFertig';
+import PilotZustimmungFehler from './pages/pilot/PilotZustimmungFehler';
 
 /**
  * Die drei Routen unter /demo/ sind die fest verdrahteten Weiterleitungsziele
@@ -37,6 +43,15 @@ import WiderrufEingegangen from './pages/widerruf/WiderrufEingegangen';
  * (`seite-widerruf.md` und `rechtstexte.ts` im Dienst); wer sie umbenennt,
  * laesst eine Belehrung ins Leere zeigen. /vertrag-widerrufen/eingegangen ist
  * das Weiterleitungsziel des Dienstes nach geglueckter Eingangsbestaetigung.
+ *
+ * Pilotprogramm (06.10.2026): /pilotpartner traegt die Bewerbung, /pilotbedingungen
+ * den Wortlaut der Pilotbedingungen. Die vier Seiten darunter sind die fest
+ * verdrahteten Weiterleitungsziele des Dienstes (pilot.ts: ZIEL_BEWERBUNG_DANKE,
+ * ZIEL_ZUSTIMMUNG_FERTIG, zielZustimmungFehler) und das Ziel des Einmal-Links
+ * in der Mail an die Ansprechperson (ZUSTIMMUNGSSEITE_URL); wer eine davon
+ * umbenennt, laesst Bewerbung oder Vertragsschluss in den 404 laufen. Die
+ * Status- und Zustimmungsseiten tragen noindex und stehen nicht in der
+ * Sitemap.
  *
  * Jede neue Route gehoert an drei weitere Stellen: die ROUTES-Liste in
  * vite.config.ts (Vorrendern), die Liste in scripts/hydration-check.mjs und
@@ -71,6 +86,15 @@ export const routes: RouteRecord[] = [
       // Schraegstrich wie die /demo- und /kauf-Seiten.
       { path: 'vertrag-widerrufen', Component: WiderrufErklaeren },
       { path: 'vertrag-widerrufen/eingegangen', Component: WiderrufEingegangen },
+      // Pilotprogramm. Bewerbung und Bedingungen sind indexierbar; die vier
+      // Seiten darunter sind Weiterleitungsziele des Dienstes bzw. der Seite
+      // des Einmal-Links und tragen noindex (siehe oben).
+      { path: 'pilotpartner', Component: PilotPartner },
+      { path: 'pilotpartner/danke', Component: PilotDanke },
+      { path: 'pilotpartner/zustimmung', Component: PilotZustimmung },
+      { path: 'pilotpartner/zustimmung/fertig', Component: PilotZustimmungFertig },
+      { path: 'pilotpartner/zustimmung/fehler', Component: PilotZustimmungFehler },
+      { path: 'pilotbedingungen', Component: PilotBedingungen },
       { path: '*', Component: NotFound },
     ],
   },

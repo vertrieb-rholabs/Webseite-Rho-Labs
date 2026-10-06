@@ -6,7 +6,8 @@ import { } from 'vite-react-ssg';
 
 // Alle Seiten, die vorgerendert werden. Die drei /demo- und die drei
 // /kauf-Routen sind die Weiterleitungsziele des Auslieferungsdienstes und
-// muessen als eigene Verzeichnisse mit index.html entstehen — sonst laeuft
+// ebenso die vier Seiten unter /pilotpartner/ (Bewerbung, Zustimmung) —
+// sie muessen als eigene Verzeichnisse mit index.html entstehen — sonst laeuft
 // der Bestaetigungsklick oder der Rueckweg der Zahlung in den 404.
 const ROUTES = [
   '/',
@@ -27,6 +28,12 @@ const ROUTES = [
   '/kauf/in-arbeit',
   '/vertrag-widerrufen',
   '/vertrag-widerrufen/eingegangen',
+  '/pilotpartner',
+  '/pilotpartner/danke',
+  '/pilotpartner/zustimmung',
+  '/pilotpartner/zustimmung/fertig',
+  '/pilotpartner/zustimmung/fehler',
+  '/pilotbedingungen',
   '/404',
 ];
 

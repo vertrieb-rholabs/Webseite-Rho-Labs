@@ -645,6 +645,10 @@ export default function HomePage() {
               <Link to="/kognitives-training" className="link-arrow">
                 Gewerbliche Lizenzen ansehen <ArrowRight size={15} strokeWidth={2.2} />
               </Link>
+              <p className="pilot-hinweis">
+                Pilotpartner gesucht →{' '}
+                <Link to="/pilotpartner">Mehr erfahren</Link>
+              </p>
             </div>
           </div>
         </div>

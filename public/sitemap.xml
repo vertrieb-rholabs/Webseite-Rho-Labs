@@ -7,25 +7,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rholabs.de/</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://rholabs.de/kognitives-training</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://rholabs.de/home</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://rholabs.de/evidenz</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -43,13 +43,13 @@
   </url>
   <url>
     <loc>https://rholabs.de/datenschutz</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://rholabs.de/agb</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -75,7 +75,25 @@
   </url>
   <url>
     <loc>https://rholabs.de/lizenzbedingungen</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <!--
+    Pilotprogramm: die Bewerbungsseite und der Wortlaut der Pilotbedingungen.
+    Die vier Seiten unter /pilotpartner/ (danke, zustimmung, zustimmung/fertig,
+    zustimmung/fehler) sind Weiterleitungsziele des Dienstes, tragen noindex und
+    stehen hier bewusst nicht.
+  -->
+  <url>
+    <loc>https://rholabs.de/pilotpartner</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rholabs.de/pilotbedingungen</loc>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

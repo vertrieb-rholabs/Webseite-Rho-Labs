@@ -33,6 +33,12 @@ const ROUTES = [
   '/kauf/in-arbeit/',
   '/vertrag-widerrufen',
   '/vertrag-widerrufen/eingegangen/',
+  '/pilotpartner',
+  '/pilotpartner/danke/',
+  '/pilotpartner/zustimmung/',
+  '/pilotpartner/zustimmung/fertig/',
+  '/pilotpartner/zustimmung/fehler/',
+  '/pilotbedingungen',
   '/foo-bar',
 ];
 

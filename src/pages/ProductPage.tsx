@@ -384,6 +384,10 @@ export default function ProductPage() {
               <Link to="/home">/home</Link> gekauft, mit vollständigem
               Bestellvorgang, Widerrufsrecht und Lizenzschlüssel per E-Mail.
             </p>
+            <p className="pilot-hinweis">
+              Pilotpartner gesucht →{' '}
+              <Link to="/pilotpartner">Mehr erfahren</Link>
+            </p>
           </div>
 
           {/* Querverweis auf die Home-Version. Bewusst als eigener Baustein

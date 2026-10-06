@@ -180,6 +180,11 @@ export default function Footer() {
               Lizenzschlüssel —{' '}
               <a href={`mailto:${LIZENZ_SUPPORT_EMAIL}`}>{LIZENZ_SUPPORT_EMAIL}</a>
             </p>
+            <p style={{ margin: '14px 0 0', fontSize: 14, fontWeight: 600 }}>
+              <Link to="/pilotpartner" className="footer__link">
+                Pilotprogramm
+              </Link>
+            </p>
             <p className="note" style={{ margin: '10px 0 0', lineHeight: 1.6 }}>
               Rho-Labs — Patrick Feix
               <br />
