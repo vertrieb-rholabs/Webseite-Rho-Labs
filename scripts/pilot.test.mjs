@@ -9,13 +9,22 @@
 // `APP_QUELLE`). Fehlt einer von beiden, wird die Gegenprobe ÜBERSPRUNGEN und
 // das gesagt — nicht stillschweigend für bestanden erklärt.
 //
-// ── Was hier absichtlich rot sein kann ──────────────────────────────────────
-//  · Tests, die den TEXT der Pilotbedingungen im Dienst lesen, sind rot, solange
-//    der Dienst noch den Platzhalter trägt (Auftrag S2 nicht abgeschlossen).
-//  · Das Freigabe-Tor „kein TODO-S2" ist rot, solange der Satz zur Aufbewahrung
-//    der Protokolle aus dem Bericht S2 fehlt. Wer es grün machen will, setzt den
-//    Satz ein — nicht den Test um.
-// Beides sind Merker, keine Fehler der Tests.
+// ── Stand nach S2 und W2 ────────────────────────────────────────────────────
+//  · Der Dienst trägt den kanonischen Text der Pilotbedingungen (S2); die Tests
+//    zum Text und zu den Feldern der Zustimmung laufen gegen seinen jetzigen
+//    Quelltext. Zeilenenden des Dienst-Quelltexts werden vor dem Vergleichen
+//    normalisiert (CRLF → LF): eine Windows-Arbeitskopie mit CRLF ist kein
+//    Fehler des Dienstes.
+//  · Das Freigabe-Tor „kein TODO-S2" ist grün, seit der Satz zur Aufbewahrung
+//    der Protokolle (Bericht S2, Abschnitt 5) eingesetzt ist. Der zweite
+//    Halbsatz („Systemprotokoll … nach 30 Tagen") gilt erst, wenn journald auf
+//    dem Server auf 30 Tage steht; das ist eine Freigabebedingung des Inhabers,
+//    kein Zustand, den die Website prüfen könnte. Der Test hält nur fest, dass
+//    der Bericht S2 das Ziel (`MaxRetentionSec=30day`) nennt.
+//  · Die Regel „wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später"
+//    (Speicherdauer) setzt der Dienst erst im Auftrag S3 um. Der Abgleich mit
+//    dem Dienst prüft deshalb nur die BESTEHENDEN Fristen (P13); sobald S3
+//    steht, kommt dort die neue Regel dazu.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -28,12 +37,15 @@ const DIENST = process.env.DIENST_QUELLE
   || path.resolve(root, '..', '..', 'Software', 'Rholabs-fullfilment');
 const APP = process.env.APP_QUELLE
   || path.resolve(root, '..', '..', 'Software', 'Gedaechtniss-Training');
+// Die Berichte des Pilotprogramms (nur lesen): dort steht der Bericht S2.
+const BERICHTE = process.env.BERICHTE_QUELLE
+  || path.resolve(root, '..', 'Pilotprogramm', 'berichte');
 
 /* ── Lesehelfer ──────────────────────────────────────────────────────────── */
 
 function quelle(rel) {
   try {
-    return fs.readFileSync(path.join(root, rel), 'utf8');
+    return lf(fs.readFileSync(path.join(root, rel), 'utf8'));
   } catch {
     return '';
   }
@@ -54,12 +66,17 @@ function seite(rel) {
 /** Datei des Dienstes oder `null` (dann sagt der Test, dass die Gegenprobe fehlte). */
 function dienst(rel) {
   const voll = path.join(DIENST, rel);
-  return fs.existsSync(voll) ? fs.readFileSync(voll, 'utf8') : null;
+  return fs.existsSync(voll) ? lf(fs.readFileSync(voll, 'utf8')) : null;
 }
 
 function app(rel) {
   const voll = path.join(APP, rel);
-  return fs.existsSync(voll) ? fs.readFileSync(voll, 'utf8') : null;
+  return fs.existsSync(voll) ? lf(fs.readFileSync(voll, 'utf8')) : null;
+}
+
+/** Zeilenenden normalisieren: Eine Windows-Arbeitskopie mit CRLF darf keinen Test rot machen. */
+function lf(text) {
+  return text.replace(/\r\n/g, '\n');
 }
 
 function fehlt(was, pfad) {
@@ -407,7 +424,8 @@ test('P7 — die Pilotseite trägt Titel, Beschreibung und Kernsätze aus T1', (
   const html = seite(path.join('pilotpartner', 'index.html'));
   assert.match(html, /<title[^>]*>Pilotpartner gesucht — Rho-Labs Kognitives Training<\/title>/);
   assert.match(html, /<meta[^>]*name="description" content="Rho-Labs sucht drei bis fünf Praxen und Einrichtungen, die die Trainingssoftware sechs Wochen kostenlos im Arbeitsalltag erproben und mitgestalten\. Unverbindlich bewerben\."/);
-  const text = htmlText(html);
+  // Der Hinweis „(öffnet in neuem Tab)" ist nur für Screenreader da und gehört nicht zum Satz aus T1.
+  const text = htmlText(html).replace(/ \(öffnet in neuem Tab\)/g, '');
   for (const satz of [
     'Pilotprogramm',
     'Pilotpartner für kognitives Training gesucht',
@@ -525,6 +543,22 @@ test('P10 — Evidenzseite: Herkunft statt Wirkung', () => {
   );
   assert.ok(!/export const EVIDENCE\b/.test(quelle('src/constants.ts')), 'Die tote Konstante EVIDENCE ist wieder da.');
 
+  // W2 Nr. 2 (RW1, MITTEL): Kein Herkunftstext nennt die Übung selbst ein (normiertes/diagnostisches) Testverfahren.
+  const ber0 = JSON.parse(quelle('scripts/evidenz-bereinigung.json'));
+  const wort = ber0.evidenztexte.word;
+  assert.ok(
+    wort.includes('wurde im deutschsprachigen Raum unter anderem von Lux u. a. (1999, *Diagnostica* 45, 205–211,')
+    && wort.includes(') für Wortlistenaufgaben beschrieben.'),
+    'Der Herkunftstext der Wortliste trägt nicht die Formulierung aus W2 Nr. 2.',
+  );
+  const TESTANMUTUNG = /als Verbale[rn] Lern|Merkfähigkeitstest vor|liegt [^.]{0,60} vor \(|Visual Patterns Test|Continuous Performance Tests?\b|normiert|Normierung|diagnostisch|psychometrisch/i;
+  for (const [key, t] of Object.entries(ber0.evidenztexte)) {
+    if (typeof t === 'string') assert.doesNotMatch(t, TESTANMUTUNG, `Bereinigungsdatei, Herkunftstext von ${key}: legt ein Testverfahren nahe.`);
+  }
+  for (const m of evidenz.matchAll(/"evidenztext": "((?:[^"\\]|\\.)*)"/g)) {
+    assert.doesNotMatch(m[1], TESTANMUTUNG, `src/data/evidenz.ts, Herkunftstext „${m[1].slice(0, 60)}…": legt ein Testverfahren nahe.`);
+  }
+
   // Die Bereinigung ist angewandt: keine entfernte Quelle, jeder Text aus der Datei.
   const ber = JSON.parse(quelle('scripts/evidenz-bereinigung.json'));
   for (const eintraege of Object.values(ber.entfernteQuellen)) {
@@ -584,16 +618,34 @@ test('P12 — der Pilotabschnitt: Inhalt, Du-Form, Fristen, keine Platzhalter', 
     'sechs Monate nach der Entscheidung', 'spätestens zwölf Monate nach ihrem Eingang',
     'nach drei Monaten', 'mit Ablauf des dritten Kalenderjahres nach dem Jahr, in dem das Pilotprogramm endet',
     'höchstens 30 Tage', 'Art. 17 Abs. 3 lit. e DSGVO',
+    // W2 (Ergänzung): Frist bei vereinbarter Anpassung — der Dienst setzt das erst in S3 um (siehe P13).
+    'wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später',
+    // W2 Nr. 1: der Satz zu den Protokollen (Bericht S2, Abschnitt 5), in der Fassung der Seite.
+    'Bearbeitungen in der Pilotverwaltung protokolliert der Lizenzdienst nur mit Zeitpunkt, Benutzerkennung, Aufruf und Ergebnis – ohne Inhalte – und löscht diese Einträge nach 90 Tagen',
+    'den Versand von E-Mails protokolliert er ohne Empfängeradresse, nur mit Bestell- oder Vorgangsnummer und Art der Nachricht, im Systemprotokoll des Servers, das Einträge nach 30 Tagen löscht',
   ]) assert.ok(abschnitt.includes(stueck), `Pilotabschnitt: Satz fehlt — „${stueck}"`);
   assert.doesNotMatch(abschnitt, /\b(Sie|Ihre|Ihr|Ihnen|Ihren|Ihrer|Ihrem)\b/, 'Der Pilotabschnitt siezt — die Erklärung duzt.');
   assert.doesNotMatch(abschnitt, /\[Satz|Bericht S2 einsetzen\.\]/, 'Der Platzhalter aus T1 ist veröffentlicht.');
 });
 
-test('FREIGABE-TOR — kein TODO-S2 in der Datenschutzerklärung (Satz zur Aufbewahrung der Protokolle fehlt noch)', () => {
+test('FREIGABE-TOR — kein TODO-S2, kein interner Vermerk; der Bericht S2 nennt das journald-Ziel', () => {
   const html = seite(path.join('datenschutz', 'index.html'));
   assert.doesNotMatch(html, /TODO-S2/, 'Der Marker TODO-S2 steht noch in der Datenschutzerklärung: der Satz zur Aufbewahrung der Protokolle '
     + '(audit.log, Mail-Log) aus dem Bericht S2 ist nicht eingesetzt. Die Pilotseite darf so nicht veröffentlicht werden.');
   assert.doesNotMatch(quelle('src/constants.ts'), /TODO-S2/);
+  // Der Vermerk aus T1 („[Gilt erst, wenn journald …]") ist für die Redaktion, nicht für die Veröffentlichung.
+  assert.doesNotMatch(htmlText(html), /\[Gilt erst|journald|Launch-Checkliste/, 'Der interne Vermerk zu journald steht in der veröffentlichten Erklärung.');
+  assert.doesNotMatch(quelle('src/constants.ts'), /Gilt erst, wenn journald|\[Gilt erst/);
+
+  // Der zweite Halbsatz („Systemprotokoll … nach 30 Tagen") stimmt erst, wenn journald so eingestellt ist.
+  // Das ist Sache des Inhabers am Server und von hier aus nicht prüfbar. Geprüft wird nur, dass der Bericht S2
+  // das Ziel als offenen Punkt nennt; fehlt der Bericht, sagt der Test, dass die Gegenprobe nicht lief.
+  const bericht = path.join(BERICHTE, 'S2-server-bericht.md');
+  if (!fs.existsSync(bericht)) return fehlt('Bericht S2', bericht);
+  const text = lf(fs.readFileSync(bericht, 'utf8'));
+  assert.match(text, /MaxRetentionSec=30day/, 'Der Bericht S2 nennt das journald-Ziel (MaxRetentionSec=30day) nicht mehr.');
+  assert.match(text, /journald-Frist/, 'Der Bericht S2 führt die journald-Frist nicht mehr als offenen Punkt.');
+  console.log('      ℹ Offene Freigabebedingung (Inhaber, Server): journald auf 30 Tage stellen (MaxRetentionSec=30day) — erst dann stimmt der zweite Halbsatz zu den Protokollen.');
 });
 
 test('P13 — der Pilotabschnitt gegen den Quelltext des Dienstes: Felder, keine IP, Benachrichtigung, Fristen', () => {
@@ -649,7 +701,70 @@ test('P13 — der Pilotabschnitt gegen den Quelltext des Dienstes: Felder, keine
   const sicherung = dienst(path.join('werkzeuge', 'sicherung.mjs'));
   if (sicherung !== null) {
     assert.ok(/\b30\b/.test(sicherung) && /tage|days|\*\s*24/i.test(sicherung), 'Das Sicherungswerkzeug löscht keine Sicherungen nach 30 Tagen (Auftrag S2 Nr. 14) — der Abschnitt sagt „höchstens 30 Tage".');
+    assert.match(sicherung, /const AUFBEWAHREN_VORGABE = 30;/, 'Die Vorgabe des Sicherungswerkzeugs ist nicht mehr 30 Tage.');
   }
+  // „Ablauf des dritten Kalenderjahres nach dem Jahr, in dem das Pilotprogramm endet" = 1. Januar des vierten Folgejahres.
+  assert.match(code, /Date\.UTC\(jahr \+ LOESCHFRISTEN\.allesNachEndeKalenderjahre \+ 1, 0, 1\)/, 'Die Frist „Ablauf des dritten Kalenderjahres" ist im Dienst anders berechnet.');
+  assert.match(code, /freitextLeerenAb: monatePlus\(bezug, LOESCHFRISTEN\.freitextNachEndeMonate\)/, 'Freitext und Telefon werden im Dienst nicht drei Monate nach dem Ende geleert.');
+  // Neu ab S3, hier noch NICHT geprüft: „wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später" (wartet auf S3).
+});
+
+test('P13b — der Pilotabschnitt gegen den Dienst nach S2: Felder der Zustimmung, Bestätigungsmail, Fragen per E-Mail, Protokolle', () => {
+  const { abschnitt } = pilotAbschnitt();
+  const ts = dienst(path.join('src', 'main', 'pilot.ts'));
+  const mail = dienst(path.join('src', 'main', 'mailer.ts'));
+  const proto = dienst(path.join('src', 'main', 'protokoll.ts'));
+  if (ts === null || mail === null || proto === null) return fehlt('Dienst', DIENST);
+  const code = ohneKommentare(ts);
+
+  // a) Das Zustimmungsprotokoll speichert genau die Angaben, die der Abschnitt nennt — keine IP.
+  const insert = /INSERT INTO pilot_zustimmung \(([\s\S]*?)\)\s*SELECT/.exec(code);
+  assert.ok(insert, 'Der INSERT der Zustimmung ist im Dienst nicht zu finden.');
+  const spalten = insert[1].split(',').map((s) => s.trim()).filter(Boolean).sort();
+  assert.deepEqual(
+    spalten,
+    [
+      'anschrift', 'bedingungen_fassung', 'bedingungen_sha256', 'einrichtung', 'feedback_mails', 'geplanter_start', 'geraete',
+      'person_email', 'person_funktion', 'person_name', 'pilot_id', 'traeger', 'unternehmer_bestaetigt',
+      'vertretungsbefugnis_bestaetigt', 'zugestimmt_at',
+    ],
+    'Das Zustimmungsprotokoll speichert andere Angaben, als der Abschnitt „Teilnahme" nennt (Fassung, Prüfsumme, Zeitpunkt, '
+    + 'Einrichtung, Träger mit Anschrift, geplanter Start, Gerätezahl, Name, Funktion, E-Mail, Bestätigungen, Wahl der Fragen per E-Mail).',
+  );
+  for (const stueck of [
+    'die Fassung der Bedingungen und deren Prüfsumme', 'den Zeitpunkt', 'Einrichtung, rechtlicher Träger mit Anschrift, geplanter Pilotstart, Gerätezahl',
+    'Name, Funktion und E-Mail-Adresse der zustimmenden Person',
+    'für den Träger handeln zu dürfen und dass dieser nicht als Verbraucher handelt',
+    'ihre Wahl, ob sie wöchentliche Fragen per E-Mail erhalten möchte',
+  ]) assert.ok(abschnitt.includes(stueck), `Pilotabschnitt: Angabe zur Zustimmung fehlt — „${stueck}"`);
+
+  // b) Die Pflicht-Häkchen und die freiwillige Wahl: der Dienst verlangt befugnis/unternehmer/bedingungen, feedback_mails ist freiwillig.
+  assert.match(code, /k\.bedingungen !== 'ja' \|\| k\.befugnis !== 'ja' \|\| k\.unternehmer !== 'ja'/);
+  assert.match(code, /const feedback = feedbackWahl\(k\.feedback_mails\);/);
+
+  // c) Die Bestätigungsmail geht sofort nach dem Protokoll an die Adresse des Einmal-Links.
+  assert.match(code, /await bestaetigungSenden\(protokollId, deps\.getConfig\(\)\);/, 'Der Dienst schickt nach der Zustimmung keine Bestätigung mehr.');
+  assert.match(mail, /export async function sendPilotBestaetigungEmail\(/);
+  assert.match(abschnitt, /Anschließend erhält sie per E-Mail eine Bestätigung mit den Pilotbedingungen\./);
+
+  // d) Das Angebot vor der Annahme: Die Seite ruft …/zustimmung/info schon beim Öffnen auf; der Dienst führt den Token dort nicht in Protokollen.
+  const infoStart = code.indexOf("'/pilot/zustimmung/info'");
+  const info = code.slice(infoStart, code.indexOf('router.post', infoStart));
+  assert.ok(infoStart > 0 && info.length > 0, 'Der Info-Endpunkt ist im Dienst nicht zu finden.');
+  assert.doesNotMatch(info, /console\.(log|info|warn)\(/, 'Der Info-Endpunkt schreibt ins Journal — der Abschnitt sagt: der Link wird nicht protokolliert.');
+  assert.doesNotMatch(info, /\bt\b[^;\n]*\$\{|\$\{[^}]*\bt\b\}/, 'Der Info-Endpunkt gibt den Token in eine Zeichenkette (Protokoll?).');
+  assert.match(abschnitt, /schon beim Öffnen auf, um das Angebot anzuzeigen/);
+
+  // e) Protokolle: audit.log der Pilotverwaltung ohne Inhalt, 90 Tage; Sicherungen 30 Tage (P13 d).
+  assert.match(proto, /export const AUDIT_LOG_AUFBEWAHRUNG_TAGE = 90;/, 'Das audit.log wird nicht mehr 90 Tage aufbewahrt — der Abschnitt sagt „nach 90 Tagen".');
+  assert.match(proto, /export function istPilotverwaltung\(pfad: string\): boolean \{\s*return pfad === '\/pilot' \|\| pfad\.startsWith\('\/pilot\/'\);/);
+  const server = dienst(path.join('src', 'main', 'server.ts'));
+  if (server !== null) {
+    assert.match(server, /istPilotverwaltung\(/, 'Der Server unterscheidet die Pilotverwaltung im audit.log nicht mehr.');
+    assert.match(server, /auditLogKuerzen\(AUDIT_LOG_PATH\)/, 'Der tägliche Lauf kürzt das audit.log nicht mehr.');
+  }
+  // Der Satz zum Mail-Log gilt, solange der Dienst seinen Test dazu führt (keine Empfängeradresse in der Logzeile).
+  assert.ok(fs.existsSync(path.join(DIENST, 'tests', 'mail-log.test.js')), 'Der Dienst führt den Test „Mail-Log ohne Empfängeradresse" nicht mehr.');
 });
 
 test('P14 — Lizenzaktivierung und Update-Prüfung gegen das tatsächliche Verhalten der App', () => {
@@ -700,4 +815,94 @@ test('P16 — Fußzeile, Produktseite und Home-Seite verweisen auf die Pilotseit
   }
   const startseite = seite('index.html');
   assert.match(startseite, /href="\/pilotpartner"/, 'Die Fußzeile verlinkt die Pilotseite nicht.');
+});
+
+/* ── 9 · Barrierefreiheit und Navigation (W2 Nr. 3 bis 5) ────────────────── */
+
+test('P17 — Links mit target="_blank" auf den Pilot- und Evidenzseiten: Hinweis „(öffnet in neuem Tab)" und rel="noopener noreferrer"', () => {
+  // Quelle: jede <a …target="_blank"…>…</a> der neuen Seiten.
+  const dateien = [
+    'src/pages/PilotPartner.tsx', 'src/pages/PilotBedingungen.tsx', 'src/pages/EvidencePage.tsx',
+    'src/components/EvidenzText.tsx',
+    ...fs.readdirSync(path.join(root, 'src', 'pages', 'pilot')).filter((f) => f.endsWith('.tsx')).map((f) => `src/pages/pilot/${f}`),
+  ];
+  let gesehen = 0;
+  for (const rel of dateien) {
+    const src = quelle(rel);
+    for (const m of src.matchAll(/<a\b[^>]*\btarget="_blank"[\s\S]*?<\/a>/g)) {
+      gesehen += 1;
+      assert.match(m[0], /rel="noopener noreferrer"/, `${rel}: Link mit target="_blank" ohne rel="noopener noreferrer".`);
+      assert.match(m[0], /<span className="sr-only"> \(öffnet in neuem Tab\)<\/span>/, `${rel}: Link mit target="_blank" ohne Screenreader-Hinweis.`);
+    }
+  }
+  assert.ok(gesehen >= 4, 'Es wurden weniger Links mit target="_blank" gefunden als erwartet.');
+  assert.match(quelle('src/styles/site.css'), /\.sr-only \{[^}]*clip: rect\(0, 0, 0, 0\)/, 'Die Klasse sr-only verbirgt den Hinweis nicht.');
+
+  // Erzeugnis: dasselbe in den ausgelieferten Seiten, die ein Link in neuem Tab trägt.
+  for (const rel of [path.join('pilotpartner', 'index.html'), path.join('pilotbedingungen', 'index.html'), path.join('evidenz', 'index.html')]) {
+    const html = seite(rel);
+    for (const m of html.matchAll(/<a\b[^>]*\btarget="_blank"[^>]*>[\s\S]*?<\/a>/g)) {
+      assert.match(m[0], /rel="noopener noreferrer"/, `${rel}: ausgelieferter Link ohne rel="noopener noreferrer": ${m[0].slice(0, 100)}`);
+      // Ein Symbol-Link ohne Text (Fußzeile) trägt den Hinweis in seiner Beschriftung (aria-label).
+      assert.match(m[0], /<span class="sr-only"> \(öffnet in neuem Tab\)<\/span>|aria-label="[^"]*\(öffnet in neuem Tab\)"/, `${rel}: ausgelieferter Link ohne Hinweis: ${m[0].slice(0, 100)}`);
+    }
+  }
+  assert.match(seite(path.join('pilotpartner', 'index.html')), /<a href="\/datenschutz#pilotprogramm" target="_blank" rel="noopener noreferrer">Datenschutzhinweise<span class="sr-only"> \(öffnet in neuem Tab\)<\/span><\/a>/);
+});
+
+test('P18 — Navigation: „Hintergrund" statt „Evidenz", die Route bleibt /evidenz', () => {
+  const nav = quelle('src/components/Navbar.tsx');
+  assert.match(nav, /\{ to: '\/evidenz', label: 'Hintergrund' \}/);
+  assert.doesNotMatch(nav, /label: 'Evidenz'/);
+  for (const rel of ['index.html', path.join('pilotpartner', 'index.html'), path.join('evidenz', 'index.html')]) {
+    const html = seite(rel);
+    assert.match(html, /<a [^>]*class="nav__link[^"]*" href="\/evidenz"[^>]*>Hintergrund<\/a>/, `${rel}: Menüpunkt „Hintergrund" fehlt.`);
+    assert.doesNotMatch(html, /<a [^>]*class="nav__link[^"]*" href="\/evidenz"[^>]*>Evidenz<\/a>/, `${rel}: Menüpunkt heißt noch „Evidenz".`);
+  }
+  assert.match(quelle('src/App.tsx'), /path:\s*'evidenz'/, 'Die Route /evidenz muss bleiben.');
+});
+
+/* Kontrast kleiner Texte (WCAG 2.1, 1.4.3: mindestens 4,5:1). */
+const hexZuRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const lin = (c) => { const x = c / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; };
+const leuchtdichte = (rgb) => 0.2126 * lin(rgb[0]) + 0.7152 * lin(rgb[1]) + 0.0722 * lin(rgb[2]);
+const mischen = (vorn, hinten, a) => hinten.map((c, i) => Math.round(a * vorn[i] + (1 - a) * c));
+const kontrast = (a, b) => {
+  const [hell, dunkel] = [leuchtdichte(a), leuchtdichte(b)].sort((x, y) => y - x);
+  return (hell + 0.05) / (dunkel + 0.05);
+};
+
+test('P19 — Kontrast: kleine informative Texte der Pilotseiten erreichen 4,5:1 auf jedem Untergrund der Seite', () => {
+  const css = quelle('src/styles/site.css');
+  const token = (n) => new RegExp(`--${n}: *(#[0-9a-fA-F]{6});`).exec(css)?.[1];
+  const weiss = hexZuRgb('#ffffff');
+  // Ungünstigster Untergrund: Karten mit weißem Schleier (0,08) über dem Band, dazu Grund, Fläche und Cyan-Schleier.
+  const untergruende = {
+    Grund: hexZuRgb(token('bg')),
+    Band: hexZuRgb(token('bg-band')),
+    Fläche: hexZuRgb(token('surface')),
+    'Karte (weiß 8 %)': mischen(weiss, hexZuRgb(token('bg-band')), 0.08),
+    'Karte (cyan 5 %)': mischen(hexZuRgb(token('cyan')), hexZuRgb(token('bg')), 0.05),
+  };
+  const regel = (selektor) => {
+    const i = css.indexOf(`\n${selektor} {`);
+    assert.ok(i >= 0, `Regel ${selektor} fehlt in site.css.`);
+    return css.slice(i, css.indexOf('}', i));
+  };
+  const selektoren = [
+    '.field__help', '.form__required', '.check__aside', '.card__footnote', '.shotfig figcaption',
+    '.angebot dt', 'p.pilot-hinweis',
+  ];
+  for (const sel of selektoren) {
+    const farbe = /color:\s*var\(--([a-z-]+)\)/.exec(regel(sel))?.[1];
+    assert.ok(farbe, `${sel}: keine Farbe aus einem Token.`);
+    const hex = token(farbe);
+    for (const [name, grund] of Object.entries(untergruende)) {
+      const k = kontrast(hexZuRgb(hex), grund);
+      assert.ok(k >= 4.5, `${sel} (--${farbe} ${hex}) auf ${name}: ${k.toFixed(2)}:1, verlangt sind 4,5:1.`);
+    }
+  }
+  // Der Pilotabschnitt der Stilvorlage benutzt für Schrift weder --text-dim noch --text-faint.
+  const abschnitt = css.slice(css.indexOf('/* ── Pilotprogramm ──'));
+  assert.doesNotMatch(abschnitt.replace(/\/\*[\s\S]*?\*\//g, ''), /color:\s*var\(--text-(dim|faint)\)/, 'Im Pilotabschnitt steht kleine Schrift wieder in --text-dim oder --text-faint.');
 });
