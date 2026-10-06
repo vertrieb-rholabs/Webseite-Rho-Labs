@@ -7,6 +7,28 @@
 // auseinandergelaufen und behauptete am Ende Belege fuer Uebungen, die das
 // Register ausdruecklich als unbelegt fuehrt. Deshalb wird hier erzeugt statt
 // abgeschrieben: nach jeder Aenderung am Register dieses Skript laufen lassen.
+//
+// ── Bereinigungsschicht (Pilotprogramm W1, 06.10.2026) ──────────────────────
+// Die Website beschreibt die HERKUNFT der Uebungen aus bekannten Aufgabenformen
+// der kognitiven Psychologie — nicht ihre Wirkung (R1 Abschnitt 1.4, T1
+// Abschnitt 4 Punkt 6). Das Register fuehrt dagegen noch Einstufungen der
+// Trainingswirkung, Quellen mit Krankheitsendpunkt und Texte im Vokabular der
+// Messverfahren. Das Register selbst darf von hier aus nicht geaendert werden
+// (anderes Repository); deshalb wendet dieses Skript die Datei
+// `scripts/evidenz-bereinigung.json` an:
+//
+//   - Einstufungen (`paradigma`, `training`), die Stufenerklaerung, der
+//     Registerhinweis und der Quellenstatus werden NICHT uebernommen;
+//   - die dort aufgefuehrten Quellen (je Uebung, per DOI) entfallen;
+//   - der Text je Uebung wird durch den Herkunftstext aus der Datei ersetzt
+//     (`null` = kein Text);
+//   - `belegt` heisst nur noch: es ist mindestens eine Quelle uebrig.
+//
+// Zieht das Register spaeter nach (Pilotprogramm/berichte/W1-evidenz-json-
+// aenderung.md), meldet das Skript „bereits entfernt" und liefert dieselbe
+// Fassung; die Bereinigungsdatei kann dann entfallen. Am Ende prueft das Skript
+// das Ergebnis gegen die verbotenen Begriffe und bricht ab, wenn einer
+// auftaucht.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -25,7 +47,10 @@ const NAME_IM_KATALOG = {
   Aufmerksamkeit: 'Aufmerksamkeit halten',
 };
 
+const BEREINIGUNG = path.join(ROOT, 'scripts/evidenz-bereinigung.json');
+
 const reg = JSON.parse(fs.readFileSync(QUELLE, 'utf8'));
+const ber = JSON.parse(fs.readFileSync(BEREINIGUNG, 'utf8'));
 const spiele = Array.isArray(reg.spiele) ? reg.spiele : Object.values(reg.spiele);
 
 // Crossref liefert Titel und Zeitschriftennamen mit HTML-Entitaeten
@@ -40,19 +65,19 @@ const text = (v) =>
     ? v.replace(/&(amp|lt|gt|quot|apos|nbsp|#39);/g, (m) => ENTITAETEN[m] ?? m)
     : v;
 
-const belegt = (s) => typeof s.quellenstatus === 'string' && s.quellenstatus.startsWith('dokumentiert');
+const nachBereinigung = [];
+const keys = new Set(spiele.map((s) => s.key));
+for (const k of [...Object.keys(ber.entfernteQuellen), ...Object.keys(ber.evidenztexte)]) {
+  if (!keys.has(k)) throw new Error(`Bereinigung nennt eine Uebung, die das Register nicht fuehrt: ${k}`);
+}
 
-const aufbereitet = spiele.map((s) => ({
-  key: s.key,
-  label: NAME_IM_KATALOG[s.label] || s.label,
-  kategorie: s.kategorie || null,
-  domaenen: text(s.domaenen) || null,
-  paradigma: s.paradigma ? { stufe: s.paradigma.stufe, einschraenkung: s.paradigma.einschraenkung ?? null } : null,
-  training: s.training ? { stufe: s.training.stufe, einschraenkung: s.training.einschraenkung ?? null } : null,
-  evidenztext: text(s.evidenztext) || null,
-  quellenstatus: s.quellenstatus,
-  belegt: belegt(s),
-  quellen: (s.quellen || []).map((q) => ({
+const aufbereitet = spiele.map((s) => {
+  const weg = new Set((ber.entfernteQuellen[s.key] || []).map((e) => e.doi));
+  const vorhanden = new Set((s.quellen || []).map((q) => q.doi));
+  for (const doi of weg) {
+    if (!vorhanden.has(doi)) nachBereinigung.push(`${s.key}: Quelle ${doi} ist im Register bereits entfernt`);
+  }
+  const quellen = (s.quellen || []).filter((q) => !(q.doi && weg.has(q.doi))).map((q) => ({
     doi: q.doi ?? null,
     autoren: q.autoren || [],
     weitereAutoren: q.weitereAutoren || 0,
@@ -62,8 +87,19 @@ const aufbereitet = spiele.map((s) => ({
     band: q.band ?? null,
     seiten: q.seiten ?? null,
     url: q.url ?? (q.doi ? `https://doi.org/${q.doi}` : null),
-  })),
-}));
+  }));
+  const hatText = Object.prototype.hasOwnProperty.call(ber.evidenztexte, s.key);
+  return {
+    key: s.key,
+    label: NAME_IM_KATALOG[s.label] || s.label,
+    kategorie: s.kategorie || null,
+    domaenen: text(s.domaenen) || null,
+    // Ein Text gehoert nur zu einer Uebung, die auch eine Quelle zeigt.
+    evidenztext: quellen.length > 0 ? (hatText ? ber.evidenztexte[s.key] : text(s.evidenztext) || null) : null,
+    belegt: quellen.length > 0,
+    quellen,
+  };
+});
 
 // Belegte zuerst, darin nach Kategorie und Name — die unbelegten stehen am
 // Ende in einem eigenen Abschnitt und sollen nicht dazwischenliegen.
@@ -76,31 +112,15 @@ aufbereitet.sort((a, b) =>
       a.label.localeCompare(b.label, 'de'),
 );
 
-// Die Stufen kommen aus dem Register. Es fuehrt neben den drei Grundstufen
-// auch zusammengesetzte wie "SCHWACH bis MODERAT" — die sind gewollt und
-// werden nicht auf eine Grundstufe zurechtgebogen.
-const stufen = [
-  ...new Set(
-    aufbereitet.flatMap((s) => [s.paradigma?.stufe, s.training?.stufe]).filter(Boolean),
-  ),
-].sort();
-
 const kopf = `// ACHTUNG: erzeugte Datei — nicht von Hand bearbeiten.
 //
 // Erzeugt aus dem Evidenzregister der Anwendung durch
 //   node scripts/evidenz-uebernehmen.mjs
 // Quelle: docs/evidenz/evidenz.json im Projekt Gedaechtniss-Training
 // Stand des Registers: ${reg.stand}
+// Bereinigt durch: scripts/evidenz-bereinigung.json (Herkunft statt Wirkung)
 //
-// Aenderungen gehoeren ins Register, nicht hierher.
-
-export type Stufe = ${stufen.map((v) => JSON.stringify(v)).join(' | ')};
-
-/** Grundstufe fuer die farbliche Kennzeichnung — bei zusammengesetzten Stufen die erste. */
-export function grundstufe(s: Stufe): 'STARK' | 'MODERAT' | 'SCHWACH' {
-  const w = s.split(' ')[0];
-  return w === 'STARK' || w === 'MODERAT' ? w : 'SCHWACH';
-}
+// Aenderungen gehoeren ins Register bzw. in die Bereinigungsdatei, nicht hierher.
 
 export interface EvidenzQuelle {
   doi: string | null;
@@ -114,21 +134,14 @@ export interface EvidenzQuelle {
   url: string | null;
 }
 
-export interface EvidenzEinstufung {
-  stufe: Stufe;
-  einschraenkung: string | null;
-}
-
 export interface EvidenzSpiel {
   key: string;
   label: string;
   kategorie: string | null;
   domaenen: string | null;
-  paradigma: EvidenzEinstufung | null;
-  training: EvidenzEinstufung | null;
+  /** Herkunftstext: auf welche Aufgabenform die Uebung zurueckgeht. */
   evidenztext: string | null;
-  quellenstatus: string;
-  /** true, sobald das Register einen dokumentierten Beleg fuehrt. */
+  /** true, sobald mindestens eine Quelle zur Herkunft der Aufgabenform fuehrt. */
   belegt: boolean;
   quellen: EvidenzQuelle[];
 }
@@ -136,29 +149,39 @@ export interface EvidenzSpiel {
 /** Stand des uebernommenen Registers. */
 export const EVIDENZ_STAND = ${JSON.stringify(reg.stand)};
 
-/**
- * Pflichthinweis. Das Register verlangt ausdruecklich, dass er auf einer
- * Seite wiederholt wird, die einzelne Uebungen oder Quellen gesondert
- * darstellt — ein Verweis auf das Register genuegt dort nicht.
- */
-export const EVIDENZ_HINWEIS = ${JSON.stringify(reg.hinweis)};
-
-export const EVIDENZ_ERKLAERUNG = {
-  paradigma: ${JSON.stringify(reg.einstufung.paradigma)},
-  training: ${JSON.stringify(reg.einstufung.training)},
-};
-
 export const EVIDENZ: EvidenzSpiel[] = ${JSON.stringify(aufbereitet, null, 2)};
 `;
+
+// ── Gegenprobe: keine verbotenen Begriffe (R1 1.4) in den Daten ──────────────
+// Geprueft werden Texte, Dominen, Titel und Zeitschriften. Das Ergebnis darf
+// keinen davon enthalten; sonst wird nichts geschrieben.
+const VERBOTEN = /therap|behandl|rehabilit|demenz|dementia|schlaganfall|normwert|nachweislich|wirksam|diagnose|brain damage|adhs|adhd|hearing loss|hörverlust|protects the hippocampus/i;
+const treffer = [];
+for (const sp of aufbereitet) {
+  const felder = [sp.label, sp.domaenen, sp.evidenztext, ...sp.quellen.flatMap((q) => [q.titel, q.zeitschrift])];
+  for (const f of felder) {
+    const m = typeof f === 'string' && f.match(VERBOTEN);
+    if (m) treffer.push(`${sp.key}: „${m[0]}“ in „${f.slice(0, 80)}…“`);
+  }
+}
+if (treffer.length) {
+  console.error('Verbotene Begriffe im Ergebnis — nichts geschrieben:');
+  treffer.forEach((t) => console.error('  ' + t));
+  process.exit(1);
+}
 
 fs.mkdirSync(path.dirname(ZIEL), { recursive: true });
 fs.writeFileSync(ZIEL, kopf, 'utf8');
 
 const mitBeleg = aufbereitet.filter((s) => s.belegt);
 console.log(`Register vom ${reg.stand} uebernommen nach src/data/evidenz.ts`);
-console.log(`  ${aufbereitet.length} Uebungen, davon ${mitBeleg.length} mit dokumentiertem Beleg`);
+console.log(`  ${aufbereitet.length} Uebungen, davon ${mitBeleg.length} mit Quelle zur Herkunft`);
 console.log(`  ${mitBeleg.reduce((n, s) => n + s.quellen.length, 0)} Quellen`);
 const ohne = aufbereitet.filter((s) => !s.belegt);
 if (ohne.length) {
-  console.log(`  ohne Beleg (werden als solche ausgewiesen): ${ohne.map((s) => s.label).join(', ')}`);
+  console.log(`  ohne Quelle (werden als solche ausgewiesen): ${ohne.map((s) => s.label).join(', ')}`);
+}
+if (nachBereinigung.length) {
+  console.log('  Register bereits nachgezogen:');
+  nachBereinigung.forEach((n) => console.log('    ' + n));
 }

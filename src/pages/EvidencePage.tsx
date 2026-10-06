@@ -1,43 +1,13 @@
-import { BookOpen, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import Seo from '../components/Seo';
 import Closer from '../components/Closer';
 import EvidenzText from '../components/EvidenzText';
-import {
-  EVIDENZ,
-  EVIDENZ_ERKLAERUNG,
-  EVIDENZ_HINWEIS,
-  EVIDENZ_STAND,
-  grundstufe,
-  type EvidenzQuelle,
-  type EvidenzSpiel,
-} from '../data/evidenz';
+import { ZWECKBESTIMMUNG } from '../constants';
+import { EVIDENZ, EVIDENZ_STAND, type EvidenzQuelle } from '../data/evidenz';
 
-const STUFEN_KLASSE = {
-  STARK: 'stufe stufe--stark',
-  MODERAT: 'stufe stufe--moderat',
-  SCHWACH: 'stufe stufe--schwach',
-} as const;
-
-function Einstufung({
-  titel,
-  wert,
-}: {
-  titel: string;
-  wert: EvidenzSpiel['paradigma'];
-}) {
-  if (!wert) return null;
-  return (
-    <div className="einstufung">
-      <p className="einstufung__titel">{titel}</p>
-      <p>
-        <span className={STUFEN_KLASSE[grundstufe(wert.stufe)]}>{wert.stufe}</span>
-        {wert.einschraenkung && (
-          <span className="einstufung__zusatz">{wert.einschraenkung}</span>
-        )}
-      </p>
-    </div>
-  );
-}
+/** Steht bei jeder Übung, die eine Quelle zeigt — wörtlich nach T1, Abschnitt 4 Punkt 6. */
+const AUFGABENFORM_SATZ =
+  'Die Übung greift eine Aufgabenform auf; sie ist kein normiertes Testverfahren.';
 
 function Quelle({ q }: { q: EvidenzQuelle }) {
   const autoren =
@@ -61,16 +31,30 @@ function Quelle({ q }: { q: EvidenzQuelle }) {
   );
 }
 
+/**
+ * Wissenschaftlicher Hintergrund — Herkunft der Übungen, nicht ihre Wirkung.
+ *
+ * Bis zum 06.10.2026 stellte die Seite je Übung zwei Einstufungen nebeneinander
+ * („Verfahren“ und „Training“) und nannte im Einleitungssatz, „was das Üben
+ * nachweislich bringt“. Das ist eine Wirkaussage, die Rho-Labs nicht belegen
+ * will und nicht belegen muss (R1 Abschnitt 1.4; § 5 UWG, BGH I ZR 62/11). Die
+ * Seite zeigt jetzt nur noch, auf welche bekannten Aufgabenformen der
+ * kognitiven Psychologie die Übungen zurückgehen, mit den Quellen dazu.
+ *
+ * Die Daten kommen aus `src/data/evidenz.ts` (erzeugt, siehe
+ * `scripts/evidenz-uebernehmen.mjs`); Quellen mit Krankheitsendpunkt und
+ * Quellen zur Trainingswirkung führt die Seite nicht.
+ */
 export default function EvidencePage() {
-  const belegt = EVIDENZ.filter((s) => s.belegt);
-  const ohneBeleg = EVIDENZ.filter((s) => !s.belegt);
+  const mitQuelle = EVIDENZ.filter((s) => s.belegt);
+  const ohneQuelle = EVIDENZ.filter((s) => !s.belegt);
 
   return (
     <>
       <Seo
         path="/evidenz"
         title="Wissenschaftlicher Hintergrund — Rho-Labs"
-        description={`Auf welchem Verfahren jede Übung beruht und wie gut die Trainingswirkung untersucht ist — für ${belegt.length} von ${EVIDENZ.length} Übungen mit geprüften Quellen, getrennt nach Verfahren und Training.`}
+        description={`Auf welche bekannten Aufgabenformen der kognitiven Psychologie die Übungen zurückgehen — für ${mitQuelle.length} von ${EVIDENZ.length} Übungen mit Quellen zur Herkunft. Die Seite beschreibt Herkunft, nicht Wirkung.`}
       />
 
       <div className="wrap wrap--text section">
@@ -79,50 +63,32 @@ export default function EvidencePage() {
         </p>
         <h1 className="h-page">Woher die Übungen kommen</h1>
         <p style={{ fontSize: 17.5, lineHeight: 1.7, color: '#94a3b8', margin: '0 0 32px' }}>
-          Für jede Übung steht hier zweierlei getrennt: auf welchem Verfahren sie
-          beruht — und was das Üben nachweislich bringt. Beides wird oft
-          vermischt, und genau das soll diese Seite verhindern.
+          Auf dieser Seite zeigen wir, auf welche bekannten Aufgabenformen der
+          kognitiven Psychologie unsere Übungen zurückgehen. Sie beschreibt die
+          Herkunft der Übungen, nicht ihre Wirkung; Wirkungen versprechen wir
+          nicht.
         </p>
 
-        {/* Pflichthinweis aus dem Register. Er MUSS hier stehen: die Quellen
-            sind einzeln lesbar, ein Verweis auf das Register genügt dafür
-            nicht. */}
+        {/* Die Zweckbestimmung, wortgleich wie auf der Produkt- und der
+            Home-Seite. Sie steht hier, weil die Quellen einzeln lesbar sind. */}
         <div className="disclaimer" style={{ marginBottom: 20 }}>
           <span className="icon-box icon-box--sm icon-box--grey" aria-hidden="true">
             <Info size={17} />
           </span>
-          <p>{EVIDENZ_HINWEIS}</p>
-        </div>
-
-        <div className="info-card info-card--cyan" style={{ marginBottom: 20 }}>
-          <h3>
-            <BookOpen size={17} aria-hidden="true" /> Zwei Fragen, zwei Antworten
-          </h3>
-          <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: '0 0 8px' }}>
-            <strong style={{ color: '#fff' }}>Verfahren</strong> — {EVIDENZ_ERKLAERUNG.paradigma}
-          </p>
-          <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#cbd5e1', margin: '0 0 12px' }}>
-            <strong style={{ color: '#fff' }}>Training</strong> — {EVIDENZ_ERKLAERUNG.training}
-          </p>
-          <p style={{ fontSize: 14.5, lineHeight: 1.7, color: '#94a3b8', margin: 0 }}>
-            Ein starkes Verfahren mit schwacher Trainingsevidenz ist der{' '}
-            <span className="mark">Normalfall</span>, kein Mangel. Eine
-            Einschränkung wie „für nahe Aufgaben" gehört zur Aussage — wir lassen
-            sie nirgends weg.
-          </p>
+          <p>{ZWECKBESTIMMUNG}</p>
         </div>
 
         <div className="info-card" style={{ marginBottom: 44 }}>
           <p>
             Jede DOI wurde maschinell gegen <strong>Crossref</strong> geprüft;
             Autor, Jahr, Titel und Zeitschrift stammen von dort, nicht aus einer
-            Zusammenfassung. Stand des Registers: {EVIDENZ_STAND}.
+            Zusammenfassung. Stand der Quellenliste: {EVIDENZ_STAND}.
           </p>
         </div>
 
-        {/* ── Übungen mit Beleg ───────────────────────────────────────── */}
+        {/* ── Übungen mit Quelle ──────────────────────────────────────── */}
         <div className="stack">
-          {belegt.map((s) => (
+          {mitQuelle.map((s) => (
             <div className="legal-block" key={s.key}>
               <div className="evidenz__kopf">
                 <h2>{s.label}</h2>
@@ -130,16 +96,13 @@ export default function EvidencePage() {
               </div>
               {s.domaenen && <p className="evidenz__domaenen">{s.domaenen}</p>}
 
-              <div className="evidenz__stufen">
-                <Einstufung titel="Verfahren" wert={s.paradigma} />
-                <Einstufung titel="Training" wert={s.training} />
-              </div>
-
               {s.evidenztext && (
                 <p className="evidenz__text">
                   <EvidenzText text={s.evidenztext} />
                 </p>
               )}
+
+              <p className="evidenz__text">{AUFGABENFORM_SATZ}</p>
 
               {s.quellen.length > 0 && (
                 <ul className="reflist" style={{ marginTop: 18 }}>
@@ -148,30 +111,25 @@ export default function EvidencePage() {
                   ))}
                 </ul>
               )}
-
-              {s.quellenstatus !== 'dokumentiert' && (
-                <p className="evidenz__status">{s.quellenstatus}</p>
-              )}
             </div>
           ))}
         </div>
 
-        {/* ── Übungen ohne Beleg ──────────────────────────────────────── */}
-        {ohneBeleg.length > 0 && (
+        {/* ── Übungen ohne hinterlegte Quelle ─────────────────────────── */}
+        {ohneQuelle.length > 0 && (
           <>
             <h2 className="h-section" style={{ margin: '56px 0 16px', fontSize: 'clamp(22px, 2.4vw, 30px)' }}>
-              Übungen ohne dokumentierten Beleg
+              Übungen ohne hinterlegte Quelle
             </h2>
             <div className="info-card" style={{ marginBottom: 20 }}>
               <p>
-                Diese {ohneBeleg.length} Übungen stammen aus der ersten Fassung der
-                Anwendung. Für sie ist <span className="mark">keine Quelle hinterlegt</span>.
-                Wir führen sie hier auf, statt sie zu verschweigen — sie werden
-                aber weder in der Anwendung noch hier als belegt dargestellt.
+                Für diese {ohneQuelle.length} Übungen ist hier{' '}
+                <span className="mark">keine Quelle hinterlegt</span>. Wir führen
+                sie auf, statt sie zu verschweigen.
               </p>
             </div>
             <div className="grid grid--auto-240" style={{ gap: 12 }}>
-              {ohneBeleg.map((s) => (
+              {ohneQuelle.map((s) => (
                 <div className="evidenz__offen" key={s.key}>
                   {s.label}
                 </div>

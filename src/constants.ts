@@ -331,8 +331,8 @@ export const PRINCIPLES: Principle[] = [
     Icon: Database,
   },
   {
-    title: 'Verfahren mit Herkunft',
-    text: 'Jede Übung geht auf ein etabliertes Verfahren der kognitiven Psychologie zurück. Die Quellen stehen auf der Seite.',
+    title: 'Aufgabenformen mit Herkunft',
+    text: 'Die Übungen sind an bekannte Aufgabenformen der kognitiven Psychologie angelehnt. Die Quellen stehen auf der Seite.',
     Icon: Search,
   },
   /* ── Nachtrag 22.09.2026 ──────────────────────────────────────────────────
