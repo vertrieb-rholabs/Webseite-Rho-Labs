@@ -100,6 +100,11 @@ export interface LabProject {
 }
 
 export interface PrivacySection {
+  /** Sprungmarke (`id` am Abschnitt), z. B. `pilotprogramm`. */
+  id?: string;
   title: string;
+  /** Absätze; `**Text**` am Anfang setzt eine fette Leitmarke. */
   paragraphs: string[];
+  /** Optional: ein abgesetzter, hervorgehobener Absatz am Ende (z. B. Widerspruchsrecht). */
+  hervorgehoben?: string;
 }

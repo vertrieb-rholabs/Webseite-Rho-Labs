@@ -122,7 +122,6 @@ export default function PilotZustimmung() {
       try {
         const antwort = await fetch(`${PILOT_ZUSTIMMUNG_INFO_URL}?t=${encodeURIComponent(token)}`, {
           method: 'GET',
-          cache: 'no-store',
           credentials: 'omit',
           referrerPolicy: 'no-referrer',
           signal: abbruch.signal,

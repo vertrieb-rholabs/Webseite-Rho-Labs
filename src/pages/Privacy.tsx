@@ -1,6 +1,17 @@
 import Seo from '../components/Seo';
 import { PRIVACY_SECTIONS } from '../constants';
 
+/** `**Leitmarke.** Rest` → die Leitmarke fett, der Rest unverändert dahinter. */
+function Absatz({ text }: { text: string }) {
+  const treffer = /^\*\*([^*]+)\*\*\s*([\s\S]*)$/.exec(text);
+  if (!treffer) return <p>{text}</p>;
+  return (
+    <p>
+      <strong>{treffer[1]}</strong> {treffer[2]}
+    </p>
+  );
+}
+
 export default function Privacy() {
   return (
     <>
@@ -25,19 +36,24 @@ export default function Privacy() {
 
         <div className="stack">
           {PRIVACY_SECTIONS.map((section) => (
-            <div className="legal-block" key={section.title}>
+            <div className="legal-block" key={section.title} id={section.id}>
               <h2>{section.title}</h2>
               <div className="stack" style={{ gap: 14 }}>
                 {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+                  <Absatz text={paragraph} key={paragraph} />
                 ))}
+                {section.hervorgehoben && (
+                  <blockquote>
+                    <Absatz text={section.hervorgehoben} />
+                  </blockquote>
+                )}
               </div>
             </div>
           ))}
         </div>
 
         <p className="note" style={{ display: 'block', marginTop: 28 }}>
-          Stand: September 2026
+          Stand: Oktober 2026
         </p>
       </div>
     </>
