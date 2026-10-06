@@ -9,7 +9,7 @@
 // `APP_QUELLE`). Fehlt einer von beiden, wird die Gegenprobe ÜBERSPRUNGEN und
 // das gesagt — nicht stillschweigend für bestanden erklärt.
 //
-// ── Stand nach S2 und W2 ────────────────────────────────────────────────────
+// ── Stand nach S3 und W3 ────────────────────────────────────────────────────
 //  · Der Dienst trägt den kanonischen Text der Pilotbedingungen (S2); die Tests
 //    zum Text und zu den Feldern der Zustimmung laufen gegen seinen jetzigen
 //    Quelltext. Zeilenenden des Dienst-Quelltexts werden vor dem Vergleichen
@@ -22,9 +22,9 @@
 //    kein Zustand, den die Website prüfen könnte. Der Test hält nur fest, dass
 //    der Bericht S2 das Ziel (`MaxRetentionSec=30day`) nennt.
 //  · Die Regel „wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später"
-//    (Speicherdauer) setzt der Dienst erst im Auftrag S3 um. Der Abgleich mit
-//    dem Dienst prüft deshalb nur die BESTEHENDEN Fristen (P13); sobald S3
-//    steht, kommt dort die neue Regel dazu.
+//    (Speicherdauer) ist seit S3 im Dienst umgesetzt und geprüft (P13). Ebenso
+//    werden der Ratenbegrenzer (höchstens eine Stunde im Arbeitsspeicher, P13)
+//    und die Pfaderkennung in pfade.ts (P13b) geprüft.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -602,7 +602,7 @@ test('P12 — der Pilotabschnitt: Inhalt, Du-Form, Fristen, keine Platzhalter', 
   for (const stueck of [
     'Wenn du dich über rholabs.de/pilotpartner bewirbst', 'den Namen deiner Praxis oder Einrichtung', 'die Art der Einrichtung',
     'den Namen der Ansprechperson, ihre geschäftliche E-Mail-Adresse und, wenn du sie angibst, eine Telefonnummer für Rückfragen zur Bewerbung',
-    'Deine IP-Adresse speichern wir dabei nicht', 'nur kurzzeitig im Arbeitsspeicher',
+    'Deine IP-Adresse speichern wir dabei nicht', 'spätestens eine Stunde nach deiner letzten Anfrage verworfen',
     'Wir erhalten eine E-Mail-Benachrichtigung, dass eine Bewerbung eingegangen ist; die Bewerbung selbst steht nicht darin.',
     'Eine automatische E-Mail an dich verschicken wir nicht.',
     'Bitte mache im Freitext keine Angaben zu einzelnen Personen',
@@ -618,12 +618,13 @@ test('P12 — der Pilotabschnitt: Inhalt, Du-Form, Fristen, keine Platzhalter', 
     'sechs Monate nach der Entscheidung', 'spätestens zwölf Monate nach ihrem Eingang',
     'nach drei Monaten', 'mit Ablauf des dritten Kalenderjahres nach dem Jahr, in dem das Pilotprogramm endet',
     'höchstens 30 Tage', 'Art. 17 Abs. 3 lit. e DSGVO',
-    // W2 (Ergänzung): Frist bei vereinbarter Anpassung — der Dienst setzt das erst in S3 um (siehe P13).
+    // Frist bei vereinbarter Anpassung — seit S3 im Dienst umgesetzt und geprüft (siehe P13).
     'wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später',
     // W2 Nr. 1: der Satz zu den Protokollen (Bericht S2, Abschnitt 5), in der Fassung der Seite.
     'Bearbeitungen in der Pilotverwaltung protokolliert der Lizenzdienst nur mit Zeitpunkt, Benutzerkennung, Aufruf und Ergebnis – ohne Inhalte – und löscht diese Einträge nach 90 Tagen',
     'den Versand von E-Mails protokolliert er ohne Empfängeradresse, nur mit Bestell- oder Vorgangsnummer und Art der Nachricht, im Systemprotokoll des Servers, das Einträge nach 30 Tagen löscht',
   ]) assert.ok(abschnitt.includes(stueck), `Pilotabschnitt: Satz fehlt — „${stueck}"`);
+  assert.doesNotMatch(abschnitt, /nur kurzzeitig im Arbeitsspeicher/, 'Der Pilotabschnitt nennt noch die alte Frist „nur kurzzeitig im Arbeitsspeicher".');
   assert.doesNotMatch(abschnitt, /\b(Sie|Ihre|Ihr|Ihnen|Ihren|Ihrer|Ihrem)\b/, 'Der Pilotabschnitt siezt — die Erklärung duzt.');
   assert.doesNotMatch(abschnitt, /\[Satz|Bericht S2 einsetzen\.\]/, 'Der Platzhalter aus T1 ist veröffentlicht.');
 });
@@ -694,8 +695,10 @@ test('P13 — der Pilotabschnitt gegen den Quelltext des Dienstes: Felder, keine
   assert.equal(zahl('bewerbungMonate'), 12, 'Bewerbung ohne Pilot: 12 Monate — der Abschnitt sagt „zwölf Monate".');
   assert.equal(zahl('freitextNachEndeMonate'), 3, 'Freitext/Telefon: 3 Monate nach dem Ende — der Abschnitt sagt „drei Monaten".');
   assert.equal(zahl('allesNachEndeKalenderjahre'), 3, 'Alles Übrige: drittes Kalenderjahr nach dem Ende.');
+  assert.equal(zahl('allesNachEndeMitAnpassungKalenderjahre'), 4, 'Anpassung: viertes Kalenderjahr nach dem Ende — der Abschnitt sagt „ein Jahr später".');
   assert.match(abschnitt, /sechs Monate nach der Entscheidung/);
   assert.match(abschnitt, /zwölf Monate nach ihrem Eingang/);
+  assert.match(abschnitt, /wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später/);
 
   // d) Sicherungskopien: höchstens 30 Tage (Werkzeug des Dienstes).
   const sicherung = dienst(path.join('werkzeuge', 'sicherung.mjs'));
@@ -705,8 +708,12 @@ test('P13 — der Pilotabschnitt gegen den Quelltext des Dienstes: Felder, keine
   }
   // „Ablauf des dritten Kalenderjahres nach dem Jahr, in dem das Pilotprogramm endet" = 1. Januar des vierten Folgejahres.
   assert.match(code, /Date\.UTC\(jahr \+ LOESCHFRISTEN\.allesNachEndeKalenderjahre \+ 1, 0, 1\)/, 'Die Frist „Ablauf des dritten Kalenderjahres" ist im Dienst anders berechnet.');
+  assert.match(code, /Date\.UTC\(jahr \+ LOESCHFRISTEN\.allesNachEndeMitAnpassungKalenderjahre \+ 1, 0, 1\)/, 'Die Frist mit Anpassung ist im Dienst anders berechnet.');
   assert.match(code, /freitextLeerenAb: monatePlus\(bezug, LOESCHFRISTEN\.freitextNachEndeMonate\)/, 'Freitext und Telefon werden im Dienst nicht drei Monate nach dem Ende geleert.');
-  // Neu ab S3, hier noch NICHT geprüft: „wurde eine Pilotpartner-Anpassung vereinbart, ein Jahr später" (wartet auf S3).
+
+  // e) Der Ratenbegrenzer hält die Herkunft höchstens eine Stunde (S3 Sol N1).
+  assert.match(code, /const STUNDE_MS = 60 \* 60 \* 1000;/, 'Der Ratenbegrenzer im Dienst hält Herkünfte nicht höchstens eine Stunde.');
+  assert.match(abschnitt, /spätestens eine Stunde nach deiner letzten Anfrage/, 'Der Pilotabschnitt nennt die Frist des Ratenbegrenzers nicht.');
 });
 
 test('P13b — der Pilotabschnitt gegen den Dienst nach S2: Felder der Zustimmung, Bestätigungsmail, Fragen per E-Mail, Protokolle', () => {
@@ -757,12 +764,19 @@ test('P13b — der Pilotabschnitt gegen den Dienst nach S2: Felder der Zustimmun
 
   // e) Protokolle: audit.log der Pilotverwaltung ohne Inhalt, 90 Tage; Sicherungen 30 Tage (P13 d).
   assert.match(proto, /export const AUDIT_LOG_AUFBEWAHRUNG_TAGE = 90;/, 'Das audit.log wird nicht mehr 90 Tage aufbewahrt — der Abschnitt sagt „nach 90 Tagen".');
-  assert.match(proto, /export function istPilotverwaltung\(pfad: string\): boolean \{\s*return pfad === '\/pilot' \|\| pfad\.startsWith\('\/pilot\/'\);/);
+  const pfade = dienst(path.join('src', 'main', 'pfade.ts'));
+  assert.ok(pfade !== null, 'src/main/pfade.ts fehlt im Lizenzdienst (Befund RS1 Sol M1).');
+  assert.match(pfade, /export function istPilotverwaltung\(/, 'pfade.ts exportiert istPilotverwaltung nicht.');
+  // Wie die Erkennung im Einzelnen normalisiert, prüft der Dienst selbst (tests/audit-log.test.js); hier nur,
+  // dass sie Groß- und Kleinschreibung gleich behandelt — sonst gälte der Satz „ohne Inhalte" nicht für jede Schreibweise.
+  assert.match(pfade, /toLowerCase\(\)|\/i\.test\(/, 'pfade.ts unterscheidet Groß- und Kleinschreibung (Befund RS1 Sol M1).');
+  assert.ok(fs.existsSync(path.join(DIENST, 'tests', 'audit-log.test.js')), 'Der Dienst führt den Test zum audit.log (Schreibweisen der Pilotpfade) nicht mehr.');
+  assert.match(proto, /export\s*\{\s*istPilotverwaltung\s*\}\s*from\s*['"]\.\/pfade['"];?/, 'protokoll.ts reicht istPilotverwaltung nicht aus ./pfade weiter.');
   const server = dienst(path.join('src', 'main', 'server.ts'));
-  if (server !== null) {
-    assert.match(server, /istPilotverwaltung\(/, 'Der Server unterscheidet die Pilotverwaltung im audit.log nicht mehr.');
-    assert.match(server, /auditLogKuerzen\(AUDIT_LOG_PATH\)/, 'Der tägliche Lauf kürzt das audit.log nicht mehr.');
-  }
+  assert.ok(server !== null, 'src/main/server.ts fehlt im Lizenzdienst.');
+  assert.match(server, /import\s*\{[^}]*\bistPilotverwaltung\b[^}]*\}\s*from\s*['"]\.\/pfade['"];?/, 'server.ts importiert istPilotverwaltung nicht aus ./pfade.');
+  assert.match(server, /istPilotverwaltung\(/, 'Der Server unterscheidet die Pilotverwaltung im audit.log nicht mehr.');
+  assert.match(server, /auditLogKuerzen\(AUDIT_LOG_PATH\)/, 'Der tägliche Lauf kürzt das audit.log nicht mehr.');
   // Der Satz zum Mail-Log gilt, solange der Dienst seinen Test dazu führt (keine Empfängeradresse in der Logzeile).
   assert.ok(fs.existsSync(path.join(DIENST, 'tests', 'mail-log.test.js')), 'Der Dienst führt den Test „Mail-Log ohne Empfängeradresse" nicht mehr.');
 });
