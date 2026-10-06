@@ -716,8 +716,9 @@ export default function PilotPartner() {
               <input type="checkbox" name="datenschutz" value="ja" required />
               <span>
                 Ich habe die{' '}
-                <a href="/datenschutz#pilotprogramm" target="_blank" rel="noopener">
+                <a href="/datenschutz#pilotprogramm" target="_blank" rel="noopener noreferrer">
                   Datenschutzhinweise
+                  <span className="sr-only"> (öffnet in neuem Tab)</span>
                 </a>{' '}
                 gelesen. Die Angaben werden zur Bearbeitung der Bewerbung gespeichert und nach den
                 dort genannten Fristen gelöscht.

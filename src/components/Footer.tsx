@@ -44,7 +44,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="footer__profil"
-                      aria-label={`Rho-Labs auf ${profil.name}`}
+                      aria-label={`Rho-Labs auf ${profil.name} (öffnet in neuem Tab)`}
                       title={`Rho-Labs auf ${profil.name}`}
                     >
                       {Symbol ? <Symbol size={17} aria-hidden="true" /> : profil.name}
@@ -94,6 +94,7 @@ export default function Footer() {
                     className="footer__link"
                   >
                     {project.name}
+                    <span className="sr-only"> (öffnet in neuem Tab)</span>
                   </a>
                 </li>
               ))}

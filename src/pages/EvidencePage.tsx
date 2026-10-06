@@ -25,6 +25,7 @@ function Quelle({ q }: { q: EvidenzQuelle }) {
       {q.url && (
         <a href={q.url} target="_blank" rel="noopener noreferrer">
           {q.doi ? `DOI ${q.doi}` : 'Quelle'}
+          <span className="sr-only"> (öffnet in neuem Tab)</span>
         </a>
       )}
     </li>

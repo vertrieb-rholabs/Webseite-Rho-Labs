@@ -9,7 +9,7 @@ const LINKS = [
   { to: '/', label: 'Start', end: true },
   { to: '/kognitives-training', label: 'Kognitives Training' },
   { to: '/home', label: 'Für zu Hause' },
-  { to: '/evidenz', label: 'Evidenz' },
+  { to: '/evidenz', label: 'Hintergrund' },
   { to: '/kontakt', label: 'Kontakt' },
 ];
 

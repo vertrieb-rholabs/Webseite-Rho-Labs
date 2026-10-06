@@ -31,6 +31,7 @@ export default function EvidenzText({ text }: { text: string }) {
       teile.push(
         <a key={i++} href={url} target="_blank" rel="noopener noreferrer">
           {linktext}
+          <span className="sr-only"> (öffnet in neuem Tab)</span>
         </a>,
       );
     } else {

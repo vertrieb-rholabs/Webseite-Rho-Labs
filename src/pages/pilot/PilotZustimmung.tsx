@@ -273,6 +273,7 @@ function Angebotsformular({ zustand }: { zustand: Extract<Zustand, { art: 'berei
           className="link-arrow"
         >
           Pilotbedingungen lesen
+          <span className="sr-only"> (öffnet in neuem Tab)</span>
         </a>
       </p>
 
