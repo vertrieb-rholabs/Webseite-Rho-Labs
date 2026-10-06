@@ -385,7 +385,7 @@ export const EVIDENZ: EvidenzSpiel[] = [
     "label": "Wortliste",
     "kategorie": "Merken & Lernen",
     "domaenen": "Verbales Gedächtnis, freier Abruf",
-    "evidenztext": "Das Lernen und freie Wiedergeben einer Wortliste geht auf Rey zurück (Rey 1958, Presses Universitaires de France — ohne DOI, nicht maschinell prüfbar) und liegt im deutschsprachigen Raum als Verbaler Lern- und Merkfähigkeitstest vor (Lux u. a. 1999, *Diagnostica* 45, 205-211, DOI [10.1026//0012-1924.45.4.205](https://doi.org/10.1026//0012-1924.45.4.205)). Diese Übung gibt die Wörter schriftlich vor und nimmt die Antwort getippt entgegen.",
+    "evidenztext": "Das Lernen und freie Wiedergeben einer Wortliste geht auf Rey zurück (Rey 1958, Presses Universitaires de France — ohne DOI, nicht maschinell prüfbar) und wurde im deutschsprachigen Raum unter anderem von Lux u. a. (1999, *Diagnostica* 45, 205–211, DOI [10.1026//0012-1924.45.4.205](https://doi.org/10.1026//0012-1924.45.4.205)) für Wortlistenaufgaben beschrieben. Diese Übung gibt die Wörter schriftlich vor und nimmt die Antwort getippt entgegen.",
     "belegt": true,
     "quellen": [
       {
@@ -447,7 +447,7 @@ export const EVIDENZ: EvidenzSpiel[] = [
     "label": "Muster",
     "kategorie": "Raum & Formen",
     "domaenen": "Visuelles Kurzzeitgedächtnis",
-    "evidenztext": "Der Visual Patterns Test wurde eigens entwickelt, um visuelles Mustergedächtnis vom sequenziell-räumlichen Corsi-Konstrukt zu trennen (Della Sala u. a. 1999, *Neuropsychologia* 37, 1189-1199, DOI [10.1016/s0028-3932(98)00159-6](https://doi.org/10.1016/s0028-3932(98)00159-6)). Das Raster dieser Übung entspricht ihm strukturell.",
+    "evidenztext": "Die Übung greift eine Aufgabenform auf, die in der Forschung eigens entwickelt wurde, um visuelles Mustergedächtnis vom sequenziell-räumlichen Corsi-Konstrukt zu trennen (Della Sala u. a. 1999, *Neuropsychologia* 37, 1189-1199, DOI [10.1016/s0028-3932(98)00159-6](https://doi.org/10.1016/s0028-3932(98)00159-6)). Das Raster dieser Übung ist dieser Aufgabenform nachempfunden.",
     "belegt": true,
     "quellen": [
       {
@@ -521,7 +521,7 @@ export const EVIDENZ: EvidenzSpiel[] = [
     "label": "Aufmerksamkeit halten",
     "kategorie": "Tempo & Aufmerksamkeit",
     "domaenen": "Daueraufmerksamkeit, Reaktionshemmung",
-    "evidenztext": "Die Übung greift die Aufgabenform des Continuous Performance Tests auf: Über mehrere Blöcke ist auf ein Zielsignal zu reagieren und auf alles andere nicht. Eine Übersicht beschreibt die Aufgabe und ihre Anforderungen an Daueraufmerksamkeit und Reaktionshemmung (Riccio u. a. 2002, *Archives of Clinical Neuropsychology* 17, 235-272, DOI [10.1093/arclin/17.3.235](https://doi.org/10.1093/arclin/17.3.235)).",
+    "evidenztext": "Die Übung greift eine Daueraufmerksamkeitsaufgabe auf, die in der Forschung als Continuous Performance Task bekannt ist: Über mehrere Blöcke ist auf ein Zielsignal zu reagieren und auf alles andere nicht. Eine Übersicht beschreibt die Aufgabe und ihre Anforderungen an Daueraufmerksamkeit und Reaktionshemmung (Riccio u. a. 2002, *Archives of Clinical Neuropsychology* 17, 235-272, DOI [10.1093/arclin/17.3.235](https://doi.org/10.1093/arclin/17.3.235)).",
     "belegt": true,
     "quellen": [
       {
