@@ -1249,11 +1249,11 @@ test('18 mittel — der Newsletter-Abschnitt nennt seinen Empfänger', () => {
 
   // Die INWX-Erklaerung steht im gemeinsamen Abschnitt E-Mail-Kommunikation.
   assert.match(
-    html, /INWX GmbH, Prinzessinnenstra\u00dfe 30, 10969 Berlin/,
+    html, /INWX GmbH, Prinzessinnenstraße 30, 10969 Berlin/,
     'Der E-Mail-Abschnitt nennt INWX und dessen Anschrift nicht.',
   );
   assert.match(
-    html, /Vertrags nach Art\. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw\. im Europ\u00e4ischen Wirtschaftsraum statt/,
+    html, /Vertrags nach Art\. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw\. im Europäischen Wirtschaftsraum statt/,
     'Der INWX-Abschnitt nennt Vertragsgrundlage oder Verarbeitungsgebiet nicht.',
   );
   assert.match(

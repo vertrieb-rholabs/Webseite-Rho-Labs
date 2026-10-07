@@ -1043,7 +1043,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     title: 'E-Mail-Kommunikation',
     paragraphs: [
       'Wenn du uns schreibst, verarbeiten wir die Angaben aus deiner Nachricht, um sie zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei vertraglichen und vorvertraglichen Anliegen, sonst Art. 6 Abs. 1 lit. f DSGVO. Wir bewahren Korrespondenz so lange auf, wie es für die Bearbeitung und für gesetzliche Aufbewahrungspflichten nötig ist.',
-      'F\u00fcr E-Mails nutzen wir das E-Mail-Hosting der INWX GmbH, Prinzessinnenstra\u00dfe 30, 10969 Berlin. INWX verarbeitet die Daten in unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw. im Europ\u00e4ischen Wirtschaftsraum statt. \u00dcber INWX laufen sowohl die Nachrichten, die unser Dienst automatisch verschickt (etwa Lizenzschl\u00fcssel und Best\u00e4tigungen), als auch die Nachrichten, die wir selbst schreiben.',
+      'Für E-Mails nutzen wir das E-Mail-Hosting der INWX GmbH, Prinzessinnenstraße 30, 10969 Berlin. INWX verarbeitet die Daten in unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw. im Europäischen Wirtschaftsraum statt. Über INWX laufen sowohl die Nachrichten, die unser Dienst automatisch verschickt (etwa Lizenzschlüssel und Bestätigungen), als auch die Nachrichten, die wir selbst schreiben.',
     ],
   },
   {
