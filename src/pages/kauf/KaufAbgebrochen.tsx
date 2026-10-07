@@ -28,13 +28,13 @@ export default function KaufAbgebrochen() {
       }
       action={
         <div className="btn-row btn-row--center">
-          <Link to="/home#kaufen" className="btn btn--primary">
+          <Link to="/home/#kaufen" className="btn btn--primary">
             Erneut versuchen
           </Link>
-          <Link to="/kontakt" className="btn btn--ghost">
+          <Link to="/kontakt/" className="btn btn--ghost">
             Kontakt
           </Link>
-          <Link to="/home" className="btn btn--ghost">
+          <Link to="/home/" className="btn btn--ghost">
             Zur Home-Version
           </Link>
         </div>

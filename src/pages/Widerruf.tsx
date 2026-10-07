@@ -37,7 +37,7 @@ export default function Widerruf() {
             dorthin. */}
         <p className="widerruf-hinweis" style={{ marginBottom: 28 }}>
           Sie möchten Ihren Vertrag jetzt widerrufen?{' '}
-          <Link to={WIDERRUF_FUNKTION_PFAD}>{WIDERRUF_FUNKTION_LABEL}</Link>
+          <Link to={`${WIDERRUF_FUNKTION_PFAD}/`}>{WIDERRUF_FUNKTION_LABEL}</Link>
         </p>
 
         <div className="stack">
@@ -135,8 +135,8 @@ export default function Widerruf() {
         </div>
 
         <p className="note" style={{ display: 'block', marginTop: 28 }}>
-          Anbieterangaben im <Link to="/impressum">Impressum</Link>. Die
-          Vertragsbedingungen stehen in den <Link to="/agb">AGB</Link>.
+          Anbieterangaben im <Link to="/impressum/">Impressum</Link>. Die
+          Vertragsbedingungen stehen in den <Link to="/agb/">AGB</Link>.
         </p>
       </div>
     </>

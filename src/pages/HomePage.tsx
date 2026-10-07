@@ -479,7 +479,7 @@ export default function HomePage() {
             <a href="#kaufen" className="btn btn--primary">
               {HOME_PLAN.ctaText}
             </a>
-            <Link to="/kontakt" className="btn btn--ghost">
+            <Link to="/kontakt/" className="btn btn--ghost">
               Erst 14 Tage testen
             </Link>
           </div>
@@ -642,7 +642,7 @@ export default function HomePage() {
                 zusammenstellt und auf mehreren Geräten installieren möchte, ist
                 bei den gewerblichen Lizenzen richtig.
               </p>
-              <Link to="/kognitives-training" className="link-arrow">
+              <Link to="/kognitives-training/" className="link-arrow">
                 Gewerbliche Lizenzen ansehen <ArrowRight size={15} strokeWidth={2.2} />
               </Link>
             </div>
@@ -671,7 +671,7 @@ export default function HomePage() {
               finden sein, aber nicht mit der Bestellung konkurrieren. */}
           <p className="widerruf-hinweis">
             Schon gekauft und möchten den Vertrag widerrufen?{' '}
-            <Link to={WIDERRUF_FUNKTION_PFAD}>{WIDERRUF_FUNKTION_LABEL}</Link>
+            <Link to={`${WIDERRUF_FUNKTION_PFAD}/`}>{WIDERRUF_FUNKTION_LABEL}</Link>
           </p>
         </div>
 
@@ -810,9 +810,9 @@ export default function HomePage() {
               <span>
                 {KAUF_EINWILLIGUNG.agb}{' '}
                 <span className="consent__aside">
-                  <Link to="/agb">AGB</Link> ·{' '}
-                  <Link to="/lizenzbedingungen">Lizenzbedingungen</Link> ·{' '}
-                  <Link to="/datenschutz">Datenschutz</Link>
+                  <Link to="/agb/">AGB</Link> ·{' '}
+                  <Link to="/lizenzbedingungen/">Lizenzbedingungen</Link> ·{' '}
+                  <Link to="/datenschutz/">Datenschutz</Link>
                 </span>
               </span>
             </label>
@@ -826,7 +826,7 @@ export default function HomePage() {
               <span>
                 {KAUF_EINWILLIGUNG.sofortBereit}{' '}
                 <span className="consent__aside">
-                  Einzelheiten in der <Link to="/widerruf">Widerrufsbelehrung</Link>.
+                  Einzelheiten in der <Link to="/widerruf/">Widerrufsbelehrung</Link>.
                 </span>
               </span>
             </label>

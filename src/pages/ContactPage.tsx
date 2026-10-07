@@ -108,7 +108,7 @@ export default function ContactPage() {
                 <span>
                   Ich bin einverstanden, dass meine E-Mail-Adresse zur Zusendung
                   des Demo-Schlüssels verarbeitet wird. Näheres in der{' '}
-                  <Link to="/datenschutz">Datenschutzerklärung</Link>.
+                  <Link to="/datenschutz/">Datenschutzerklärung</Link>.
                 </span>
               </label>
 

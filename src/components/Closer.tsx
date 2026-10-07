@@ -17,7 +17,7 @@ export default function Closer() {
           Die Demo läuft 14 Tage mit vollem Funktionsumfang. Sie brauchen nur
           eine E-Mail-Adresse.
         </p>
-        <Link to="/kontakt" className="btn btn--primary">
+        <Link to="/kontakt/" className="btn btn--primary">
           Demo anfordern <ArrowRight size={17} strokeWidth={2.2} />
         </Link>
       </div>

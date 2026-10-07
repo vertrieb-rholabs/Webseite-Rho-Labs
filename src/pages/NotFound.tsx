@@ -9,6 +9,7 @@ export default function NotFound() {
         title="Seite nicht gefunden — Rho-Labs"
         description="Diese Seite gibt es nicht."
         noindex
+        canonical={false}
       />
 
       <div className="wrap wrap--form">
@@ -23,7 +24,7 @@ export default function NotFound() {
             <Link to="/" className="btn btn--primary">
               Zur Startseite
             </Link>
-            <Link to="/kognitives-training" className="btn btn--ghost">
+            <Link to="/kognitives-training/" className="btn btn--ghost">
               Kognitives Training
             </Link>
           </div>

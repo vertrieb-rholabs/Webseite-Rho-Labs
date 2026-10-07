@@ -7,10 +7,10 @@ import { Menu, X } from 'lucide-react';
 // haben ohne den vorangegangenen Schritt keinen Sinn.
 const LINKS = [
   { to: '/', label: 'Start', end: true },
-  { to: '/kognitives-training', label: 'Kognitives Training' },
-  { to: '/home', label: 'Für zu Hause' },
-  { to: '/evidenz', label: 'Evidenz' },
-  { to: '/kontakt', label: 'Kontakt' },
+  { to: '/kognitives-training/', label: 'Kognitives Training' },
+  { to: '/home/', label: 'Für zu Hause' },
+  { to: '/evidenz/', label: 'Evidenz' },
+  { to: '/kontakt/', label: 'Kontakt' },
 ];
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ export default function Navbar() {
               {link.label}
             </NavLink>
           ))}
-          <Link to="/kontakt" className="btn btn--primary btn--sm">
+          <Link to="/kontakt/" className="btn btn--primary btn--sm">
             Demo anfordern
           </Link>
         </nav>
@@ -60,7 +60,7 @@ export default function Navbar() {
               {link.label}
             </NavLink>
           ))}
-          <Link to="/kontakt" className="btn btn--primary btn--sm">
+          <Link to="/kontakt/" className="btn btn--primary btn--sm">
             Demo anfordern
           </Link>
         </nav>

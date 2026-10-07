@@ -45,7 +45,7 @@ export default function Imprint() {
             </a>
             <p className="legal-aside">
               Für eine unmittelbare Rückmeldung erreichen Sie uns außerdem über
-              das <Link to="/kontakt">Kontaktformular</Link>.
+              das <Link to="/kontakt/">Kontaktformular</Link>.
             </p>
             {/* Aus Commit b6b834d — im Entwurf nicht enthalten, bewusst behalten. */}
             <a

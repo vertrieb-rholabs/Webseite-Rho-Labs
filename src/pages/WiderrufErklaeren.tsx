@@ -266,7 +266,7 @@ export default function WiderrufErklaeren() {
               Erklärung per E-Mail an{' '}
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> oder ein
               Brief genügt ebenso. Einzelheiten und das Muster-Widerrufsformular
-              stehen in der <Link to="/widerruf">Widerrufsbelehrung</Link>.
+              stehen in der <Link to="/widerruf/">Widerrufsbelehrung</Link>.
             </p>
           </div>
 
@@ -278,7 +278,7 @@ export default function WiderrufErklaeren() {
               Wir speichern sie, um Ihren Widerruf zu bearbeiten und seinen
               Eingang nachzuweisen. Eine Rückzahlung weisen wir gesondert an,
               über dasselbe Zahlungsmittel. Näheres in der{' '}
-              <Link to="/datenschutz">Datenschutzerklärung</Link>.
+              <Link to="/datenschutz/">Datenschutzerklärung</Link>.
             </p>
           </div>
         </div>

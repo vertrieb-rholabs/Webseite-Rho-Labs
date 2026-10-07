@@ -145,8 +145,8 @@ export default function Agb() {
         </div>
 
         <p className="note" style={{ display: 'block', marginTop: 28 }}>
-          Anbieterangaben im <Link to="/impressum">Impressum</Link>. Zur
-          Verarbeitung personenbezogener Daten siehe{' '}<Link to="/datenschutz">Datenschutzerklärung</Link>.
+          Anbieterangaben im <Link to="/impressum/">Impressum</Link>. Zur
+          Verarbeitung personenbezogener Daten siehe{' '}<Link to="/datenschutz/">Datenschutzerklärung</Link>.
         </p>
       </div>
     </>
