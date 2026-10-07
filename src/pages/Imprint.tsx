@@ -77,7 +77,7 @@ export default function Imprint() {
           </div>
         </div>
 
-        <p className="note">Stand: März 2026</p>
+        <p className="note">Stand: Oktober 2026</p>
 
         <div className="legal-block" style={{ marginTop: 40 }}>
           <h2>Verantwortlich für den Inhalt</h2>
