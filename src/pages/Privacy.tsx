@@ -37,7 +37,7 @@ export default function Privacy() {
         </div>
 
         <p className="note" style={{ display: 'block', marginTop: 28 }}>
-          Stand: September 2026
+          Stand: Oktober 2026
         </p>
       </div>
     </>

@@ -32,7 +32,7 @@ export default function Lizenzbedingungen() {
         "."
       }
             </p>
-            <p>{"Stand: 21. September 2026"}</p>
+            <p>{"Stand: 7. Oktober 2026"}</p>
           </div>
         </div>
         <div className="legal-block">
