@@ -83,10 +83,10 @@ export default function DemoThanks() {
       }
       action={
         <div className="btn-row btn-row--center">
-          <Link to="/kontakt" className="btn btn--ghost">
+          <Link to="/kontakt/" className="btn btn--ghost">
             Demo neu anfordern
           </Link>
-          <Link to="/kognitives-training" className="btn btn--ghost">
+          <Link to="/kognitives-training/" className="btn btn--ghost">
             Weiter zur Anwendung
           </Link>
         </div>

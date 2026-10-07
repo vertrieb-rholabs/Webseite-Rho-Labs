@@ -43,13 +43,13 @@ export default function KaufInArbeit() {
               trotzdem sofort. */}
           <p className="widerruf-hinweis" style={{ marginBottom: 20 }}>
             Sie möchten den Kauf stattdessen rückgängig machen?{' '}
-            <Link to={WIDERRUF_FUNKTION_PFAD}>{WIDERRUF_FUNKTION_LABEL}</Link>
+            <Link to={`${WIDERRUF_FUNKTION_PFAD}/`}>{WIDERRUF_FUNKTION_LABEL}</Link>
           </p>
           <div className="btn-row btn-row--center">
-            <Link to="/kontakt" className="btn btn--primary">
+            <Link to="/kontakt/" className="btn btn--primary">
               Kontakt
             </Link>
-            <Link to="/home" className="btn btn--ghost">
+            <Link to="/home/" className="btn btn--ghost">
               Zur Home-Version
             </Link>
           </div>

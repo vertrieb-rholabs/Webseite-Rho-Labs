@@ -76,7 +76,7 @@ export default function ProductPage() {
             offline; Trainingsdaten verlassen das Gerät nicht.
           </p>
           <div className="btn-row btn-row--center">
-            <Link to="/kontakt" className="btn btn--primary">
+            <Link to="/kontakt/" className="btn btn--primary">
               Demo anfordern — 14 Tage
             </Link>
             <a
@@ -382,7 +382,7 @@ export default function ProductPage() {
               Seite: Der Knopf öffnet eine Bestellmail, und der Vertrag kommt
               erst mit unserem Angebot und der Rechnung zustande. Für den
               privaten Gebrauch ist die {HOME_PLAN.name} gedacht — sie wird auf{' '}
-              <Link to="/home">/home</Link> gekauft, mit vollständigem
+              <Link to="/home/">/home</Link> gekauft, mit vollständigem
               Bestellvorgang, Widerrufsrecht und Lizenzschlüssel per E-Mail.
             </p>
             <p className="pilot-hinweis">
@@ -411,7 +411,7 @@ export default function ProductPage() {
               Ausführungen; der Unterschied sind die Profilverwaltung und die
               Trainingsabläufe.
             </p>
-            <Link to="/home" className="link-arrow">
+            <Link to="/home/" className="link-arrow">
               Zur Home-Version <ArrowRight size={15} strokeWidth={2.2} />
             </Link>
           </div>

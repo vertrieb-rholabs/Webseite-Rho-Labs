@@ -8,6 +8,8 @@ interface SeoProps {
   path: string;
   /** Seiten ohne eigenständigen Wert für die Suche ausnehmen. */
   noindex?: boolean;
+  /** Fehlerseiten haben keine kanonische Adresse. */
+  canonical?: boolean;
 }
 
 /**
@@ -16,15 +18,17 @@ interface SeoProps {
  * Wird beim Vorrendern in das ausgelieferte HTML geschrieben, steht also
  * auch ohne JavaScript im Quelltext.
  */
-export default function Seo({ title, description, path, noindex }: SeoProps) {
-  const url = `${SITE_URL}${path}`;
+export default function Seo({ title, description, path, noindex, canonical = true }: SeoProps) {
+  const address = new URL(path, SITE_URL);
+  address.pathname = `${address.pathname.replace(/\/+$/, '')}/`;
+  const url = address.href;
   const image = `${SITE_URL}/logo.png`;
 
   return (
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={url} />
+      {canonical && <link rel="canonical" href={url} />}
       {noindex && <meta name="robots" content="noindex, follow" />}
 
       <meta property="og:type" content="website" />

@@ -53,7 +53,9 @@ export default defineConfig({
     entry: 'src/index.tsx',
     crittersOptions: false,
     dirStyle: 'nested',
-    includedRoutes: () => Promise.resolve(ROUTES),
+    // Unter der kanonischen URL vorrendern: NavLink vergleicht den Pfad
+    // einschließlich Schrägstrich, sonst fehlt im HTML die aktive Navigation.
+    includedRoutes: () => Promise.resolve(ROUTES.map(route => `${route.replace(/\/+$/, '')}/`)),
     // GitHub Pages erwartet docs/404.html als Top-Level-Custom-404.
     // nested-mode generiert docs/404/index.html; wir flatten das.
     onFinished: async (dir) => {

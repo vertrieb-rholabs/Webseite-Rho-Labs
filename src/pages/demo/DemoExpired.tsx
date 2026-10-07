@@ -13,7 +13,7 @@ export default function DemoExpired() {
       body="Der Bestätigungslink ist abgelaufen oder wurde schon benutzt. Fordere die Demo einfach neu an."
       note="Zurück zum Formular auf der Kontaktseite."
       action={
-        <Link to="/kontakt" className="btn btn--primary">
+        <Link to="/kontakt/" className="btn btn--primary">
           Demo neu anfordern
         </Link>
       }

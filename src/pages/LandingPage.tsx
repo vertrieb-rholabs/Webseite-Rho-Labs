@@ -48,10 +48,10 @@ export default function LandingPage() {
             Übungen, unbegrenzt viele Profile, alle Trainingsdaten lokal.
           </p>
           <div className="btn-row btn-row--center">
-            <Link to="/kontakt" className="btn btn--primary">
+            <Link to="/kontakt/" className="btn btn--primary">
               Demo anfordern <ArrowRight size={17} strokeWidth={2.2} />
             </Link>
-            <Link to="/kognitives-training" className="btn btn--ghost">
+            <Link to="/kognitives-training/" className="btn btn--ghost">
               Kognitives Training ansehen
             </Link>
           </div>
@@ -111,7 +111,7 @@ export default function LandingPage() {
                 <span className="tag">Trainingsablauf-Editor</span>
                 <span className="tag">PDF- und CSV-Export</span>
               </div>
-              <Link to="/kognitives-training" className="btn btn--primary">
+              <Link to="/kognitives-training/" className="btn btn--primary">
                 Module und Preise <ArrowRight size={16} strokeWidth={2.2} />
               </Link>
             </div>
