@@ -466,7 +466,7 @@ export default function ProductPage() {
               Enterprise-Kunden können außerdem Normwerte anpassen lassen.
             </p>
             <a
-              href={`mailto:kontakt.rholabs@gmail.com?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
+              href={`mailto:info@rholabs.de?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
               className="link-arrow"
             >
               Anforderungen besprechen <ArrowRight size={15} strokeWidth={2.2} />

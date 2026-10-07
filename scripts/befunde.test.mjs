@@ -393,11 +393,7 @@ test('8 Recht 4 — keine Gebietsgrenze, die niemand einhält', () => {
   );
 });
 
-/* ── 9 · Recht 5 ──────────────────────────────────────────────────────────
-   Für denselben Vorgang — die Umbindung einer Lizenz — nannten die
-   Lizenzbedingungen kontakt.rholabs@gmail.com und der Aktivierungsdienst
-   vertrieb.rholabs@gmail.com.
-   -------------------------------------------------------------------------- */
+/* Recht 5: Kontakt, Vertrieb und Lizenzfragen verwenden dieselbe Adresse. */
 test('9 Recht 5 — eine Adresse für eine bereits gekaufte Lizenz', () => {
   const constants = quelle('src/constants.ts');
   assert.match(
@@ -1005,7 +1001,7 @@ test('15 mittel — die Demo-Dankesseite behauptet keinen Versand, und alle Ausg
     ['24 Stunden', 'die Gültigkeit des Links fehlt'],
     ['Spam-Ordner', 'der erste Blick bei ausbleibender Mail fehlt'],
     ['fordere die Demo noch einmal an', 'der nächste Schritt fehlt'],
-    ['kontakt.rholabs@gmail.com', 'der Weg zu einem Menschen fehlt, wenn auch das nichts bringt'],
+    ['info@rholabs.de', 'der Weg zu einem Menschen fehlt, wenn auch das nichts bringt'],
   ]) {
     assert.ok(karte.includes(stueck), `Demo-Dankesseite: ${warum} (${stueck}).`);
   }
@@ -1223,21 +1219,7 @@ test('17 hoch — die Beschränkung auf x64 steht dort, wo gekauft wird', () => 
   );
 });
 
-/* ── 18 · Sol Runde 5, mittel ─────────────────────────────────
-   „Empfänger: keine" im Newsletter-Abschnitt.
-
-   Gemeint war „kein Versanddienstleister"; dastand aber, dass es überhaupt
-   keinen Empfänger gibt. Die Nachrichten gehen über `smtp.gmail.com`
-   (`mailer.ts`, getTransporter) aus einem Gmail-Postfach hinaus
-   (`newsletter.ts`, Kopf) — Adresse und Inhalt verarbeitet dabei der
-   E-Mail-Anbieter. Art. 13 Abs. 1 lit. e DSGVO verlangt Empfänger oder
-   Empfängerkategorie; jeder andere Abschnitt dieser Erklärung nennt sie
-   richtig („unser E-Mail-Anbieter").
-
-   Gegenprobe am Dienst: Solange dort über Gmail versandt wird, muss die
-   Kategorie hier stehen. Verschwindet der SMTP-Versand, fällt dieser Test
-   und fragt nach, was stattdessen gilt.
-   -------------------------------------------------------------------------- */
+/* Test 18: Newsletter-Empfaenger, INWX-Erklaerung und SMTP_HOST absichern. */
 test('18 mittel — der Newsletter-Abschnitt nennt seinen Empfänger', () => {
   const html = seite(path.join('datenschutz', 'index.html'));
   const anfang = html.indexOf('Neuigkeiten per E-Mail');
@@ -1265,13 +1247,36 @@ test('18 mittel — der Newsletter-Abschnitt nennt seinen Empfänger', () => {
     + 'gehört weiterhin dazu.',
   );
 
-  // ── Gegenprobe am Dienst ──────────────────────────────────────────────────
+  // Die INWX-Erklaerung steht im gemeinsamen Abschnitt E-Mail-Kommunikation.
+  assert.match(
+    html, /INWX GmbH, Prinzessinnenstra\u00dfe 30, 10969 Berlin/,
+    'Der E-Mail-Abschnitt nennt INWX und dessen Anschrift nicht.',
+  );
+  assert.match(
+    html, /Vertrags nach Art\. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw\. im Europ\u00e4ischen Wirtschaftsraum statt/,
+    'Der INWX-Abschnitt nennt Vertragsgrundlage oder Verarbeitungsgebiet nicht.',
+  );
+  assert.match(
+    html, /sowohl die Nachrichten, die unser Dienst automatisch verschickt[\s\S]{0,180}als auch die Nachrichten, die wir selbst schreiben/,
+    'Der INWX-Abschnitt erfasst nicht beide Wege des E-Mail-Versands.',
+  );
+
+  // Gegenprobe am Dienst: kein fest eingetragener Host, Quelle ist SMTP_HOST.
   const mailer = dienstQuelle(path.join('src', 'main', 'mailer.ts'));
   if (mailer === null) return dienstFehlt(path.join('src', 'main', 'mailer.ts'));
+  assert.doesNotMatch(
+    mailer, /host:\s*['\"]smtp\.gmail\.com['\"]/,
+    'Der Dienst enthaelt wieder einen fest eingetragenen Gmail-Host.',
+  );
+  const config = dienstQuelle(path.join('src', 'main', 'config.ts'));
+  if (config === null) return dienstFehlt(path.join('src', 'main', 'config.ts'));
+  assert.doesNotMatch(
+    config, /host:\s*['\"]smtp\.gmail\.com['\"]|smtp\.gmail\.com/,
+    'Die SMTP-Konfiguration enthaelt wieder einen fest eingetragenen Gmail-Host.',
+  );
   assert.match(
-    mailer, /host: 'smtp\.gmail\.com'/,
-    'Der Dienst versendet nicht mehr über smtp.gmail.com. Dann ist zu prüfen, '
-    + 'welcher Anbieter jetzt Empfänger ist — und der Abschnitt nachzuziehen.',
+    config, /host:\s*\(process\.env\.SMTP_HOST\s*\|\|\s*''\)/,
+    'Der SMTP-Host wird nicht aus SMTP_HOST gelesen.',
   );
 });
 

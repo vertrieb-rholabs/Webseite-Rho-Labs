@@ -35,7 +35,7 @@ import type {
    ---------------------------------------------------------------------- */
 
 export const SITE_URL = 'https://rholabs.de';
-export const CONTACT_EMAIL = 'kontakt.rholabs@gmail.com';
+export const CONTACT_EMAIL = 'info@rholabs.de';
 
 /**
  * Telefonnummer des Anbieters. Eine Stelle fuer Impressum, AGB und
@@ -51,30 +51,11 @@ export const CONTACT_EMAIL = 'kontakt.rholabs@gmail.com';
  */
 export const KONTAKT_TELEFON = '+49 3692 118422';
 
-export const SALES_EMAIL = 'vertrieb.rholabs@gmail.com';
+export const SALES_EMAIL = 'info@rholabs.de';
 
 /**
- * Die Adresse fuer alles, was eine BEREITS ERWORBENE Lizenz betrifft:
- * Aktivierung, Gerätewechsel, Umbindung, verlorener Lizenzschluessel.
- *
- * ── Warum es diese Konstante gibt ───────────────────────────────────────────
- * Fuer denselben Vorgang — die Umbindung einer Lizenz auf ein neues Geraet —
- * nannten die abgenommenen Lizenzbedingungen `kontakt.rholabs@gmail.com`, der
- * Aktivierungsdienst im Fehlerfall aber `vertrieb.rholabs@gmail.com`. Der
- * Kaeufer bekam zwei Adressen und musste raten.
- *
- * ES GILT `kontakt.rholabs@gmail.com`, und zwar weil diese Adresse an der
- * staerksten Stelle steht: in den abgenommenen, dreifach geprueften
- * Lizenzbedingungen (zweimal: Gerätebindung und Weitergabe) und im
- * Vertragspartner-Block der Allgemeinen Geschaeftsbedingungen. Sie ist damit
- * die vertraglich veroeffentlichte Adresse. Die andere zu waehlen hiesse, drei
- * abgenommene Texte zu aendern, damit eine Fehlermeldung recht behaelt.
- *
- * Der Aktivierungsdienst muss darauf nachgezogen werden (`routes.ts:789` im
- * Auslieferungsdienst); diese Aenderung macht nicht diese Seite.
- *
- * `SALES_EMAIL` bleibt, was es ist: der Weg fuer Angebote, Volumenlizenzen und
- * gewerbliche Bestellungen — also fuer Vertraege, die noch nicht bestehen.
+ * Eine Adresse fuer Kontakt, Vertrieb und Fragen zu bestehenden Lizenzen.
+ * Die getrennten Konstanten halten die jeweiligen Verwendungsstellen lesbar.
  */
 export const LIZENZ_SUPPORT_EMAIL = CONTACT_EMAIL;
 
@@ -894,7 +875,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       'Vorlage des vollständigen Schlüssels: Legt die Anwendung bei der Aktivierung oder bei der Freigabe den vollständigen Lizenzschlüssel vor, vermerken wir bei der zugehörigen Bestellung einmalig, dass, wann und über welchen der beiden Wege das zum ersten Mal geschah — ohne den Prüfwert des Geräts und ohne deine IP-Adresse. Daran erkennt unser Dienst, dass diese Lizenz schon mit einer aktuellen Version genutzt wird; für sie nimmt er eine neue Anmeldung allein mit der Kennung dann nicht mehr an.',
       'Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Erfüllung des Vertrages). Ohne Aktivierung kann die Lizenz nicht bereitgestellt und die Gerätezahl nicht eingehalten werden; die Bereitstellung dieser Angaben ist für die Nutzung erforderlich. Dasselbe gilt für die Freigabe eines Geräteplatzes. Für die Vermerke über eine Freigabe und über die Vorlage des vollständigen Schlüssels Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist, nachvollziehen zu können, wann ein Geräteplatz einer Lizenz frei wurde, und Lizenzen davor zu schützen, dass jemand allein mit ihrer Kennung einen Geräteplatz belegt. Für die Verarbeitung der IP-Adresse zur Abwehr zu häufiger Anfragen zusätzlich Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist der Schutz des Aktivierungsdienstes vor automatisierten Massenanfragen.',
       'Der Aktivierungsdienst wird bei der Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland, betrieben.',
-      'Speicherdauer: Ein Aktivierungsdatensatz bleibt gespeichert, bis er auf einem von zwei Wegen gelöscht wird — er ist es, der die vereinbarte Gerätezahl einhält. Gelöscht wird er, wenn du den Platz des Geräts wie oben beschrieben selbst freigibst, oder wenn wir eine Lizenz auf ein anderes Gerät umbinden — diesen Geräte-Reset kannst du jederzeit unter kontakt.rholabs@gmail.com verlangen. Einen Lauf, der Aktivierungsdatensätze nach einer Frist von selbst löscht, gibt es nicht: Die gekauften Ausführungen sind zeitlich nicht begrenzt, und auch den Datensatz einer abgelaufenen Demo löschen wir nicht von selbst. Du kannst seine Löschung jederzeit verlangen (Art. 17 DSGVO). Die Vermerke über eine Freigabe und über die Vorlage des vollständigen Schlüssels bleiben bei der Bestellung gespeichert; auch sie löschen wir nicht von selbst.',
+      'Speicherdauer: Ein Aktivierungsdatensatz bleibt gespeichert, bis er auf einem von zwei Wegen gelöscht wird — er ist es, der die vereinbarte Gerätezahl einhält. Gelöscht wird er, wenn du den Platz des Geräts wie oben beschrieben selbst freigibst, oder wenn wir eine Lizenz auf ein anderes Gerät umbinden — diesen Geräte-Reset kannst du jederzeit unter info@rholabs.de verlangen. Einen Lauf, der Aktivierungsdatensätze nach einer Frist von selbst löscht, gibt es nicht: Die gekauften Ausführungen sind zeitlich nicht begrenzt, und auch den Datensatz einer abgelaufenen Demo löschen wir nicht von selbst. Du kannst seine Löschung jederzeit verlangen (Art. 17 DSGVO). Die Vermerke über eine Freigabe und über die Vorlage des vollständigen Schlüssels bleiben bei der Bestellung gespeichert; auch sie löschen wir nicht von selbst.',
     ],
   },
   {
@@ -954,7 +935,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       'Zweck: die Entgegennahme deiner Widerrufserklärung, die unverzügliche Eingangsbestätigung mit Datum und Uhrzeit auf einem dauerhaften Datenträger, der Nachweis dieses Eingangs und die anschließende Rückabwicklung des Vertrages. Zu diesem Zweck versuchen wir außerdem, deine Erklärung deiner Bestellung zuzuordnen; dafür gleichen wir die genannte Adresse und Adressen aus deinem Freitext mit unseren Bestellungen ab. Passt mehr als eine Bestellung, ordnen wir nichts zu.',
       'Rechtsgrundlage: Art. 6 Absatz 1 lit. c DSGVO in Verbindung mit § 356a BGB — die Funktion, die Eingangsbestätigung und deren Nachweis sind uns gesetzlich vorgeschrieben. Für die Rückabwicklung des Vertrages zusätzlich Art. 6 Absatz 1 lit. b DSGVO. Für die Speicherung der IP-Adresse zusätzlich Art. 6 Absatz 1 lit. f DSGVO; unser berechtigtes Interesse ist der Schutz der Funktion vor automatisierten Massenanfragen. Ohne diese Angaben können wir eine Widerrufserklärung nicht entgegennehmen und ihren Eingang nicht bestätigen.',
       'Anschließende E-Mail-Kommunikation: Die Eingangsbestätigung und alles, was wir zur Rückabwicklung mit dir besprechen, läuft über E-Mail. Dafür gilt der Abschnitt „E-Mail-Kommunikation“ weiter unten.',
-      'Speicherdauer: Deine Erklärung und den Nachweis ihres Eingangs bewahren wir auf, solange die Rückabwicklung läuft und solange wir belegen können müssen, dass und wann dein Widerruf eingegangen ist; darüber hinaus für die Dauer der gesetzlichen Aufbewahrungsfristen (§ 147 AO, § 257 HGB), soweit die Erklärung zu einem abgerechneten Vorgang gehört. Brichst du nach dem ersten Schritt ab, bleiben die dort gemachten Angaben gespeichert: Der Bestätigungslink gilt nur 30 Minuten — danach lässt sich der zweite Schritt nicht mehr abschließen, und eine Erklärung ist dann nicht abgegeben —, die Eingabe selbst löschen wir jedoch nicht von selbst. Du kannst ihre Löschung jederzeit unter kontakt.rholabs@gmail.com verlangen (Art. 17 DSGVO).',
+      'Speicherdauer: Deine Erklärung und den Nachweis ihres Eingangs bewahren wir auf, solange die Rückabwicklung läuft und solange wir belegen können müssen, dass und wann dein Widerruf eingegangen ist; darüber hinaus für die Dauer der gesetzlichen Aufbewahrungsfristen (§ 147 AO, § 257 HGB), soweit die Erklärung zu einem abgerechneten Vorgang gehört. Brichst du nach dem ersten Schritt ab, bleiben die dort gemachten Angaben gespeichert: Der Bestätigungslink gilt nur 30 Minuten — danach lässt sich der zweite Schritt nicht mehr abschließen, und eine Erklärung ist dann nicht abgegeben —, die Eingabe selbst löschen wir jedoch nicht von selbst. Du kannst ihre Löschung jederzeit unter info@rholabs.de verlangen (Art. 17 DSGVO).',
       'Empfänger: unser E-Mail-Anbieter für den Versand der Eingangsbestätigung. Eine darüber hinausgehende Weitergabe findet nicht statt.',
       'Der Weg über die Funktion ist ein Angebot, keine Bedingung: Du kannst deinen Widerruf ebenso formlos per E-Mail oder Brief erklären. Dann verarbeiten wir nur, was du uns dabei mitteilst.',
     ],
@@ -1029,29 +1010,15 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       // sagt jetzt, dass die Anfrage gespeichert bleibt, bis ihre Löschung
       // verlangt wird). Test 19 hält sie dort.
       'Doppelte Bestätigung: Nach dem Absenden erhältst du zunächst nur eine E-Mail mit einem Bestätigungslink. Erst wenn du diesen Link anklickst, erzeugen wir den Demo-Schlüssel und senden ihn zu. Ohne Bestätigung erzeugen und versenden wir keinen Schlüssel; gespeichert ist deine Anfrage in diesem Augenblick aber schon — siehe Speicherdauer. Dieses Verfahren stellt sicher, dass niemand fremde Adressen bei uns einträgt.',
-      'Speicherdauer: Je Adresse ist eine Demo pro Jahr vorgesehen; dafür müssen wir mindestens ein Jahr lang wissen, wann die letzte Demo ausgegeben wurde. Danach löschen wir den Eintrag nicht von selbst — er bleibt gespeichert, bis du seine Löschung verlangst (Art. 17 DSGVO, kontakt.rholabs@gmail.com). Dasselbe gilt für eine Anfrage, die du nie bestätigt hast: Der Bestätigungslink gilt nur 24 Stunden, danach lässt sich damit keine Demo mehr abrufen — die Zeile mit deiner Adresse und deiner IP-Adresse bleibt jedoch stehen. Der Bestätigungslink selbst wird nicht im Klartext gespeichert, sondern nur als Prüfwert.',
+      'Speicherdauer: Je Adresse ist eine Demo pro Jahr vorgesehen; dafür müssen wir mindestens ein Jahr lang wissen, wann die letzte Demo ausgegeben wurde. Danach löschen wir den Eintrag nicht von selbst — er bleibt gespeichert, bis du seine Löschung verlangst (Art. 17 DSGVO, info@rholabs.de). Dasselbe gilt für eine Anfrage, die du nie bestätigt hast: Der Bestätigungslink gilt nur 24 Stunden, danach lässt sich damit keine Demo mehr abrufen — die Zeile mit deiner Adresse und deiner IP-Adresse bleibt jedoch stehen. Der Bestätigungslink selbst wird nicht im Klartext gespeichert, sondern nur als Prüfwert.',
       'Empfänger: Der Versand erfolgt über unseren E-Mail-Anbieter. Eine darüber hinausgehende Weitergabe findet nicht statt. Die Daten liegen auf unserem Server in Deutschland.',
       'Getrennt vom Newsletter: Die Demo-Anfrage allein ist keine Anmeldung zu Werbung. Ohne das zusätzliche, freiwillige Häkchen verwenden wir deine Adresse ausschließlich für die Demo und die damit zusammenhängenden Nachrichten.',
     ],
   },
   /* ── Neuigkeiten per E-Mail ───────────────────────────────────────────────
-     NACHTRAG 22.09.2026 (Sol Runde 5, mittel). Hier stand: „Empfänger: keine."
-
-     Gemeint war: kein Newsletter-Versanddienstleister, keine Mailchimps
-     dieser Welt. Das stimmt auch — `newsletter.ts` kennt keine Versandfunktion,
-     der Verteiler wird als Liste ausgegeben und von Hand angeschrieben.
-
-     Nur ist „von Hand" kein Weg am E-Mail-Anbieter vorbei. Geschrieben wird
-     aus `kontakt.rholabs@gmail.com` (so sagt es `newsletter.ts` selbst), und
-     der Dienst versendet über `smtp.gmail.com` (`mailer.ts`, getTransporter).
-     Empfängeradresse und Nachrichteninhalt gehen dabei durch die Systeme des
-     Anbieters — das ist genau das, was Art. 13 Abs. 1 lit. e DSGVO mit
-     „Empfänger oder Kategorien von Empfängern" meint. „Keine" war damit die
-     einzige Stelle dieser Erklärung, die einen Empfänger verneinte, den jeder
-     andere Abschnitt richtig nennt („unser E-Mail-Anbieter", zweimal oben).
-
-     Der Satz sagt jetzt beides: welche Kategorie es gibt, und was es weiterhin
-     NICHT gibt. Die Verneinung war ja nicht erfunden, sie war nur zu weit.
+     Der Empfaenger ist der E-Mail-Anbieter: Auch von Hand geschriebene
+     Nachrichten laufen ueber dessen Server. Adresse und Inhalt werden dabei
+     verarbeitet; der Versanddienstleister bleibt ausgeschaltet.
      -------------------------------------------------------------------------- */
   {
     title: 'Neuigkeiten per E-Mail',
@@ -1061,7 +1028,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       'Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung), für den Versand zusätzlich § 7 Abs. 2 Nr. 2 UWG. Die Einwilligung wird erst mit dem Klick auf den Bestätigungslink wirksam — bis dahin stehst du nicht im Verteiler.',
       'Empfänger: unser E-Mail-Anbieter. Die Nachrichten schreiben wir von Hand aus unserem eigenen Postfach, und sie laufen dabei über dessen Server — dabei verarbeitet er deine Adresse und den Inhalt der Nachricht. Ein Newsletter-Versanddienstleister ist nicht eingeschaltet, und über den Versand hinaus geben wir deine Daten nicht weiter. Es findet keine Öffnungs- oder Klickmessung statt, und wir bilden keine Profile.',
       'Speicherdauer: bis zum Widerruf. Danach bewahren wir den Eintrag mit dem Vermerk des Widerrufs auf, solange wir nachweisen können müssen, dass und wann du widersprochen hast.',
-      'Widerruf: jederzeit und formlos — eine Antwort auf eine unserer Nachrichten genügt, ebenso eine kurze Mail an kontakt.rholabs@gmail.com. Die Rechtmäßigkeit der Verarbeitung bis zum Widerruf bleibt davon unberührt (Art. 7 Abs. 3 DSGVO).',
+      'Widerruf: jederzeit und formlos — eine Antwort auf eine unserer Nachrichten genügt, ebenso eine kurze Mail an info@rholabs.de. Die Rechtmäßigkeit der Verarbeitung bis zum Widerruf bleibt davon unberührt (Art. 7 Abs. 3 DSGVO).',
     ],
   },
   {
@@ -1076,6 +1043,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     title: 'E-Mail-Kommunikation',
     paragraphs: [
       'Wenn du uns schreibst, verarbeiten wir die Angaben aus deiner Nachricht, um sie zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei vertraglichen und vorvertraglichen Anliegen, sonst Art. 6 Abs. 1 lit. f DSGVO. Wir bewahren Korrespondenz so lange auf, wie es für die Bearbeitung und für gesetzliche Aufbewahrungspflichten nötig ist.',
+      'F\u00fcr E-Mails nutzen wir das E-Mail-Hosting der INWX GmbH, Prinzessinnenstra\u00dfe 30, 10969 Berlin. INWX verarbeitet die Daten in unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw. im Europ\u00e4ischen Wirtschaftsraum statt. \u00dcber INWX laufen sowohl die Nachrichten, die unser Dienst automatisch verschickt (etwa Lizenzschl\u00fcssel und Best\u00e4tigungen), als auch die Nachrichten, die wir selbst schreiben.',
     ],
   },
   {
