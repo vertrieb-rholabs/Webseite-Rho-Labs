@@ -8,6 +8,7 @@ import {
   APP_VERSION,
   CATEGORIES,
   CATEGORY_ORDER,
+  CONTACT_EMAIL,
   DEMONSTRATIONS,
   DOWNLOAD_URL,
   GAME_COUNT,
@@ -466,7 +467,7 @@ export default function ProductPage() {
               Enterprise-Kunden können außerdem Normwerte anpassen lassen.
             </p>
             <a
-              href={`mailto:info@rholabs.de?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
+              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
               className="link-arrow"
             >
               Anforderungen besprechen <ArrowRight size={15} strokeWidth={2.2} />

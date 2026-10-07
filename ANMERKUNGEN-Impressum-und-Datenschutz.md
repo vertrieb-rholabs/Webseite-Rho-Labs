@@ -66,7 +66,7 @@ aufgefallen sind.
 ## 4. Impressum — inhaltlich stimmig, eine Angabe fehlt
 
 Gefunden und übernommen: Rho-Labs – Einzelunternehmen, Inhaber Patrick Feix,
-Feldstraße 15, 99848 Wutha-Farnroda, kontakt.rholabs@gmail.com,
+Feldstraße 15, 99848 Wutha-Farnroda, info@rholabs.de,
 USt-IdNr. DE461250542.
 
 **Keine Telefonnummer angegeben.** § 5 Absatz 1 Nummer 2 DDG verlangt Angaben, die

@@ -1219,7 +1219,7 @@ test('17 hoch — die Beschränkung auf x64 steht dort, wo gekauft wird', () => 
   );
 });
 
-/* Test 18: Newsletter-Empfaenger, INWX-Erklaerung und SMTP_HOST absichern. */
+/* Test 18: Newsletter-Empfänger, INWX-Erklärung und SMTP_HOST absichern. */
 test('18 mittel — der Newsletter-Abschnitt nennt seinen Empfänger', () => {
   const html = seite(path.join('datenschutz', 'index.html'));
   const anfang = html.indexOf('Neuigkeiten per E-Mail');
@@ -1247,20 +1247,26 @@ test('18 mittel — der Newsletter-Abschnitt nennt seinen Empfänger', () => {
     + 'gehört weiterhin dazu.',
   );
 
-  // Die INWX-Erklaerung steht im gemeinsamen Abschnitt E-Mail-Kommunikation.
-  assert.match(
-    html, /INWX GmbH, Prinzessinnenstraße 30, 10969 Berlin/,
-    'Der E-Mail-Abschnitt nennt INWX und dessen Anschrift nicht.',
+  // Die INWX-Erklärung steht im Abschnitt „E-Mail-Kommunikation“.
+  const mailAnfang = html.indexOf('<h2>E-Mail-Kommunikation</h2>');
+  const mailEnde = html.indexOf('<h2>', mailAnfang + 1);
+  assert.ok(
+    mailAnfang >= 0 && mailEnde > mailAnfang,
+    'Der Abschnitt „E-Mail-Kommunikation“ ist nicht auffindbar.',
   );
-  assert.match(
-    html, /Vertrags nach Art\. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw\. im Europäischen Wirtschaftsraum statt/,
-    'Der INWX-Abschnitt nennt Vertragsgrundlage oder Verarbeitungsgebiet nicht.',
+  const mailAbschnitt = html.slice(mailAnfang, mailEnde);
+  assert.ok(
+    mailAbschnitt.includes(
+      '<p>Für E-Mails nutzen wir das E-Mail-Hosting der INWX GmbH, '
+      + 'Prinzessinnenstraße 30, 10969 Berlin. INWX verarbeitet die Daten in '
+      + 'unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die '
+      + 'Verarbeitung findet nach diesem Vertrag in der EU bzw. im Europäischen '
+      + 'Wirtschaftsraum statt. Über INWX laufen sowohl die Nachrichten, die '
+      + 'unser Dienst automatisch verschickt (etwa Lizenzschlüssel und '
+      + 'Bestätigungen), als auch die Nachrichten, die wir selbst schreiben.</p>',
+    ),
+    'Der Absatz zur E-Mail-Kommunikation mit INWX stimmt nicht mehr wortgleich.',
   );
-  assert.match(
-    html, /sowohl die Nachrichten, die unser Dienst automatisch verschickt[\s\S]{0,180}als auch die Nachrichten, die wir selbst schreiben/,
-    'Der INWX-Abschnitt erfasst nicht beide Wege des E-Mail-Versands.',
-  );
-
   // Gegenprobe am Dienst: kein fest eingetragener Host, Quelle ist SMTP_HOST.
   const mailer = dienstQuelle(path.join('src', 'main', 'mailer.ts'));
   if (mailer === null) return dienstFehlt(path.join('src', 'main', 'mailer.ts'));
@@ -1277,6 +1283,15 @@ test('18 mittel — der Newsletter-Abschnitt nennt seinen Empfänger', () => {
   assert.match(
     config, /host:\s*\(process\.env\.SMTP_HOST\s*\|\|\s*''\)/,
     'Der SMTP-Host wird nicht aus SMTP_HOST gelesen.',
+  );
+  // Wechselt der Anbieter, fällt dieser Test und fragt nach einer Anpassung
+  // der Datenschutzerklärung.
+  const readme = dienstQuelle('README.md');
+  if (readme === null) return dienstFehlt('README.md');
+  assert.match(
+    readme, /SMTP_HOST=smtp\.webspace\.bz/,
+    'Die README dokumentiert SMTP_HOST=smtp.webspace.bz nicht mehr; '
+    + 'bitte die Datenschutzerklärung prüfen und anpassen.',
   );
 });
 
