@@ -168,12 +168,7 @@ export default function Footer() {
             <a href={`mailto:${SALES_EMAIL}`} style={{ fontSize: 14, fontWeight: 600 }}>
               {SALES_EMAIL}
             </a>
-            {/* Zwei Adressen, und der Kaeufer muss nicht raten, welche.
-                Der Aktivierungsdienst und die Lizenzbedingungen nannten fuer
-                denselben Vorgang — die Umbindung einer Lizenz auf ein neues
-                Geraet — verschiedene Adressen. Es gilt die der abgenommenen
-                Lizenzbedingungen: LIZENZ_SUPPORT_EMAIL. „Vertrieb" bleibt der
-                Weg fuer Angebote und gewerbliche Bestellungen. */}
+            {/* Eine Adresse für Vertrieb und Lizenzfragen: info@rholabs.de. */}
             <p className="note" style={{ margin: '10px 0 0', lineHeight: 1.6 }}>
               Angebote und gewerbliche Bestellungen.
               <br />

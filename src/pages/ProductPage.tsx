@@ -8,6 +8,7 @@ import {
   APP_VERSION,
   CATEGORIES,
   CATEGORY_ORDER,
+  CONTACT_EMAIL,
   DEMONSTRATIONS,
   DOWNLOAD_URL,
   GAME_COUNT,
@@ -469,7 +470,7 @@ export default function ProductPage() {
               von zugeschnittenen Übungen bis zu eigenen Auswertungen.
             </p>
             <a
-              href={`mailto:kontakt.rholabs@gmail.com?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
+              href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Anfrage Custom Feature-Entwicklung')}`}
               className="link-arrow"
             >
               Anforderungen besprechen <ArrowRight size={15} strokeWidth={2.2} />

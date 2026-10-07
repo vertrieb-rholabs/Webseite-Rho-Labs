@@ -153,11 +153,8 @@ export default function ContactPage() {
                 <MessageSquare size={17} />
               </span>
               <h3>Allgemeine Anfragen und gekaufte Lizenzen</h3>
-              {/* Hier steht ausdruecklich, was zu einer BESTEHENDEN Lizenz
-                  gehoert. Der Aktivierungsdienst nannte im Fehlerfall die
-                  Vertriebsadresse, die abgenommenen Lizenzbedingungen diese —
-                  fuer denselben Vorgang. Es gilt diese; siehe
-                  LIZENZ_SUPPORT_EMAIL in constants.ts. */}
+              {/* Für allgemeine Fragen und gekaufte Lizenzen gilt dieselbe
+                  Adresse: info@rholabs.de. */}
               <p>
                 Technische Fragen, Rückmeldungen oder Anpassungen an der
                 Software. Ebenso alles zu einer bereits gekauften Lizenz:
