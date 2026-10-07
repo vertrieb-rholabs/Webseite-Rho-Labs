@@ -167,7 +167,7 @@ test('1 · gültiger Link: Angebot und Formular — der Token geht nur an die An
     assert.ok(konsole.every((z) => !z.includes(TOKEN)), 'Der Token steht in der Konsole.');
     const meta = await seite.$eval('meta[name=referrer]', (m) => m.content);
     assert.equal(meta, 'no-referrer');
-    const bedingungenLink = await seite.$eval('a[href="/pilotbedingungen"]', (a) => [a.target, a.rel, a.referrerPolicy]);
+    const bedingungenLink = await seite.$eval('a[href="/pilotbedingungen/"]', (a) => [a.target, a.rel, a.referrerPolicy]);
     assert.deepEqual(bedingungenLink, ['_blank', 'noopener noreferrer', 'no-referrer']);
     assert.deepEqual(await seite.evaluate(() => [localStorage.length, sessionStorage.length, document.cookie]), [0, 0, '']);
   } finally {
@@ -178,7 +178,7 @@ test('1 · gültiger Link: Angebot und Formular — der Token geht nur an die An
 /* ── 2 ──────────────────────────────────────────────────────────────────── */
 test('2 · ungültig, unbekannte Form, andere Fassung, Dienst nicht erreichbar: Meldung statt Formular', async () => {
   const faelle = [
-    ['unbekannter Link', `?t=${TOKEN}`, () => json({ gueltig: false }), /Dieser Link ist nicht mehr gültig\. Bitte schreiben Sie uns an kontakt\.rholabs@gmail\.com\./, 1],
+    ['unbekannter Link', `?t=${TOKEN}`, () => json({ gueltig: false }), /Dieser Link ist nicht mehr gültig\. Bitte schreiben Sie uns an info@rholabs\.de\./, 1],
     ['kein Token', '', () => json(gueltig), /Dieser Link ist nicht mehr gültig/, 0],
     ['Token mit fremden Zeichen', '?t=abc%20def%3Cscript%3E', () => json(gueltig), /Dieser Link ist nicht mehr gültig/, 0],
     ['zu langer Token', `?t=${'a'.repeat(129)}`, () => json(gueltig), /Dieser Link ist nicht mehr gültig/, 0],
@@ -327,7 +327,7 @@ test('5b · Fehlerseite der Zustimmung: Grund sichtbar, unbekannter Wert nicht',
   try {
     const t = await text(o.seite);
     assert.match(t, /Die Pilotbedingungen wurden inzwischen aktualisiert\. Bitte öffnen Sie den Link aus unserer E-Mail erneut\./);
-    assert.match(t, /kontakt\.rholabs@gmail\.com/);
+    assert.match(t, /info@rholabs\.de/);
   } finally { await o.seite.close(); }
   o = await oeffnen(`${basis}/pilotpartner/zustimmung/fehler/?grund=zzz`);
   try {

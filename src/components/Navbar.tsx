@@ -8,7 +8,7 @@ import { Menu, X } from 'lucide-react';
 const LINKS = [
   { to: '/', label: 'Start', end: true },
   { to: '/kognitives-training/', label: 'Kognitives Training' },
-  { to: '/home/', label: 'F?r zu Hause' },
+  { to: '/home/', label: 'Für zu Hause' },
   { to: '/evidenz/', label: 'Hintergrund' },
   { to: '/kontakt/', label: 'Kontakt' },
 ];

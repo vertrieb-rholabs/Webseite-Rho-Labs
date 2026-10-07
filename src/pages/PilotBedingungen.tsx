@@ -66,7 +66,7 @@ export default function PilotBedingungen() {
   return (
     <>
       <Seo
-        path="/pilotbedingungen"
+        path="/pilotbedingungen/"
         title="Pilotbedingungen — Rho-Labs"
         description={`Pilotbedingungen für das Pilotprogramm von Rho-Labs, Fassung ${PILOT_FASSUNG}: Gegenstand, Ablauf, Nutzungsrecht, Daten auf den Geräten, Haftung.`}
       />
@@ -107,11 +107,11 @@ export default function PilotBedingungen() {
         </div>
 
         <p className="note" style={{ display: 'block', marginTop: 28 }}>
-          Zur <Link to="/pilotpartner">Pilotseite</Link> mit Ablauf und Bewerbung. Fragen
+          Zur <Link to="/pilotpartner/">Pilotseite</Link> mit Ablauf und Bewerbung. Fragen
           zu den Bedingungen an <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
-          Anbieterangaben im <Link to="/impressum">Impressum</Link>, Hinweise zum
+          Anbieterangaben im <Link to="/impressum/">Impressum</Link>, Hinweise zum
           Datenschutz in der{' '}
-          <Link to="/datenschutz">Datenschutzerklärung</Link>.
+          <Link to="/datenschutz/">Datenschutzerklärung</Link>.
         </p>
       </div>
     </>

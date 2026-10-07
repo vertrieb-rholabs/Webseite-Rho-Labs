@@ -133,23 +133,23 @@ test('P1 — jede Pilotseite steht in ALLEN DREI Listen, die Sitemap nur die bei
 
   for (const r of routen) {
     assert.match(appTsx, new RegExp(`path:\\s*'${r}'`), `src/App.tsx kennt /${r} nicht.`);
-    assert.match(vite, new RegExp(`'/${r}'`), `vite.config.ts rendert /${r} nicht vor — der Rückweg des Dienstes liefe in den 404.`);
+    assert.match(vite, new RegExp(`'/${r}/'`), `vite.config.ts rendert /${r} nicht vor — der Rückweg des Dienstes liefe in den 404.`);
     assert.ok(
-      hydration.includes(`'/${r}'`) || hydration.includes(`'/${r}/'`),
+      hydration.includes(`'/${r}/'`),
       `Die Hydrationsprüfung sieht /${r} nicht an.`,
     );
     seite(path.join(...r.split('/'), 'index.html'));
   }
 
-  assert.match(sitemap, /<loc>https:\/\/rholabs\.de\/pilotpartner<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/rholabs\.de\/pilotbedingungen<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/rholabs\.de\/pilotpartner\/<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/rholabs\.de\/pilotbedingungen\/<\/loc>/);
   for (const r of ['pilotpartner/danke', 'pilotpartner/zustimmung', 'pilotpartner/zustimmung/fertig', 'pilotpartner/zustimmung/fehler']) {
     assert.ok(!sitemap.includes(`/${r}`), `Die Sitemap führt /${r} — Status- und Zustimmungsseiten gehören nicht hinein.`);
   }
 
   // Vorgerenderte Routen und Hydrationsliste nennen dieselben Seiten.
   const norm = (liste) => liste.map((x) => x.replace(/\/$/, '')).sort();
-  const aus = (text) => [...text.matchAll(/^\s*'(\/[^']*)',?$/gm)].map((m) => m[1]).filter((x) => x !== '/foo-bar' && x !== '/404');
+  const aus = (text) => [...text.matchAll(/^\s*'(\/[^']*)',?$/gm)].map((m) => m[1]).filter((x) => !['/foo-bar', '/404', '/404.html'].includes(x.replace(/\/$/, '')));
   assert.deepEqual(norm(aus(hydration)), norm(aus(vite.slice(vite.indexOf('const ROUTES'), vite.indexOf(']')))));
 });
 
@@ -256,7 +256,7 @@ test('P4 — das Bewerbungsformular ist ein klassischer POST mit den Feldern und
   }
   for (const n of ['telefon', 'art', 'zielgruppe', 'einsatz']) assert.ok(feld(n)['aria-describedby'], `${n} ohne Hinweisbindung.`);
   assert.match(form, /<label class="check"><input type="checkbox"[^>]*name="datenschutz"/);
-  assert.match(form, /href="\/datenschutz#pilotprogramm"/);
+  assert.match(form, /href="\/datenschutz\/#pilotprogramm"/);
   // Fehlerbereich als Live-Region.
   assert.match(html, /aria-live="polite"/);
   // Ohne JavaScript: Hinweis.
@@ -306,7 +306,7 @@ test('P4c — die Fehlertexte sind die aus T1', () => {
   for (const satz of [
     'Bitte prüfen Sie Ihre Angaben — ein Pflichtfeld fehlt oder ist zu lang.',
     'Zu viele Anfragen. Bitte versuchen Sie es in einer Stunde erneut.',
-    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an kontakt.rholabs@gmail.com.',
+    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an info@rholabs.de.',
   ]) assert.ok(src.includes(satz), `Fehlertext fehlt: ${satz}`);
   const html = seite(path.join('pilotpartner', 'index.html'));
   assert.equal([...html.matchAll(/data-vorab="" data-rueckweg="[^"]+" hidden=""/g)].length, 3, 'Die drei Kästen stehen nicht verborgen im HTML.');
@@ -412,9 +412,9 @@ test('P6 — Danke-, Fertig- und Fehlerseite sagen, was T1 vorgibt', () => {
     'Die Pilotbedingungen wurden inzwischen aktualisiert. Bitte öffnen Sie den Link aus unserer E-Mail erneut.',
     'Bitte füllen Sie alle Felder aus und bestätigen Sie alle drei Punkte.',
     'Zu viele Anfragen. Bitte versuchen Sie es in einer Stunde erneut.',
-    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an kontakt.rholabs@gmail.com.',
+    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an info@rholabs.de.',
   ]) assert.ok(fehler.includes(satz), `Fehlertext fehlt: ${satz}`);
-  assert.match(fehlerHtml, /kontakt\.rholabs@gmail\.com/, 'Die Kontaktadresse fehlt.');
+  assert.match(fehlerHtml, /info@rholabs\.de/, 'Die Kontaktadresse fehlt.');
   assert.match(fehlerHtml, /\(function\(\)\{try\{/, 'Das Rückweg-Skript fehlt.');
 });
 
@@ -512,7 +512,7 @@ test('P9 — AGB und Lizenzbedingungen tragen die Zweckbestimmung wortgleich mit
   assert.match(agb, /entscheidungen\. Dieser Absatz bestimmt den Vertragsgegenstand\. Er schränkt die Haftung für Verletzungen von Leben, Körper oder Gesundheit nicht ein\./i);
   assert.match(lizenz, /Entscheidungen\. Das beschreibt den Vertragsgegenstand\./);
   assert.match(lizenz, /\(kein Medizinprodukt, keine medizinische Zweckbestimmung, keine Diagnose\)/);
-  assert.match(lizenz, /Stand: 6\. Oktober 2026/);
+  assert.match(lizenz, /Stand: 7\. Oktober 2026/);
   assert.doesNotMatch(agb + lizenz, /Therapieinstrument/);
 
   const rt = dienst(path.join('src', 'main', 'rechtstexte.ts'));
@@ -521,7 +521,7 @@ test('P9 — AGB und Lizenzbedingungen tragen die Zweckbestimmung wortgleich mit
   const gleich = (text) => text.includes(dort);
   assert.ok(gleich(rt), 'Der Zweckbestimmungssatz im Dienst (rechtstexte.ts) weicht von dem der Website ab.');
   assert.equal(rt.split(dort).length - 1, 2, 'Der Dienst führt den Satz in AGB und Lizenzbedingungen je einmal.');
-  assert.match(rt, /Stand: 6\. Oktober 2026/);
+  assert.match(rt, /Stand: 7\. Oktober 2026/);
   assert.ok(rt.includes('(kein Medizinprodukt, keine medizinische Zweckbestimmung, keine Diagnose)'));
 
   // Und im ausgelieferten HTML.
@@ -807,28 +807,29 @@ test('P14 — Lizenzaktivierung und Update-Prüfung gegen das tatsächliche Verh
   assert.match(pkg, /"provider": "github",\s*"owner": "vertrieb-rholabs"/, 'Der Update-Kanal ist nicht mehr GitHub (vertrieb-rholabs).');
 });
 
-test('P15 — Ergänzungen A und B: Anbieter der E-Mails und Widerspruchshinweis', () => {
+test('P15 - INWX and objection notice in privacy policy', () => {
   const html = seite(path.join('datenschutz', 'index.html'));
   const text = htmlText(html);
-  assert.ok(text.includes('Für E-Mails nutzen wir den Dienst Gmail der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Dabei können Daten an die Google LLC in den USA übermittelt werden; die Google LLC ist nach dem EU-US-Datenschutzrahmen (Data Privacy Framework) zertifiziert, für den die EU-Kommission einen Angemessenheitsbeschluss erlassen hat.'));
+  assert.equal((text.match(/E-Mail-Hosting der INWX GmbH/g) ?? []).length, 1, 'Der INWX-Absatz steht nicht genau einmal im Abschnitt E-Mail-Kommunikation.');
+  assert.doesNotMatch(text, /Gmail der Google Ireland|Google LLC|Data Privacy Framework|dataprivacyframework/);
   assert.match(html, /<blockquote><p><strong>Widerspruchsrecht:<\/strong>/);
   assert.ok(text.includes('Soweit wir Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeiten, kannst du dieser Verarbeitung jederzeit aus Gründen, die sich aus deiner besonderen Situation ergeben, widersprechen (Art. 21 Abs. 1 DSGVO).'));
-  assert.ok(text.includes('Ein formloser Hinweis an kontakt.rholabs@gmail.com genügt.'));
-  // Reihenfolge: Das Gmail-Sentence steht im Abschnitt E-Mail-Kommunikation, der Hinweis im Abschnitt Deine Rechte.
-  assert.ok(text.indexOf('Gmail der Google Ireland') > text.indexOf('E-Mail-Kommunikation') && text.indexOf('Gmail der Google Ireland') < text.lastIndexOf('Deine Rechte'));
+  assert.ok(text.includes('Ein formloser Hinweis an info@rholabs.de genügt.'));
+  assert.ok(text.indexOf('INWX GmbH') > text.indexOf('E-Mail-Kommunikation') && text.indexOf('INWX GmbH') < text.lastIndexOf('Deine Rechte'));
   assert.ok(text.indexOf('Widerspruchsrecht:') > text.lastIndexOf('Deine Rechte'));
 });
+
 
 /* ── 8 · Verlinkung ──────────────────────────────────────────────────────── */
 
 test('P16 — Fußzeile, Produktseite und Home-Seite verweisen auf die Pilotseite', () => {
-  assert.match(quelle('src/components/Footer.tsx'), /to="\/pilotpartner"[\s\S]{0,80}Pilotprogramm/);
+  assert.match(quelle('src/components/Footer.tsx'), /to="\/pilotpartner\/"[\s\S]{0,80}Pilotprogramm/);
   for (const rel of ['kognitives-training', 'home']) {
     const html = seite(path.join(rel, 'index.html'));
-    assert.match(html, /Pilotpartner gesucht →[\s\S]{0,40}<a href="\/pilotpartner"[^>]*>Mehr erfahren<\/a>/, `${rel}: der dezente Hinweis fehlt.`);
+    assert.match(html, /Pilotpartner gesucht →[\s\S]{0,40}<a href="\/pilotpartner\/"[^>]*>Mehr erfahren<\/a>/, `${rel}: der dezente Hinweis fehlt.`);
   }
   const startseite = seite('index.html');
-  assert.match(startseite, /href="\/pilotpartner"/, 'Die Fußzeile verlinkt die Pilotseite nicht.');
+  assert.match(startseite, /href="\/pilotpartner\/"/, 'Die Fußzeile verlinkt die Pilotseite nicht.');
 });
 
 /* ── 9 · Barrierefreiheit und Navigation (W2 Nr. 3 bis 5) ────────────────── */
@@ -861,17 +862,17 @@ test('P17 — Links mit target="_blank" auf den Pilot- und Evidenzseiten: Hinwei
       assert.match(m[0], /<span class="sr-only"> \(öffnet in neuem Tab\)<\/span>|aria-label="[^"]*\(öffnet in neuem Tab\)"/, `${rel}: ausgelieferter Link ohne Hinweis: ${m[0].slice(0, 100)}`);
     }
   }
-  assert.match(seite(path.join('pilotpartner', 'index.html')), /<a href="\/datenschutz#pilotprogramm" target="_blank" rel="noopener noreferrer">Datenschutzhinweise<span class="sr-only"> \(öffnet in neuem Tab\)<\/span><\/a>/);
+  assert.match(seite(path.join('pilotpartner', 'index.html')), /<a href="\/datenschutz\/#pilotprogramm" target="_blank" rel="noopener noreferrer">Datenschutzhinweise<span class="sr-only"> \(öffnet in neuem Tab\)<\/span><\/a>/);
 });
 
 test('P18 — Navigation: „Hintergrund" statt „Evidenz", die Route bleibt /evidenz', () => {
   const nav = quelle('src/components/Navbar.tsx');
-  assert.match(nav, /\{ to: '\/evidenz', label: 'Hintergrund' \}/);
+  assert.match(nav, /\{ to: '\/evidenz\/', label: 'Hintergrund' \}/);
   assert.doesNotMatch(nav, /label: 'Evidenz'/);
   for (const rel of ['index.html', path.join('pilotpartner', 'index.html'), path.join('evidenz', 'index.html')]) {
     const html = seite(rel);
-    assert.match(html, /<a [^>]*class="nav__link[^"]*" href="\/evidenz"[^>]*>Hintergrund<\/a>/, `${rel}: Menüpunkt „Hintergrund" fehlt.`);
-    assert.doesNotMatch(html, /<a [^>]*class="nav__link[^"]*" href="\/evidenz"[^>]*>Evidenz<\/a>/, `${rel}: Menüpunkt heißt noch „Evidenz".`);
+    assert.match(html, /<a [^>]*class="nav__link[^"]*" href="\/evidenz\/"[^>]*>Hintergrund<\/a>/, `${rel}: Menüpunkt „Hintergrund" fehlt.`);
+    assert.doesNotMatch(html, /<a [^>]*class="nav__link[^"]*" href="\/evidenz\/"[^>]*>Evidenz<\/a>/, `${rel}: Menüpunkt heißt noch „Evidenz".`);
   }
   assert.match(quelle('src/App.tsx'), /path:\s*'evidenz'/, 'Die Route /evidenz muss bleiben.');
 });

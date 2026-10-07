@@ -41,7 +41,7 @@ export const FORMFEHLER_TEXT: Record<Formfehler, string> = {
   eingabe: 'Bitte prüfen Sie Ihre Angaben — ein Pflichtfeld fehlt oder ist zu lang.',
   zu_viele: 'Zu viele Anfragen. Bitte versuchen Sie es in einer Stunde erneut.',
   intern:
-    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an kontakt.rholabs@gmail.com.',
+    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an info@rholabs.de.',
 };
 
 function formfehlerLesen(wert: string | null): Formfehler | null {
@@ -170,7 +170,7 @@ export default function PilotPartner() {
   return (
     <>
       <Seo
-        path="/pilotpartner"
+        path="/pilotpartner/"
         title="Pilotpartner gesucht — Rho-Labs Kognitives Training"
         description="Rho-Labs sucht drei bis fünf Praxen und Einrichtungen, die die Trainingssoftware sechs Wochen kostenlos im Arbeitsalltag erproben und mitgestalten. Unverbindlich bewerben."
       />
@@ -197,7 +197,7 @@ export default function PilotPartner() {
             <a href="#bewerbung" className="btn btn--primary">
               Als Pilotpartner bewerben
             </a>
-            <Link to="/pilotbedingungen" className="btn btn--ghost">
+            <Link to="/pilotbedingungen/" className="btn btn--ghost">
               Pilotbedingungen lesen
             </Link>
           </div>
@@ -251,7 +251,7 @@ export default function PilotPartner() {
           Kaufverpflichtung besteht nicht. Größere Entwicklungen, Schnittstellen oder
           Unternehmensfunktionen sind nicht Teil des Pilotprogramms. Einen Anspruch auf
           Umsetzung von Rückmeldungen gibt es nicht; Einzelheiten in den{' '}
-          <Link to="/pilotbedingungen">Pilotbedingungen</Link>.
+          <Link to="/pilotbedingungen/">Pilotbedingungen</Link>.
         </p>
       </section>
 
@@ -716,7 +716,7 @@ export default function PilotPartner() {
               <input type="checkbox" name="datenschutz" value="ja" required />
               <span>
                 Ich habe die{' '}
-                <a href="/datenschutz#pilotprogramm" target="_blank" rel="noopener noreferrer">
+                <a href="/datenschutz/#pilotprogramm" target="_blank" rel="noopener noreferrer">
                   Datenschutzhinweise
                   <span className="sr-only"> (öffnet in neuem Tab)</span>
                 </a>{' '}

@@ -31,7 +31,7 @@ export const GRUND_TEXT: Record<Grund, string> = {
   eingabe: 'Bitte füllen Sie alle Felder aus und bestätigen Sie alle drei Punkte.',
   zu_viele: 'Zu viele Anfragen. Bitte versuchen Sie es in einer Stunde erneut.',
   intern:
-    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an kontakt.rholabs@gmail.com.',
+    'Das hat leider nicht geklappt. Bitte versuchen Sie es später erneut oder schreiben Sie an info@rholabs.de.',
 };
 
 function grundLesen(wert: string | null): Grund | null {

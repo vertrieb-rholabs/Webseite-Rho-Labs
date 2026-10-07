@@ -177,7 +177,7 @@ export default function Footer() {
               <a href={`mailto:${LIZENZ_SUPPORT_EMAIL}`}>{LIZENZ_SUPPORT_EMAIL}</a>
             </p>
             <p style={{ margin: '14px 0 0', fontSize: 14, fontWeight: 600 }}>
-              <Link to="/pilotpartner" className="footer__link">
+              <Link to="/pilotpartner/" className="footer__link">
                 Pilotprogramm
               </Link>
             </p>

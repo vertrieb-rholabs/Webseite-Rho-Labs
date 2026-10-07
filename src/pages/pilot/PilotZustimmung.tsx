@@ -162,7 +162,7 @@ export default function PilotZustimmung() {
   return (
     <>
       <Seo
-        path="/pilotpartner/zustimmung"
+        path="/pilotpartner/zustimmung/"
         title="Pilotbedingungen bestätigen — Rho-Labs"
         description="Pilotbedingungen für das Pilotprogramm von Rho-Labs bestätigen."
         noindex
@@ -266,7 +266,7 @@ function Angebotsformular({ zustand }: { zustand: Extract<Zustand, { art: 'berei
 
       <p style={{ marginBottom: 28 }}>
         <a
-          href="/pilotbedingungen"
+          href="/pilotbedingungen/"
           target="_blank"
           rel="noopener noreferrer"
           referrerPolicy="no-referrer"

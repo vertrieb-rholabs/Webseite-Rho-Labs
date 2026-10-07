@@ -1043,7 +1043,7 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     title: 'E-Mail-Kommunikation',
     paragraphs: [
       'Wenn du uns schreibst, verarbeiten wir die Angaben aus deiner Nachricht, um sie zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO bei vertraglichen und vorvertraglichen Anliegen, sonst Art. 6 Abs. 1 lit. f DSGVO. Wir bewahren Korrespondenz so lange auf, wie es für die Bearbeitung und für gesetzliche Aufbewahrungspflichten nötig ist.',
-      'F?r E-Mails nutzen wir das E-Mail-Hosting der INWX GmbH, Prinzessinnenstra?e 30, 10969 Berlin. INWX verarbeitet die Daten in unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw. im Europ?ischen Wirtschaftsraum statt. ?ber INWX laufen sowohl die Nachrichten, die unser Dienst automatisch verschickt (etwa Lizenzschl?ssel und Best?tigungen), als auch die Nachrichten, die wir selbst schreiben.',
+      'Für E-Mails nutzen wir das E-Mail-Hosting der INWX GmbH, Prinzessinnenstraße 30, 10969 Berlin. INWX verarbeitet die Daten in unserem Auftrag auf Grundlage eines Vertrags nach Art. 28 DSGVO; die Verarbeitung findet nach diesem Vertrag in der EU bzw. im Europäischen Wirtschaftsraum statt. Über INWX laufen sowohl die Nachrichten, die unser Dienst automatisch verschickt (etwa Lizenzschlüssel und Bestätigungen), als auch die Nachrichten, die wir selbst schreiben.',
     ],
   },
   {
@@ -1054,6 +1054,6 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
     ],
     // Ergänzung B (T1 Abschnitt 2): eigener, abgesetzter Absatz nach Art. 21 Abs. 4 DSGVO.
     hervorgehoben:
-      '**Widerspruchsrecht:** Soweit wir Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeiten, kannst du dieser Verarbeitung jederzeit aus Gründen, die sich aus deiner besonderen Situation ergeben, widersprechen (Art. 21 Abs. 1 DSGVO). Wir verarbeiten die Daten dann nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe nachweisen, die deine Interessen überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen. Ein formloser Hinweis an kontakt.rholabs@gmail.com genügt.',
+      '**Widerspruchsrecht:** Soweit wir Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeiten, kannst du dieser Verarbeitung jederzeit aus Gründen, die sich aus deiner besonderen Situation ergeben, widersprechen (Art. 21 Abs. 1 DSGVO). Wir verarbeiten die Daten dann nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe nachweisen, die deine Interessen überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen. Ein formloser Hinweis an info@rholabs.de genügt.',
   },
 ];

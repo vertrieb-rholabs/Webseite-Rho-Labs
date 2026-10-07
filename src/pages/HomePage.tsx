@@ -647,7 +647,7 @@ export default function HomePage() {
               </Link>
               <p className="pilot-hinweis">
                 Pilotpartner gesucht →{' '}
-                <Link to="/pilotpartner">Mehr erfahren</Link>
+                <Link to="/pilotpartner/">Mehr erfahren</Link>
               </p>
             </div>
           </div>

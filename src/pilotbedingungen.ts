@@ -14,9 +14,9 @@
  * ihn mit diesem Text nach `CRLF → LF` und `trim` — derselben Normalisierung,
  * über die der Dienst den Hash bildet. Wer hier ein Zeichen ändert, ändert es
  * dort mit, vergibt eine neue Fassungskennung und legt die Seite
- * `/pilotpartner/zustimmung` mit nach (`PILOT_FASSUNG`).
+ * `/pilotpartner/zustimmung/` mit nach (`PILOT_FASSUNG`).
  *
- * Die Seite `/pilotbedingungen` zerlegt den Text nur an seinen Leerzeilen und
+ * Die Seite `/pilotbedingungen/` zerlegt den Text nur an seinen Leerzeilen und
  * an den Absatzzeilen; sie fügt ihm nichts hinzu.
  */
 
@@ -27,7 +27,7 @@ export const PILOT_BEDINGUNGEN_TEXT = `Pilotbedingungen für das Pilotprogramm v
 Fassung P1-2026-10 vom 6. Oktober 2026
 
 § 1 Gegenstand
-(1) Diese Bedingungen gelten für die Teilnahme am Pilotprogramm von Rho-Labs, Inhaber Patrick Feix, Feldstraße 15, 99848 Wutha-Farnroda, kontakt.rholabs@gmail.com (Rho-Labs). Vertragspartner ist der rechtliche Träger der ausgewählten Praxis oder Einrichtung, der auf der Bestätigungsseite bezeichnet ist (Pilotpartner).
+(1) Diese Bedingungen gelten für die Teilnahme am Pilotprogramm von Rho-Labs, Inhaber Patrick Feix, Feldstraße 15, 99848 Wutha-Farnroda, info@rholabs.de (Rho-Labs). Vertragspartner ist der rechtliche Träger der ausgewählten Praxis oder Einrichtung, der auf der Bestätigungsseite bezeichnet ist (Pilotpartner).
 (2) Rho-Labs überlässt dem Pilotpartner die Software „Rho-Labs Kognitives Training“ für Windows mit dem Funktionsumfang der Version für Praxen und Einrichtungen für einen begrenzten Zeitraum kostenlos zur Erprobung im Arbeitsalltag. Ziel ist, die Software anhand der Erfahrungen aus der Praxis weiterzuentwickeln. Das Pilotprogramm ist keine Studie und keine Prüfung von Wirkungen an Menschen.
 (3) Das Pilotprogramm richtet sich an Unternehmer im Sinne von § 14 BGB, juristische Personen des öffentlichen Rechts und öffentlich-rechtliche Sondervermögen, nicht an Verbraucher.
 (4) Für die Pilotnutzung gehen diese Bedingungen allgemeinen Vertrags- oder Lizenzbedingungen von Rho-Labs vor, auch solchen, die in der Software angezeigt werden. Abweichende Bedingungen des Pilotpartners gelten nicht; im Einzelfall ausdrücklich getroffene Abreden haben Vorrang. Eine kostenpflichtige Nutzung nach dem Pilot erfordert einen gesonderten Vertrag.

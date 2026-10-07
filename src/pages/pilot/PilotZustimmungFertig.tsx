@@ -29,7 +29,7 @@ export default function PilotZustimmungFertig() {
           <Link to="/" className="btn btn--ghost">
             Zur Startseite
           </Link>
-          <Link to="/pilotbedingungen" className="btn btn--ghost">
+          <Link to="/pilotbedingungen/" className="btn btn--ghost">
             Pilotbedingungen lesen
           </Link>
         </div>
