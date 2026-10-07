@@ -75,7 +75,7 @@ export default function Footer() {
                   Kognitiven Trainings — deshalb nicht in PIPELINE, aber hier
                   erreichbar. */}
               <li>
-                <Link to="/home" className="footer__link">
+                <Link to="/home/" className="footer__link">
                   … für zu Hause
                 </Link>
               </li>
@@ -104,37 +104,37 @@ export default function Footer() {
             <h4>Information</h4>
             <ul>
               <li>
-                <Link to="/evidenz" className="footer__link">
+                <Link to="/evidenz/" className="footer__link">
                   Wiss. Hintergrund
                 </Link>
               </li>
               <li>
-                <Link to="/kontakt" className="footer__link">
+                <Link to="/kontakt/" className="footer__link">
                   Kontakt
                 </Link>
               </li>
               <li>
-                <Link to="/impressum" className="footer__link">
+                <Link to="/impressum/" className="footer__link">
                   Impressum
                 </Link>
               </li>
               <li>
-                <Link to="/datenschutz" className="footer__link">
+                <Link to="/datenschutz/" className="footer__link">
                   Datenschutz
                 </Link>
               </li>
               <li>
-                <Link to="/agb" className="footer__link">
+                <Link to="/agb/" className="footer__link">
                   AGB
                 </Link>
               </li>
               <li>
-                <Link to="/widerruf" className="footer__link">
+                <Link to="/widerruf/" className="footer__link">
                   Widerruf
                 </Link>
               </li>
               <li>
-                <Link to="/lizenzbedingungen" className="footer__link">
+                <Link to="/lizenzbedingungen/" className="footer__link">
                   Lizenzbedingungen
                 </Link>
               </li>
@@ -153,7 +153,7 @@ export default function Footer() {
                   Konstante, damit sie nirgends abweicht. */}
               <li className="footer__widerruf">
                 <Link
-                  to={WIDERRUF_FUNKTION_PFAD}
+                  to={`${WIDERRUF_FUNKTION_PFAD}/`}
                   className="footer__link footer__link--widerruf"
                 >
                   {WIDERRUF_FUNKTION_LABEL}

@@ -359,7 +359,7 @@ export const PIPELINE: PipelineItem[] = [
     status: 'available',
     field: 'Kognition & Training',
     description: `${GAME_COUNT} Übungen für Gedächtnis, räumliches Denken, Handlungssteuerung und Aufmerksamkeit. Profilbasiert, auswertbar, offline nutzbar.`,
-    href: '/kognitives-training',
+    href: '/kognitives-training/',
   },
   {
     id: 'rhocoat',

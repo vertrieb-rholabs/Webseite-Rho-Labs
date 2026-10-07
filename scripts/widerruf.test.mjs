@@ -53,7 +53,7 @@ test('die Route steht in ALLEN DREI Listen', () => {
   );
 
   const hydration = quelle('scripts/hydration-check.mjs');
-  assert.match(hydration, /'\/vertrag-widerrufen'/, 'Die Hydrationsprüfung sieht die Seite nicht an.');
+  assert.match(hydration, /'\/vertrag-widerrufen\/'/, 'Die Hydrationsprüfung sieht die Seite nicht an.');
   assert.match(
     hydration, /'\/vertrag-widerrufen\/eingegangen\/'/,
     'Die Hydrationsprüfung sieht die Ergebnisseite nicht an.',

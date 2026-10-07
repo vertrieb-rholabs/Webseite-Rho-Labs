@@ -134,8 +134,8 @@ export default function Lizenzbedingungen() {
         </div>
 
         <p className="note" style={{ display: 'block', marginTop: 28 }}>
-          Anbieterangaben im <Link to="/impressum">Impressum</Link>. Die
-          Vertragsbedingungen stehen in den <Link to="/agb">AGB</Link>.
+          Anbieterangaben im <Link to="/impressum/">Impressum</Link>. Die
+          Vertragsbedingungen stehen in den <Link to="/agb/">AGB</Link>.
         </p>
       </div>
     </>

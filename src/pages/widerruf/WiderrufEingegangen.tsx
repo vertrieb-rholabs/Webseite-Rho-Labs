@@ -82,7 +82,7 @@ export default function WiderrufEingegangen() {
           Bleibt die Bestätigung aus — auch im Spam-Ordner —, gehen Sie bitte
           davon aus, dass Ihre Erklärung uns nicht erreicht hat, und erklären
           Sie den Widerruf noch einmal: über{' '}
-          <Link to={WIDERRUF_FUNKTION_PFAD}>{WIDERRUF_FUNKTION_LABEL}</Link>{' '}
+          <Link to={`${WIDERRUF_FUNKTION_PFAD}/`}>{WIDERRUF_FUNKTION_LABEL}</Link>{' '}
           oder formlos per E-Mail an{' '}
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Eine
           Rückzahlung weisen wir in jedem Fall gesondert an, über dasselbe
@@ -91,13 +91,13 @@ export default function WiderrufEingegangen() {
       }
       action={
         <div className="btn-row btn-row--center">
-          <Link to={WIDERRUF_FUNKTION_PFAD} className="btn btn--primary">
+          <Link to={`${WIDERRUF_FUNKTION_PFAD}/`} className="btn btn--primary">
             {WIDERRUF_FUNKTION_LABEL}
           </Link>
-          <Link to="/kontakt" className="btn btn--ghost">
+          <Link to="/kontakt/" className="btn btn--ghost">
             Kontakt
           </Link>
-          <Link to="/widerruf" className="btn btn--ghost">
+          <Link to="/widerruf/" className="btn btn--ghost">
             Widerrufsbelehrung
           </Link>
         </div>
