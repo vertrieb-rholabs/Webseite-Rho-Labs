@@ -87,6 +87,8 @@ export interface PipelineItem {
   description: string;
   /** Interne Route — nur bei status 'available' gesetzt. */
   href?: string;
+  /** Weiterentwicklung läuft als BSFZ-bescheinigtes FuE-Vorhaben. */
+  fueVorhaben?: boolean;
 }
 
 export interface LabProject {

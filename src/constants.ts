@@ -1,9 +1,12 @@
 import {
   BarChart3,
+  BrainCircuit,
   Clock,
   Database,
   FileText,
   Gauge,
+  GitBranch,
+  Layers,
   Lock,
   Network,
   Search,
@@ -407,6 +410,7 @@ export const PIPELINE: PipelineItem[] = [
     field: 'Optik & Dünnschicht',
     description:
       'Berechnung und Optimierung optischer Dünnschichtsysteme nach Transfer-Matrix- und S-Matrix-Verfahren — mit Materialdatenbank und mehrkriterieller Optimierung.',
+    fueVorhaben: true,
   },
   {
     id: 'medipen',
@@ -444,6 +448,75 @@ export const LAB_PROJECTS: LabProject[] = [
     href: 'https://modeforge.rholabs.de',
     context: 'Frei verfügbar, ohne Registrierung',
     tag: 'Open Source',
+  },
+];
+
+/* ── Forschung und Entwicklung (BSFZ) ─────────────────────────────────────
+   Grundlage: Bescheid der Bescheinigungsstelle Forschungszulage (BSFZ,
+   AiF Projekt GmbH) vom 09.10.2026 über den Antrag vom 28.08.2026, und der
+   „Leitfaden zur Nutzung des BSFZ-Siegels" (September 2025).
+
+   Was hier bewusst NICHT steht:
+   - „gefördert". Die BSFZ BESCHEINIGT, dass ein Vorhaben FuE im Sinne des
+     FZulG ist. Die Forschungszulage selbst setzt erst das Finanzamt fest
+     (zweite Stufe, Antrag über Mein ELSTER). Wer „gefördert" schreibt,
+     behauptet einen Bescheid, den es noch nicht gibt.
+   - „Gefördert durch: Bundesministerium für Forschung, Technologie und
+     Raumfahrt". Der Leitfaden (S. 4) verbietet ausdrücklich, das Siegel
+     damit zu ergänzen oder zu ersetzen.
+   - Vorgangsnummer, Steuernummer, Aufwand. Stehen im Bescheid, gehören
+     nicht auf eine öffentliche Seite.
+
+   Das rote Siegel ist das für (teilweise) eigenbetriebliche FuE — passend
+   zum Bescheid (eigenbetriebliche Forschung: ja, Auftragsforschung: nein).
+   Das orange wäre das für vollständige Auftragsforschung.
+
+   Die Datei public/bilder/bsfz-siegel-2026.svg ist das RGB-SVG aus dem
+   Siegelpaket, unverändert bis auf die viewBox: Das Original hat rundum
+   192 Einheiten Leerraum, der Schutzraum laut Leitfaden (S. 3) ist eine
+   Ringbreite, also 100. Die viewBox schneidet auf genau diesen Schutzraum
+   zu — die Wort-Bild-Marke selbst ist Byte für Byte die gelieferte.
+   -------------------------------------------------------------------------- */
+
+export const BSFZ_SIEGEL = {
+  src: '/bilder/bsfz-siegel-2026.svg',
+  alt: 'BSFZ-Siegel 2026: Forschung und Entwicklung, bescheinigt von der Bescheinigungsstelle Forschungszulage',
+  // Leitfaden S. 5: „In digitalen Anwendungen soll das Siegel außerdem auf
+  // die folgende Unterseite verlinken".
+  href: 'https://www.bescheinigung-forschungszulage.de/forschung-und-entwicklung-im-rampenlicht',
+  // Leitfaden S. 5, der vorgesehene ergänzende Satz — wörtlich lassen.
+  satz:
+    'Das BSFZ-Siegel bescheinigt Unternehmen, die mindestens einen positiven Bescheid durch die Bescheinigungsstelle Forschungszulage (BSFZ) erhalten haben, ihre FuE-Tätigkeit.',
+};
+
+export const FUE_VORHABEN = {
+  // Kurzbezeichnung, wörtlich aus Abschnitt A des Bescheids.
+  titel:
+    'Entwicklung einer physikvalidierten, selbstadaptiven Berechnungs- und Optimierungsplattform für optische Mehrschichtsysteme mit heterogener Inselarchitektur und lernender Steuerung',
+  bescheinigt: 'Oktober 2026',
+  // Beginn 17.12.2025, voraussichtliches Ende 31.12.2027 (Abschnitt E).
+  laufzeit: 'Dez. 2025 – Dez. 2027',
+  produkt: 'RhoCoat',
+};
+
+// In Alltagssprache, was das Vorhaben untersucht — verdichtet aus den
+// Zielen im Antrag. Keine Ergebniszusage: ob der Ansatz die bestehende
+// Kette schlägt, ist laut Antrag gerade der Gegenstand des Vorhabens.
+export const FUE_SCHWERPUNKTE: Principle[] = [
+  {
+    title: 'Struktur und Dicken zugleich',
+    text: 'Wie viele Schichten ein optischer Filter braucht, steht vorher nicht fest. Ändert sich die Schichtzahl, ändert sich der ganze Suchraum — beides muss gemeinsam gesucht werden.',
+    Icon: Layers,
+  },
+  {
+    title: 'Parallele Strukturlinien',
+    text: 'Eine Inselarchitektur verfolgt Entwürfe unterschiedlicher Schichtzahl nebeneinander und tauscht Informationen kontrolliert zwischen ihnen aus.',
+    Icon: GitBranch,
+  },
+  {
+    title: 'Gelernte Steuerung',
+    text: 'Gesteuert wird zunächst regelbasiert. Ein aus der Optimierung gelerntes Modell soll das später übernehmen — wenn es die Regeln bei gleichem Rechenbudget reproduzierbar übertrifft.',
+    Icon: BrainCircuit,
   },
 ];
 

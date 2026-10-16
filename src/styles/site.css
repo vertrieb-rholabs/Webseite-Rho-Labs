@@ -2018,6 +2018,137 @@ textarea {
   margin: 0 auto 28px;
 }
 
+/* ── Forschung und Entwicklung (BSFZ-Siegel) ────────────────────────────────
+   Regeln aus dem Leitfaden der BSFZ: Das Siegel wird nicht gedreht,
+   umgefaerbt oder beschnitten, und in seinen Schutzraum kommen keine
+   Schrift- oder Bildelemente — deshalb kein Leuchten und kein Rahmen dahinter.
+   Der Schutzraum ist in der Bildflaeche selbst enthalten (siehe
+   BSFZ_SIEGEL in constants.ts). Dunkler Grund ist ausdruecklich erlaubt
+   („Do": Siegel auf Schwarz); verboten ist ein Grund im Farbton des Rings.
+   Kleine Texte in --text-card, nicht --text-dim (Kontrast, siehe unten).
+   -------------------------------------------------------------------------- */
+
+.siegel {
+  display: inline-block;
+  line-height: 0;
+  border-radius: 9999px;
+  transition: transform 0.25s ease;
+}
+
+.siegel img {
+  display: block;
+}
+
+.siegel:hover {
+  transform: translateY(-2px);
+}
+
+.siegel:focus-visible {
+  border-radius: 9999px;
+}
+
+.fue__kopf {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  margin-bottom: clamp(36px, 4vw, 52px);
+}
+
+.fue__siegel img {
+  width: clamp(168px, 20vw, 248px);
+}
+
+/* Die Ueberschrift laeuft zweizeilig; ohne eigene Zeilenhoehe erbte sie 1.5. */
+.fue .h-section {
+  line-height: 1.1;
+}
+
+/* Flex statt Gitter: Bricht die letzte Angabe um, fuellt sie die Zeile —
+   im Gitter bliebe daneben eine leere Zelle stehen. */
+.fue__fakten {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin: 28px 0 0;
+  background: var(--line-3);
+  border: 1px solid var(--line-3);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.fue__fakten > div {
+  flex: 1 1 180px;
+  padding: 14px 18px;
+  background: var(--bg);
+}
+
+.fue__fakten dt {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-card);
+  margin: 0 0 6px;
+}
+
+.fue__fakten dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-white);
+}
+
+.fue__fuss {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 36px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.fue__fuss p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-card);
+  max-width: 820px;
+}
+
+.fue__label {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Verweis in der RhoCoat-Karte auf den Abschnitt. */
+.card__fue {
+  display: block;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-2);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.card__fue svg {
+  display: inline-block;
+  vertical-align: -2px;
+  margin-left: 5px;
+}
+
+@media (max-width: 720px) {
+  .fue__kopf {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ── Fusszeile ──────────────────────────────────────────────────────────── */
 
 .footer {
@@ -2072,6 +2203,29 @@ textarea {
   color: var(--text-white);
   border-color: rgba(34, 211, 238, 0.4);
   background: rgba(34, 211, 238, 0.08);
+}
+
+.footer__siegel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: -16px 0 24px;
+}
+
+.footer__siegel .siegel {
+  flex-shrink: 0;
+}
+
+.footer__siegel p {
+  max-width: 340px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-card);
+}
+
+.footer__link--fue {
+  white-space: nowrap;
+  font-weight: 600;
 }
 
 .footer h4 {

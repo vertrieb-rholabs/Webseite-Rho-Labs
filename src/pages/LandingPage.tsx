@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowDown, ArrowRight, ExternalLink } from 'lucide-react';
 import Seo from '../components/Seo';
 import Trailer from '../components/Trailer';
 import Closer from '../components/Closer';
+import BsfzSiegel from '../components/BsfzSiegel';
 import {
   APP_VERSION,
+  BSFZ_SIEGEL,
   CATEGORIES,
   CATEGORY_ORDER,
+  FUE_SCHWERPUNKTE,
+  FUE_VORHABEN,
   GAME_COUNT,
   LAB_PROJECTS,
   PIPELINE,
@@ -158,8 +162,79 @@ export default function LandingPage() {
                 <p className="card__text" style={{ flex: 1 }}>
                   {item.description}
                 </p>
+                {/* „FuE-Vorhaben", nicht „bescheinigtes Produkt": Die BSFZ
+                    bescheinigt das Vorhaben, nicht die Software. */}
+                {item.fueVorhaben && (
+                  <Link to="/#forschung" className="card__fue">
+                    BSFZ-bescheinigtes{' '}
+                    <span style={{ whiteSpace: 'nowrap' }}>
+                      FuE-Vorhaben
+                      <ArrowDown size={14} strokeWidth={2.2} aria-hidden="true" />
+                    </span>
+                  </Link>
+                )}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Forschung und Entwicklung ────────────────────────────────── */}
+      {/* Wortwahl und was hier fehlt (kein „gefördert", kein BMFTR-Zusatz):
+          siehe BSFZ_SIEGEL in constants.ts. */}
+      <section className="band--plain fue" id="forschung">
+        <div className="wrap wrap--narrow section">
+          <div className="fue__kopf">
+            <div className="fue__siegel">
+              <BsfzSiegel breite={248} />
+            </div>
+
+            <div>
+              <p className="eyebrow">Forschung &amp; Entwicklung</p>
+              <h2 className="h-section">Von der BSFZ als FuE-Vorhaben bescheinigt</h2>
+              <p className="lede">
+                Die Bescheinigungsstelle Forschungszulage hat unser Vorhaben zur
+                automatischen Auslegung optischer Mehrschichtsysteme geprüft — auf
+                Neuartigkeit, Risiko und Planmäßigkeit — und als Forschung und
+                Entwicklung im Sinne des Forschungszulagengesetzes bescheinigt.
+              </p>
+
+              <dl className="fue__fakten">
+                <div>
+                  <dt>Bescheinigt</dt>
+                  <dd>{FUE_VORHABEN.bescheinigt}</dd>
+                </div>
+                <div>
+                  <dt>Laufzeit</dt>
+                  <dd>{FUE_VORHABEN.laufzeit}</dd>
+                </div>
+                <div>
+                  <dt>Fließt ein in</dt>
+                  <dd>{FUE_VORHABEN.produkt}</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div className="grid grid--auto-260">
+            {FUE_SCHWERPUNKTE.map(({ title, text, Icon }) => (
+              <div className="card card--plain" key={title}>
+                <span className="icon-box icon-box--sm" aria-hidden="true" style={{ marginBottom: 18 }}>
+                  <Icon size={17} />
+                </span>
+                <h3 className="card__title" style={{ fontSize: 17 }}>
+                  {title}
+                </h3>
+                <p className="card__text">{text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="fue__fuss">
+            <p>
+              <span className="fue__label">Vorhaben</span>„{FUE_VORHABEN.titel}“
+            </p>
+            <p>{BSFZ_SIEGEL.satz}</p>
           </div>
         </div>
       </section>

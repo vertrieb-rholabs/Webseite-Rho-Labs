@@ -24,6 +24,7 @@ const ERWARTET = [
   'public/bilder/app-vorfuehrung-spiegelbild.webp',
   'public/bilder/app-vorfuehrung-auftrag.webp',
   'public/bilder/app-vorfuehrung-bildpaare.webp',
+  'public/bilder/bsfz-siegel-2026.svg',
 ];
 
 /** Bildmasse aus dem Dateikopf, ohne zusaetzliche Abhaengigkeit. */

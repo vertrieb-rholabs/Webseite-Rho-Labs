@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Linkedin } from 'lucide-react';
+import BsfzSiegel from './BsfzSiegel';
 import {
   LAB_PROJECTS,
   LIZENZ_SUPPORT_EMAIL,
@@ -189,6 +190,21 @@ export default function Footer() {
               Antwort in der Regel innerhalb von 24 Stunden.
             </p>
           </div>
+        </div>
+
+        {/* Auf jeder Seite, weil das Siegel das Unternehmen auszeichnet,
+            nicht ein einzelnes Produkt. Eine eigene Zeile statt unter dem
+            Logo: Die Spalte dort ist nur gut 190 px breit. Der Text daneben
+            steht ausserhalb des Schutzraums — der liegt in der Bildflaeche. */}
+        <div className="footer__siegel">
+          <BsfzSiegel breite={112} />
+          <p>
+            Forschung und Entwicklung, bescheinigt von der
+            Bescheinigungsstelle Forschungszulage (BSFZ).{' '}
+            <Link to="/#forschung" className="footer__link--fue">
+              Zum Vorhaben
+            </Link>
+          </p>
         </div>
 
         <div className="footer__bottom">

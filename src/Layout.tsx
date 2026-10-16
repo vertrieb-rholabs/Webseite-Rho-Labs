@@ -6,11 +6,19 @@ import useSpotlight from './hooks/useSpotlight';
 import './styles/site.css';
 
 export default function Layout() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
+    // Mit Sprungmarke (/#forschung, /datenschutz/#pilotprogramm) zum Ziel
+    // statt nach oben — sonst setzt das Hydrieren den Sprung zurueck, den der
+    // Browser beim Laden schon gemacht hat.
+    const ziel = hash ? document.getElementById(hash.slice(1)) : null;
+    if (ziel) {
+      ziel.scrollIntoView();
+      return;
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
 
   useSpotlight();
 
