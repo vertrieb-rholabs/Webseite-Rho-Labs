@@ -25,6 +25,7 @@ import PilotDanke from './pages/pilot/PilotDanke';
 import PilotZustimmung from './pages/pilot/PilotZustimmung';
 import PilotZustimmungFertig from './pages/pilot/PilotZustimmungFertig';
 import PilotZustimmungFehler from './pages/pilot/PilotZustimmungFehler';
+import AndroidPilot from './pages/AndroidPilot';
 
 /**
  * Die drei Routen unter /demo/ sind die fest verdrahteten Weiterleitungsziele
@@ -52,6 +53,10 @@ import PilotZustimmungFehler from './pages/pilot/PilotZustimmungFehler';
  * umbenennt, laesst Bewerbung oder Vertragsschluss in den 404 laufen. Die
  * Status- und Zustimmungsseiten tragen noindex und stehen nicht in der
  * Sitemap.
+ *
+ * Android-Pilot (S1 des Android-Plans): /android-pilot traegt Download-Link,
+ * Version und Pruefwerte der Android-Testversion. noindex, nicht in Navigation
+ * und Sitemap; oeffentlich verlinkt wird sie erst in S2.
  *
  * Jede neue Route gehoert an drei weitere Stellen: die ROUTES-Liste in
  * vite.config.ts (Vorrendern), die Liste in scripts/hydration-check.mjs und
@@ -95,6 +100,8 @@ export const routes: RouteRecord[] = [
       { path: 'pilotpartner/zustimmung/fertig', Component: PilotZustimmungFertig },
       { path: 'pilotpartner/zustimmung/fehler', Component: PilotZustimmungFehler },
       { path: 'pilotbedingungen', Component: PilotBedingungen },
+      // Android-Testversion fuer Pilotpartner: noindex, ohne Navigation und Sitemap.
+      { path: 'android-pilot', Component: AndroidPilot },
       { path: '*', Component: NotFound },
     ],
   },

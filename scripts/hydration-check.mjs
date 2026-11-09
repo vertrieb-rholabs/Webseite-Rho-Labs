@@ -39,6 +39,7 @@ const ROUTES = [
   '/pilotpartner/zustimmung/fertig/',
   '/pilotpartner/zustimmung/fehler/',
   '/pilotbedingungen/',
+  '/android-pilot/',
   // Vite Preview serves its SPA fallback for unknown URLs. Check the generated 404 page directly.
   '/404.html',
 ];

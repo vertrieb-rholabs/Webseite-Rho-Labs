@@ -34,6 +34,7 @@ const ROUTES = [
   '/pilotpartner/zustimmung/fertig/',
   '/pilotpartner/zustimmung/fehler/',
   '/pilotbedingungen/',
+  '/android-pilot/',
   '/404',
 ];
 
