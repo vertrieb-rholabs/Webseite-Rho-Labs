@@ -136,7 +136,9 @@ export default function Android() {
             <p>
               Die App prüft selbst auf neue Versionen, lädt eine neue Version vorab herunter
               (derzeit etwa 13 MB; über mobiles Internet zählt das zum Datenvolumen) und bietet
-              sie dir dann zur Installation an. Du bestätigst die Installation. Neue Versionen findest du außerdem auf dieser Seite:
+              sie dir dann zur Installation an. Du bestätigst die Installation. Beim ersten Update fragt
+              Android, ob die App Apps installieren darf; auf manchen Geräten schließt Android die App
+              danach. Öffne sie dann wieder, das Update wird dir erneut angeboten. Neue Versionen findest du außerdem auf dieser Seite:
               Lade die neue Datei wie oben herunter und installiere sie über die vorhandene App.
               Deinstalliere die App vorher nicht, sonst löscht Android ihre Daten.
             </p>
