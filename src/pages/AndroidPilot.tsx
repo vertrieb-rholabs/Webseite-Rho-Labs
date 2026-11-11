@@ -19,9 +19,9 @@ import { CONTACT_EMAIL, ZWECKBESTIMMUNG } from '../constants';
    Die Prüfwerte stehen hier auf rholabs.de (GitHub Pages), getrennt vom
    Download-Server. Das Prüfen ist freiwillig (Plan R-85).
    -------------------------------------------------------------------------- */
-const APK_DATEI = 'rholabs-kognitives-training-1.10.2-10100004.apk';
-const VERSION = '1.10.2';
-const APK_SHA256 = '26c28117f20bbba1242f4f40a592885933cf5f747ff401ecdf84534e0522b2a6';
+const APK_DATEI = 'rholabs-kognitives-training-1.10.3-10100005.apk';
+const VERSION = '1.10.3';
+const APK_SHA256 = '{{APK_SHA256}}';
 const CERT_SHA256 = '7B:28:D0:38:91:34:DC:DB:B9:5C:22:C1:33:C6:DF:B5:75:DD:F6:E9:13:71:65:16:8F:57:9A:55:D3:B0:C6:87';
 
 const DOWNLOAD_URL = `https://download.rholabs.de/android/${APK_DATEI}`;
@@ -34,7 +34,7 @@ const HEX_STIL = { overflowWrap: 'anywhere' as const, wordBreak: 'break-all' as 
  *
  * Bewusst versteckt: noindex, nicht in der Navigation, nicht in der Sitemap.
  * Der Download-Server liefert die APK ebenfalls mit `X-Robots-Tag: noindex`.
- * Bleibt nach dem öffentlichen Start bestehen (Pilotpraxis, Version 1.10.2);
+ * Bleibt nach dem öffentlichen Start bestehen (Pilotpraxis, Version 1.10.3);
  * ein Hinweis oben führt alle anderen auf /android/.
  */
 export default function AndroidPilot() {
@@ -137,9 +137,13 @@ export default function AndroidPilot() {
               </li>
             </ol>
             <p style={{ marginTop: 16 }}>
-              <strong>Updates:</strong> Neue Versionen findest du auf dieser Seite. Die App
-              aktualisiert sich nicht selbst. Lade die neue Datei wie oben herunter und installiere
-              sie über die vorhandene App. Deine Daten bleiben dabei erhalten.
+              <strong>Updates:</strong> Die App prüft selbst auf neue Versionen, lädt eine neue
+              Version vorab herunter (derzeit etwa 13 MB; über mobiles Internet zählt das zum
+              Datenvolumen) und bietet sie dir dann zur Installation an. Du bestätigst die
+              Installation; beim ersten Update fragt Android, ob die App Apps installieren darf.
+              Neue Versionen findest du außerdem auf dieser Seite: Lade die neue Datei wie oben
+              herunter und installiere sie über die vorhandene App, ohne sie vorher zu
+              deinstallieren. Deine Daten und die Lizenz bleiben dabei erhalten.
             </p>
           </div>
 
