@@ -141,8 +141,8 @@ export default function AndroidPilot() {
               Version vorab herunter (derzeit etwa 13 MB; über mobiles Internet zählt das zum
               Datenvolumen) und bietet sie dir dann zur Installation an. Du bestätigst die
               Installation; beim ersten Update fragt Android, ob die App Apps installieren darf.
-              Auf manchen Geräten schließt Android die App danach; öffne sie dann wieder, das
-              Update wird dir erneut angeboten.
+              Auf manchen Geräten schließt Android die App nach dem Erlauben. Öffne sie dann
+              einfach wieder, das Update wird dir erneut angeboten.
               Neue Versionen findest du außerdem auf dieser Seite: Lade die neue Datei wie oben
               herunter und installiere sie über die vorhandene App, ohne sie vorher zu
               deinstallieren. Deine Daten und die Lizenz bleiben dabei erhalten.
