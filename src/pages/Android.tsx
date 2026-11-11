@@ -140,10 +140,9 @@ export default function Android() {
               Deinstalliere die App vorher nicht, sonst löscht Android ihre Daten.
             </p>
             <p style={{ marginTop: 14 }}>
-              Wenn du eine Lizenz gekauft hast oder gerade eine Demo nutzt, schreiben wir dir,
-              sobald eine neue Version erscheint, an die Adresse, an die wir den Lizenzschlüssel
-              geschickt haben. Installiere neue Versionen bald, vor allem wenn sie
-              Sicherheitskorrekturen enthalten.
+              Installiere neue Versionen bald, vor allem wenn sie Sicherheitskorrekturen
+              enthalten. Wenn du ein Update ablehnst oder offline bist, bleibt die bisherige
+              Version nutzbar, und die App bietet es dir später erneut an.
             </p>
           </div>
 

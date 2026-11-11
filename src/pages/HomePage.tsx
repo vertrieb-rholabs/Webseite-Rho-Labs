@@ -881,6 +881,12 @@ export default function HomePage() {
                 üblich sein kann; dazu dient das dritte Häkchen oben.
               </p>
               <p>
+                <strong>Aktualisierungen.</strong> Die Anwendung prüft selbst,
+                ob eine neue Version bereitsteht, und bietet sie an; unter
+                Android bestätigen Sie die Installation. Dafür braucht das
+                Gerät gelegentlich eine Internetverbindung.
+              </p>
+              <p>
                 <strong>Gewährleistung.</strong> Es gilt das gesetzliche
                 Gewährleistungsrecht für digitale Inhalte (§§ 327 ff. BGB).
               </p>
