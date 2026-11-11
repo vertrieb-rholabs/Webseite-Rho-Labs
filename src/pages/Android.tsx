@@ -134,8 +134,9 @@ export default function Android() {
           <div className="legal-block">
             <h2>Updates</h2>
             <p>
-              Die App prüft selbst auf neue Versionen und bietet sie dir zur Installation an. Du
-              bestätigst die Installation. Neue Versionen findest du außerdem auf dieser Seite:
+              Die App prüft selbst auf neue Versionen, lädt eine neue Version vorab herunter
+              (derzeit etwa 13 MB; über mobiles Internet zählt das zum Datenvolumen) und bietet
+              sie dir dann zur Installation an. Du bestätigst die Installation. Neue Versionen findest du außerdem auf dieser Seite:
               Lade die neue Datei wie oben herunter und installiere sie über die vorhandene App.
               Deinstalliere die App vorher nicht, sonst löscht Android ihre Daten.
             </p>

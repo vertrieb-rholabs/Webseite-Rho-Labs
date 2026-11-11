@@ -203,8 +203,16 @@ test('R3b — die Referenz stammt aus dem Rechtsbericht v4.1 (wenn der Bericht e
     return;
   }
   const referenz = JSON.parse(quelle('scripts/referenz/datenschutz-android-v41.json')).absaetze;
-  const bericht = lf(fs.readFileSync(F2B_V41, 'utf8')).split('\n').filter((z) => z.startsWith("      '**"))
-    .map((z) => z.replace(/^\s*'/, '').replace(/',$/, ''));
+  const text = lf(fs.readFileSync(F2B_V41, 'utf8'));
+  // Nachtrag (Abschnitt 7, Download vor dem Dialog): Tabelle alt -> neu für die Datenschutz-Absätze.
+  const nachtrag = text.split('\n').filter((z) => z.startsWith('| Datenschutz')).map((z) => {
+    const zellen = z.replace(/^\||\|$/g, '').split(' | ').map((c) => c.trim());
+    return { alt: zellen[2], neu: zellen[3] };
+  });
+  assert.equal(nachtrag.length, 2, 'Der Nachtrag (Abschnitt 7) nennt nicht genau zwei Datenschutz-Sätze.');
+  const bericht = text.split('\n').filter((z) => z.startsWith("      '**"))
+    .map((z) => z.replace(/^\s*'/, '').replace(/',$/, ''))
+    .map((absatz) => nachtrag.reduce((a, { alt, neu }) => a.replace(alt, neu), absatz));
   // Reihenfolge im Bericht: Was sendet, Update-Prüfung, Download, (Variante) Hinweise per E-Mail.
   assert.equal(bericht[0], referenz[3]);
   assert.equal(bericht[1], referenz[4]);
