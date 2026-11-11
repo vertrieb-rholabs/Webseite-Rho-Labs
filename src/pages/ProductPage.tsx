@@ -78,7 +78,8 @@ export default function ProductPage() {
             64-Bit (x64). Nach der einmaligen Aktivierung läuft die gekaufte
             Anwendung offline. Android: Installationsdatei (APK) für Tablets
             mit Android 10 oder neuer, geladen von der Android-Seite.
-            Trainingsdaten verlassen das Gerät nicht.
+            Trainingsdaten verlassen das Gerät nicht; sie werden auch nicht
+            zwischen Geräten abgeglichen.
           </p>
           <div className="btn-row btn-row--center">
             <Link to="/kontakt/" className="btn btn--primary">

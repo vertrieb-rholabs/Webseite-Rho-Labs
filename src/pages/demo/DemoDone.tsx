@@ -11,7 +11,7 @@ export default function DemoDone() {
       title="Dein Demo-Schlüssel ist unterwegs"
       tone="cyan"
       icon={<Check size={24} strokeWidth={2.4} />}
-      body="In wenigen Augenblicken liegt er in deinem Postfach. Die Demo läuft 14 Tage und enthält den vollen Funktionsumfang. Den Schlüssel gibst du in der Anwendung unter „Lizenz“ ein."
+      body="In wenigen Augenblicken liegt er in deinem Postfach. Die Demo läuft 14 Tage, enthält den vollen Funktionsumfang und gilt für ein Gerät, Windows oder Android; unter Android zählt jedes Nutzerprofil als eigenes Gerät. Danach kannst du deine Daten weiter ansehen, exportieren und löschen. Den Schlüssel gibst du in der Anwendung unter „Lizenz“ ein."
       note="Das Programm selbst lädst du hier herunter. Für Android-Tablets gibt es eine eigene Installationsdatei auf der Android-Seite."
       action={
         <div className="btn-row btn-row--center">

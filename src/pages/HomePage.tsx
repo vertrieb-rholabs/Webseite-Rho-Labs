@@ -3,6 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { ArrowRight, Check, Info, Monitor } from 'lucide-react';
 import Seo from '../components/Seo';
 import {
+  ANDROID_SYSTEM_REQUIREMENTS,
+  ANDROID_VERSION,
   APP_VERSION,
   CONTACT_EMAIL,
   GAME_COUNT,
@@ -452,7 +454,7 @@ export default function HomePage() {
       <Seo
         path="/home"
         title="Home-Version für zu Hause — Rho-Labs Kognitives Training"
-        description={`Kognitives Training für den privaten Gebrauch: alle ${GAME_COUNT} Übungen, ein persönliches Profil, eigene Statistik und Export. 39,90 € einmalig, kein Abo, für Windows 10/11.`}
+        description={`Kognitives Training für den privaten Gebrauch: alle ${GAME_COUNT} Übungen, ein persönliches Profil, eigene Statistik und Export. 39,90 € einmalig, kein Abo, für Windows 10/11 und Android-Tablets.`}
       />
 
       {/* ── Held ─────────────────────────────────────────────────────── */}
@@ -464,7 +466,7 @@ export default function HomePage() {
         <div className="hero__inner hero__inner--slim">
           <span className="pill" style={{ marginBottom: 28 }}>
             <span className="pill__dot" aria-hidden="true" />
-            Für den privaten Gebrauch · Version {APP_VERSION}
+            Für den privaten Gebrauch · Windows {APP_VERSION} · Android {ANDROID_VERSION}
           </span>
           <h1 className="hero__title hero__title--product">
             Kognitives Training <span className="grad grad--duo">für zu Hause</span>
@@ -489,8 +491,8 @@ export default function HomePage() {
               für x64 gebaut (`package.json` des Clients, `build.win.target`),
               „Windows 10/11" allein hätte einen ARM64-Käufer nicht gewarnt. */}
           <p className="hero__meta">
-            Für Windows 10/11 (64-Bit) · Einmaliger Kauf · Nach der Aktivierung
-            offline nutzbar
+            Für Windows 10/11 (64-Bit) und Android-Tablets · Einmaliger Kauf ·
+            Nach der Aktivierung offline nutzbar
           </p>
         </div>
       </section>
@@ -536,13 +538,17 @@ export default function HomePage() {
                 <Monitor size={15} aria-hidden="true" /> Systemvoraussetzung
               </h4>
               <p>
-                Die Home-Version gibt es derzeit ausschließlich für{' '}
-                <strong>Windows 10 und Windows 11 in 64-Bit (x64)</strong>.
-                Fassungen für macOS und Linux sind nicht verfügbar, ebenso
-                wenig für <strong>ARM64</strong> — etwa Copilot+-Geräte mit
-                Snapdragon — oder für 32-Bit-Systeme. Bitte vor dem Kauf
-                prüfen: Windows zeigt das unter Einstellungen → System → Info
-                als „Systemtyp“.
+                Die Home-Version gibt es für{' '}
+                <strong>Windows 10 und Windows 11 in 64-Bit (x64)</strong> und
+                für <strong>Android ab Version 10</strong> mit „Android System
+                WebView“ ab Version 105; empfohlen ist ein Tablet. Die Lizenz
+                gilt für <strong>ein Gerät</strong>: einen Windows-PC oder ein
+                Android-Gerät. Fassungen für macOS, Linux, iOS und iPadOS gibt
+                es nicht, ebenso wenig für Windows auf <strong>ARM64</strong> —
+                etwa Copilot+-Geräte mit Snapdragon — oder für 32-Bit-Windows.
+                Bitte vor dem Kauf prüfen: Windows zeigt das unter
+                Einstellungen → System → Info als „Systemtyp“, Android unter
+                Einstellungen → Über das Tablet.
               </p>
             </div>
           </div>
@@ -681,7 +687,7 @@ export default function HomePage() {
 
         <div className="form-card">
           <p className="eyebrow" style={{ letterSpacing: '0.2em', marginBottom: 14 }}>
-            {preisAktuell} · einmalig · für Windows 10/11 (64-Bit)
+            {preisAktuell} · einmalig · für Windows 10/11 (64-Bit) und Android 10+
           </p>
           <h2>Rho-Labs Kognitives Training — Home</h2>
           <p className="form-card__lede">
@@ -712,8 +718,10 @@ export default function HomePage() {
           <div className="bestellrahmen">
             <p>
               <strong>Lieferbeschränkung.</strong> Die Software gibt es nur für
-              Windows 10 und Windows 11 in 64-Bit (x64). Für ARM64- und
-              32-Bit-Systeme gibt es keine Fassung.
+              Windows 10 und Windows 11 in 64-Bit (x64) und für Android ab
+              Version 10 mit „Android System WebView“ ab Version 105. Für
+              Windows auf ARM64 oder in 32-Bit, für macOS, Linux, iOS und
+              iPadOS gibt es keine Fassung.
             </p>
             <p>
               <strong>Zahlungsmittel.</strong> Akzeptiert wird nur PayPal.
@@ -835,6 +843,16 @@ export default function HomePage() {
               </span>
             </label>
 
+            {/* Drittes Pflichthäkchen (§ 327h BGB), NICHT vorausgewählt und
+                Pflicht: Es nennt die Abweichung der Android-Fassung als
+                Abweichung. Feldname `abweichung_android`; der Dienst prüft
+                ihn serverseitig. Steht bewusst als DRITTES, weil die
+                Widerrufsbelehrung vom „zweiten Pflichtfeld“ spricht. */}
+            <label className="consent consent--optional">
+              <input type="checkbox" name="abweichung_android" value="ja" required />
+              <span>{KAUF_EINWILLIGUNG.abweichungAndroid}</span>
+            </label>
+
             {/* § 312j Abs. 2 — unmittelbar vor dem Knopf. Der Preis hier ist
                 der angezeigte, also 35,90 € bei bestätigtem Vorteilslink.
                 Solange die Prüfung läuft, steht hier noch kein Betrag: der
@@ -844,17 +862,40 @@ export default function HomePage() {
               <p className="pflichtblock__kopf">Angaben zu dieser Bestellung</p>
               <p>
                 <strong>Wesentliche Eigenschaften.</strong> Home-Lizenz von
-                Rho-Labs Kognitives Training: Download einer Windows-Anwendung
-                und ein Lizenzschlüssel per E-Mail. Alle {GAME_COUNT} Übungen,
-                Statistik, Export der eigenen Daten und genau ein Profil. Die
-                Lizenz gilt für ein Gerät und wird bei der Aktivierung an
-                dieses Gerät gebunden. Es wird keine Ware versendet.
+                Rho-Labs Kognitives Training: Download der Anwendung für Windows
+                oder für Android und ein Lizenzschlüssel per E-Mail. Alle{' '}
+                {GAME_COUNT} Übungen, Statistik, Export der eigenen Daten und
+                genau ein Profil. Die Lizenz gilt für ein Gerät, einen
+                Windows-PC oder ein Android-Gerät, und wird bei der Aktivierung
+                an dieses Gerät gebunden. Unter Android zählt jedes
+                Nutzerprofil, in dem Sie die Anwendung aktivieren, als eigenes
+                Gerät. Ein Tablet ist empfohlen. Es wird keine Ware versendet.
+              </p>
+              <p>
+                <strong>Daten nur auf dem Gerät.</strong> Profile und Ergebnisse
+                bleiben auf dem Gerät, auf dem Sie trainieren, und werden nicht
+                zwischen Geräten abgeglichen. Unter Android gibt es keine
+                Sicherung und keinen Umzug auf ein anderes Gerät; Deinstallieren
+                und Zurücksetzen löschen die Daten. Berichte (CSV, PDF) lassen
+                sich nicht wieder einlesen. Das weicht von dem ab, was bei Apps
+                üblich sein kann; dazu dient das dritte Häkchen oben.
+              </p>
+              <p>
+                <strong>Gewährleistung.</strong> Es gilt das gesetzliche
+                Gewährleistungsrecht für digitale Inhalte (§§ 327 ff. BGB).
               </p>
               <p>
                 <strong>Systemanforderungen.</strong>
               </p>
+              <p>Windows</p>
               <ul className="pflichtblock__liste">
                 {SYSTEM_REQUIREMENTS.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p>Android</p>
+              <ul className="pflichtblock__liste">
+                {ANDROID_SYSTEM_REQUIREMENTS.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -932,7 +973,7 @@ export default function HomePage() {
           >
             <div className="callout">
               <h4>
-                <Info size={15} aria-hidden="true" /> Beim ersten Start
+                <Info size={15} aria-hidden="true" /> Windows: beim ersten Start
               </h4>
               <p>
                 Die Anwendung hat noch kein kommerzielles

@@ -512,7 +512,7 @@ test('P9 — AGB und Lizenzbedingungen tragen die Zweckbestimmung wortgleich mit
   assert.match(agb, /entscheidungen\. Dieser Absatz bestimmt den Vertragsgegenstand\. Er schränkt die Haftung für Verletzungen von Leben, Körper oder Gesundheit nicht ein\./i);
   assert.match(lizenz, /Entscheidungen\. Das beschreibt den Vertragsgegenstand\./);
   assert.match(lizenz, /\(kein Medizinprodukt, keine medizinische Zweckbestimmung, keine Diagnose\)/);
-  assert.match(lizenz, /Stand: 7\. Oktober 2026/);
+  assert.match(lizenz, /Stand: 11\. November 2026/);
   assert.doesNotMatch(agb + lizenz, /Therapieinstrument/);
 
   const rt = dienst(path.join('src', 'main', 'rechtstexte.ts'));
@@ -521,7 +521,7 @@ test('P9 — AGB und Lizenzbedingungen tragen die Zweckbestimmung wortgleich mit
   const gleich = (text) => text.includes(dort);
   assert.ok(gleich(rt), 'Der Zweckbestimmungssatz im Dienst (rechtstexte.ts) weicht von dem der Website ab.');
   assert.equal(rt.split(dort).length - 1, 2, 'Der Dienst führt den Satz in AGB und Lizenzbedingungen je einmal.');
-  assert.match(rt, /Stand: 7\. Oktober 2026/);
+  assert.match(rt, /Stand: 11\. November 2026/);
   assert.ok(rt.includes('(kein Medizinprodukt, keine medizinische Zweckbestimmung, keine Diagnose)'));
 
   // Und im ausgelieferten HTML.
@@ -594,7 +594,7 @@ test('P11 — der Pilotabschnitt steht hinter „Auslieferung dieser Website", �
     assert.ok(i > stelle, `Überschrift „${titel}" fehlt oder steht an der falschen Stelle.`);
     stelle = i;
   }
-  assert.match(html, /Stand: November 2026/);
+  assert.match(html, /Stand: 11\. November 2026/);
 });
 
 test('P12 — der Pilotabschnitt: Inhalt, Du-Form, Fristen, keine Platzhalter', () => {

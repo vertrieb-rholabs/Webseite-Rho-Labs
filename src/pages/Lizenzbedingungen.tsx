@@ -32,13 +32,13 @@ export default function Lizenzbedingungen() {
         "."
       }
             </p>
-            <p>{"Stand: 7. Oktober 2026"}</p>
+            <p>{"Stand: 11. November 2026"}</p>
           </div>
         </div>
         <div className="legal-block">
           <h2>Gegenstand der Lizenz</h2>
           <div className="stack" style={{ gap: 14 }}>
-            <p>{"Die Home-Lizenz betrifft die Windows-Anwendung „Rho-Labs Kognitives Training“ als digitalen Inhalt, der nicht auf einem körperlichen Datenträger überlassen wird. Sie erhalten die Anwendung als Download eines Installers und einen Lizenzschlüssel per E-Mail. Die Anwendung ist derzeit für Windows 10 und Windows 11 bestimmt."}</p>
+            <p>{"Die Home-Lizenz betrifft die Anwendung „Rho-Labs Kognitives Training“ für Windows und für Android als digitalen Inhalt, der nicht auf einem körperlichen Datenträger überlassen wird. Sie erhalten die Anwendung als Download, für Windows als Installer und für Android als Installationsdatei (APK), und einen Lizenzschlüssel per E-Mail. Die Windows-Anwendung ist derzeit für Windows 10 und Windows 11 in 64-Bit (x64) bestimmt. Die Android-Anwendung ist für Android ab Version 10 mit „Android System WebView“ ab Version 105 bestimmt; empfohlen ist ein Tablet."}</p>
             <p>{"Mit der Home-Lizenz räumen wir Ihnen ein einfaches Recht ein, die Anwendung in der Home-Ausstattung nach diesen Bedingungen zu nutzen. Das Urheberrecht an der Anwendung bleibt, soweit es uns zusteht, bei uns."}</p>
             <p>{"Die Software ist eine Software für kognitives Training. Sie ist kein Medizinprodukt im Sinne der Verordnung (EU) 2017/745 (MDR) und nicht dazu bestimmt, Krankheiten, Verletzungen oder Behinderungen zu erkennen, zu überwachen, zu behandeln, zu lindern, auszugleichen oder ihnen vorzubeugen. Trainingsergebnisse sind keine Diagnose und keine Grundlage für medizinische oder therapeutische Entscheidungen. Das beschreibt den Vertragsgegenstand."}</p>
           </div>
@@ -46,7 +46,7 @@ export default function Lizenzbedingungen() {
         <div className="legal-block">
           <h2>Umfang der Nutzung und Anzahl der Geräte</h2>
           <div className="stack" style={{ gap: 14 }}>
-            <p>{"Die Home-Lizenz gilt für ein Gerät."}</p>
+            <p>{"Die Home-Lizenz gilt für ein Gerät, einen Windows-PC oder ein Android-Gerät. Unter Android zählt jedes Nutzerprofil, in dem Sie die Anwendung aktivieren, als eigenes Gerät."}</p>
             <p>{"Sie schaltet frei: alle 25 Übungen, die Statistik, den Export der eigenen Daten und genau ein Profil."}</p>
             <p>{"Nicht enthalten sind der Mehrprofilbetrieb und Trainingsabläufe. Das sind Merkmale der gewerblichen Professional-Lizenz."}</p>
             <p>{"Die Home-Lizenz berechtigt zur Nutzung für das eigene kognitive Training. Die gewerbliche Nutzung mit Klienten ist nicht umfasst."}</p>
@@ -54,24 +54,26 @@ export default function Lizenzbedingungen() {
           </div>
         </div>
         <div className="legal-block">
-          <h2>Aktivierung und Gerätebindung</h2>
+          <h2>Aktivierung, Gerätebindung und Daten auf dem Gerät</h2>
           <div className="stack" style={{ gap: 14 }}>
             <p>{"Den Lizenzschlüssel erhalten Sie per E-Mail. Er ist mit dem Verfahren Ed25519 signiert und enthält eine Kennung der Lizenzstufe. Die Anwendung prüft die Signatur lokal."}</p>
             <p>{"Die Aktivierung läuft über einen von uns betriebenen Server und bindet die Lizenz an einen Fingerabdruck des Geräts. Aktiviert werden kann die Home-Lizenz auf einem Gerät."}</p>
-            <p>{"Wechseln Sie das Gerät, tauschen Sie die Festplatte aus oder setzen Sie Windows neu auf, ändert sich der Fingerabdruck in der Regel. Die Lizenz endet dadurch nicht."}</p>
+            <p>{"Wechseln Sie das Gerät, tauschen Sie die Festplatte aus, setzen Sie Windows neu auf oder setzen Sie ein Android-Gerät zurück, ändert sich der Fingerabdruck in der Regel. Die Lizenz endet dadurch nicht."}</p>
             <p>
 {
-        "Ein automatischer Weg, die Bindung in der Anwendung selbst auf das neue Gerät zu übertragen, besteht nicht. Schreiben Sie uns in diesem Fall an " +
+        "Bietet Ihre Version der Anwendung die Schaltfläche „Lizenz deaktivieren“ (in der Android-Anwendung unter Einstellungen, „Lizenz verwalten“), können Sie den Geräteplatz damit selbst freigeben, solange das bisherige Gerät noch läuft und mit dem Internet verbunden ist, und die Lizenz danach auf dem neuen Gerät aktivieren. Ein automatischer Weg, die Bindung auf das neue Gerät zu übertragen, besteht darüber hinaus nicht. Schreiben Sie uns in diesem Fall an " +
         CONTACT_EMAIL +
         ". Wir binden die Lizenz auf Ihre Anfrage an das neue Gerät um. Sie dürfen die Anwendung auf dem bisherigen Gerät danach nicht weiter nutzen und haben sie dort zu entfernen."
       }
             </p>
+            <p>{"Ihre Profile und Trainingsergebnisse speichert die Anwendung nur auf dem Gerät, auf dem Sie trainieren. Sie werden nicht zwischen Geräten und nicht zwischen Windows und Android abgeglichen. Die Android-Anwendung bietet keine Sicherung, aus der sich Profile und Ergebnisse wiederherstellen lassen; die Android-Sicherung über Google und der Umzug auf ein anderes Gerät sind für sie abgeschaltet. Das Deinstallieren der Anwendung, das Löschen ihrer Daten und das Zurücksetzen des Geräts löschen Profile und Ergebnisse. Berichte (CSV, PDF) lassen sich exportieren, aber nicht wieder einlesen. Bei einem Gerätewechsel zieht der Trainingsverlauf deshalb nicht mit um; exportieren Sie Berichte, die Sie behalten möchten, vorher."}</p>
           </div>
         </div>
         <div className="legal-block">
           <h2>Aktualisierungen und Fehlerbehebungen</h2>
           <div className="stack" style={{ gap: 14 }}>
-            <p>{"Aktualisierungen stellen wir über GitHub Releases bereit. Bei kleinen Versionssprüngen lädt die Anwendung sie selbsttätig."}</p>
+            <p>{"Für die Windows-Anwendung stellen wir Aktualisierungen über GitHub Releases bereit. Bei kleinen Versionssprüngen lädt die Anwendung sie selbsttätig."}</p>
+            <p>{"Die Android-Anwendung sucht nicht selbst nach Aktualisierungen. Für sie stellen wir Aktualisierungen als Download über rholabs.de bereit und informieren Sie darüber per E-Mail an die Adresse, an die wir Ihren Lizenzschlüssel gesendet haben. Die E-Mail nennt auch, welche Folgen es hat, wenn Sie die Aktualisierung nicht installieren. Sie installieren eine Aktualisierung, indem Sie die neue Datei herunterladen und über die vorhandene Anwendung installieren. Deinstallieren Sie die Anwendung vorher nicht, sonst löscht Android die Daten auf dem Gerät. Ändert sich Ihre E-Mail-Adresse, teilen Sie uns die neue bitte mit."}</p>
             <p>{"Wir sagen nicht zu, dass die Anwendung um neue Funktionen erweitert wird. Eine bestimmte Mindestdauer der Weiterentwicklung oder Pflege sagen wir nicht zu."}</p>
             <p>{"Gesetzliche Pflichten zur Aktualisierung, insbesondere nach § 327f BGB, bleiben unberührt. Zu den Aktualisierungen, die für den Erhalt der Vertragsmäßigkeit erforderlich sind, gehören auch Sicherheitsaktualisierungen."}</p>
             <p>{"Eine Aktualisierung, die wir Ihnen nach § 327f Absatz 1 BGB bereitstellen, haben Sie innerhalb einer angemessenen Frist zu installieren. Das ist eine Obliegenheit Ihrerseits. Für einen Produktmangel, der allein auf das Fehlen dieser Aktualisierung zurückgeht, haften wir nach § 327f Absatz 2 BGB nur dann nicht, wenn wir Sie über die Verfügbarkeit der Aktualisierung und über die Folgen einer unterlassenen Installation informiert haben und das Ausbleiben oder die unsachgemäße Installation nicht auf eine Ihnen bereitgestellte mangelhafte Installationsanleitung zurückgeht."}</p>
@@ -102,7 +104,7 @@ export default function Lizenzbedingungen() {
         <div className="legal-block">
           <h2>Bestandteile Dritter und Open-Source-Komponenten</h2>
           <div className="stack" style={{ gap: 14 }}>
-            <p>{"Die Anwendung enthält im Auslieferungsstand Bestandteile Dritter:"}</p>
+            <p>{"Die Windows-Anwendung enthält im Auslieferungsstand Bestandteile Dritter:"}</p>
             <ul>
               <li>{"Chart.js (MIT)"}</li>
               <li>{"jsPDF (MIT)"}</li>
@@ -111,6 +113,7 @@ export default function Lizenzbedingungen() {
               <li>{"electron-updater (MIT)"}</li>
               <li>{"semver (ISC)"}</li>
             </ul>
+            <p>{"Die Android-Anwendung enthält Chart.js, jsPDF und qrcode (jeweils MIT) und außerdem die AndroidX-Bibliotheken, die Kotlin-Standardbibliothek, kotlinx-coroutines, JetBrains Annotations, JSpecify und Guava ListenableFuture (jeweils Apache-2.0) sowie Bouncy Castle (MIT). Sie enthält kein Electron; sie nutzt die Systemkomponente „Android System WebView“ des Geräts, die nicht Teil der Lieferung ist. Die vollständige Liste mit den Lizenztexten zeigt die Android-Anwendung unter „Lizenzen Dritter“."}</p>
             <p>{"Für diese Bestandteile gelten die jeweiligen Open-Source-Lizenzen. Soweit deren zwingende Bedingungen von diesen Lizenzbedingungen abweichen, gehen sie für den betroffenen Bestandteil vor."}</p>
           </div>
         </div>

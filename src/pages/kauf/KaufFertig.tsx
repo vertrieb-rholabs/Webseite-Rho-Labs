@@ -32,7 +32,8 @@ export default function KaufFertig() {
           </a>{' '}
           herunter. Die Android-Fassung für Tablets laden Sie auf der{' '}
           <Link to="/android/">Android-Seite</Link>{' '}
-          herunter. Falls der Kauf nicht abgeschlossen war, können Sie ihn neu
+          herunter. Ihre Home-Lizenz gilt für ein Gerät, einen Windows-PC oder
+          ein Android-Gerät. Falls der Kauf nicht abgeschlossen war, können Sie ihn neu
           beginnen.
         </>
       }

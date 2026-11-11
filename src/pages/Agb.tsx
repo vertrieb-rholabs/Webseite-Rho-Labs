@@ -43,7 +43,7 @@ export default function Agb() {
         " (im Folgenden: der Anbieter oder wir)."
       }
             </p>
-            <p>{"Vertragsgegenstand ist die Home-Lizenz der Software „Rho-Labs Kognitives Training“. Es handelt sich um digitale Inhalte, die nicht auf einem körperlichen Datenträger geliefert werden: den Download einer Windows-Anwendung und einen Lizenzschlüssel per E-Mail. Es wird keine Ware versendet."}</p>
+            <p>{"Vertragsgegenstand ist die Home-Lizenz der Software „Rho-Labs Kognitives Training“. Es handelt sich um digitale Inhalte, die nicht auf einem körperlichen Datenträger geliefert werden: den Download der Anwendung für Windows oder für Android und einen Lizenzschlüssel per E-Mail. Es wird keine Ware versendet."}</p>
             <p>{"Die Home-Lizenz umfasst alle 25 Übungen, Statistik, den Export der eigenen Daten und genau ein Profil. Nicht enthalten sind Mehrprofilbetrieb und Trainingsabläufe."}</p>
             <p>{"Die Nutzung ist unbefristet. Es handelt sich nicht um ein Abonnement."}</p>
           </div>
@@ -56,10 +56,11 @@ export default function Agb() {
             <ol>
               <li>{"Sie öffnen die Seite /home. Dort stehen Preis, Leistung und Anbieter. Rufen Sie die Seite über den Vorteilslink einer Einrichtung auf, wird 35,90 € statt 39,90 € angezeigt."}</li>
               <li>
-                {"Sie tragen Ihren Namen und Ihre E-Mail-Adresse ein und setzen die folgenden beiden Häkchen. Beide sind Pflicht:"}
+                {"Sie tragen Ihren Namen und Ihre E-Mail-Adresse ein und setzen die folgenden drei Häkchen. Alle drei sind Pflicht:"}
                 <ul>
                   <li>{"„Ich habe die Allgemeinen Geschäftsbedingungen und die Lizenzbedingungen gelesen und stimme ihnen zu.“"}</li>
                   <li>{"„Ich verlange ausdrücklich, dass Sie mit der Bereitstellung der Software vor Ablauf der Widerrufsfrist beginnen. Mir ist bekannt, dass ich mit Beginn der Bereitstellung mein Widerrufsrecht verliere.“"}</li>
+                  <li>{"„Mir ist bekannt, dass die Android-Fassung in einem Punkt von dem abweicht, was bei Apps üblich sein kann: Sie bietet keine Sicherung und überträgt meine Profile und Ergebnisse nicht auf ein anderes Gerät. Deinstallieren, Löschen der App-Daten und Zurücksetzen des Geräts löschen sie. Dieser Abweichung stimme ich ausdrücklich zu.“"}</li>
                 </ul>
               </li>
               <li>{"Sie klicken auf die Schaltfläche „Zahlungspflichtig bestellen“. Damit geben Sie ein verbindliches Angebot zum Abschluss eines Vertrages über die Home-Lizenz zum auf der Seite /home angezeigten Preis ab. Bis zu diesem Klick können Sie Eingaben in den Formularfeldern erkennen und berichtigen."}</li>
@@ -81,9 +82,10 @@ export default function Agb() {
         <div className="legal-block">
           <h2>Bereitstellung der Software und des Lizenzschlüssels</h2>
           <div className="stack" style={{ gap: 14 }}>
-            <p>{"Wir stellen die Software unverzüglich nach dem erfolgreichen Zahlungseingang bereit. Das ist der Termin der Leistung. Die Bereitstellung erfolgt als Download der Windows-Anwendung (Installer im Format .exe) und durch Übersendung des Lizenzschlüssels per E-Mail."}</p>
-            <p>{"Kompatibel ist die Software derzeit nur mit Windows 10 und Windows 11."}</p>
+            <p>{"Wir stellen die Software unverzüglich nach dem erfolgreichen Zahlungseingang bereit. Das ist der Termin der Leistung. Die Bereitstellung erfolgt durch Übersendung des Lizenzschlüssels per E-Mail und als Download der Anwendung: für Windows als Installer im Format .exe, für Android als Installationsdatei im Format .apk. Die Android-Anwendung wird nicht über einen App-Store angeboten. Sie laden die Installationsdatei über die Website rholabs.de im Browser Ihres Geräts herunter und installieren sie selbst nach unserer Anleitung."}</p>
+            <p>{"Kompatibel ist die Software derzeit nur mit Windows 10 und Windows 11 in 64-Bit (x64) sowie mit Android ab Version 10, wenn auf dem Gerät „Android System WebView“ ab Version 105 installiert ist. Für Android empfehlen wir ein Tablet. Für andere Betriebssysteme, etwa macOS, Linux, iOS oder iPadOS, gibt es keine Fassung."}</p>
             <p>{"Die Home-Lizenz wird über einen Server des Anbieters aktiviert und an den Fingerabdruck eines Geräts gebunden. Die Aktivierung und die Gerätebindung sind technische Schutzmaßnahmen."}</p>
+            <p>{"Ihre Profile und Trainingsergebnisse speichert die Software nur auf dem Gerät, auf dem Sie trainieren. Sie werden nicht zwischen Geräten und nicht zwischen Windows und Android abgeglichen. Die Android-Anwendung bietet keine Sicherung, aus der sich Profile und Ergebnisse wiederherstellen lassen, und überträgt sie nicht auf ein anderes Gerät; das Deinstallieren der Anwendung, das Löschen ihrer Daten und das Zurücksetzen des Geräts löschen sie. Berichte (CSV, PDF) lassen sich exportieren, aber nicht wieder in die Software einlesen."}</p>
             <p>{"Beginn der Bereitstellung im Rechtssinne ist der Versand des Lizenzschlüssels per E-Mail."}</p>
           </div>
         </div>
@@ -106,7 +108,7 @@ export default function Agb() {
         <div className="legal-block">
           <h2>Nutzungsrechte</h2>
           <div className="stack" style={{ gap: 14 }}>
-            <p>{"Mit der Bereitstellung des Lizenzschlüssels räumen wir Ihnen die Nutzungsrechte ein, die in den Lizenzbedingungen beschrieben sind. Die Home-Lizenz gilt für ein Gerät."}</p>
+            <p>{"Mit der Bereitstellung des Lizenzschlüssels räumen wir Ihnen die Nutzungsrechte ein, die in den Lizenzbedingungen beschrieben sind. Die Home-Lizenz gilt für ein Gerät, einen Windows-PC oder ein Android-Gerät. Unter Android zählt jedes Nutzerprofil, in dem Sie die Anwendung aktivieren, als eigenes Gerät."}</p>
             <p>{"Die Einzelheiten — einschließlich Aktivierung, Gerätebindung, Weitergabe und Aktualisierungen — stehen ausschließlich in den Lizenzbedingungen unter /lizenzbedingungen. Diese AGB enthalten keine abweichende Nutzungsregelung."}</p>
           </div>
         </div>

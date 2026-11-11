@@ -89,7 +89,10 @@ export default function Android() {
                 findest du unter Einstellungen › Apps › Android System WebView.
               </li>
               <li>Empfohlen ist ein Tablet, am besten ab etwa 10 Zoll.</li>
-              <li>Internet braucht die App nur für die Aktivierung und die Prüfung der Lizenz.</li>
+              <li>
+                Internet braucht die App für die Aktivierung, die Prüfung der Lizenz und die Suche
+                nach neuen Versionen. Auch neue Versionen lädst du über das Internet.
+              </li>
             </ul>
           </div>
 
@@ -131,10 +134,16 @@ export default function Android() {
           <div className="legal-block">
             <h2>Updates</h2>
             <p>
-              Die App aktualisiert sich nicht selbst. Neue Versionen findest du auf dieser Seite.
+              Die App prüft selbst auf neue Versionen und bietet sie dir zur Installation an. Du
+              bestätigst die Installation. Neue Versionen findest du außerdem auf dieser Seite:
               Lade die neue Datei wie oben herunter und installiere sie über die vorhandene App.
-              Deine Daten bleiben dabei erhalten. Wenn eine neue Version erscheint, kündigen wir
-              das per E-Mail an.
+              Deinstalliere die App vorher nicht, sonst löscht Android ihre Daten.
+            </p>
+            <p style={{ marginTop: 14 }}>
+              Wenn du eine Lizenz gekauft hast oder gerade eine Demo nutzt, schreiben wir dir,
+              sobald eine neue Version erscheint, an die Adresse, an die wir den Lizenzschlüssel
+              geschickt haben. Installiere neue Versionen bald, vor allem wenn sie
+              Sicherheitskorrekturen enthalten.
             </p>
           </div>
 
@@ -148,7 +157,13 @@ export default function Android() {
               </li>
               <li>
                 Der Lizenzschlüssel ist derselbe wie für die Windows-Anwendung. Die Geräteplätze
-                einer Lizenz gelten gemeinsam für Windows und Android.
+                einer Lizenz gelten gemeinsam für Windows und Android. Die Home-Lizenz gilt für
+                ein Gerät, einen Windows-PC oder ein Android-Gerät. Unter Android zählt jedes
+                Nutzerprofil, in dem du die App aktivierst, als eigenes Gerät.
+              </li>
+              <li>
+                Für Lizenz und Kauf gelten die <Link to="/agb/">AGB</Link> und die{' '}
+                <Link to="/lizenzbedingungen/">Lizenzbedingungen</Link>.
               </li>
               <li>
                 Eine Demo kannst du über die <Link to="/kontakt/">Kontaktseite</Link> anfordern.
@@ -177,11 +192,26 @@ export default function Android() {
                 die Lizenz auf dem alten Tablet und aktivierst sie auf dem neuen; der
                 Trainingsverlauf zieht nicht mit um.
               </li>
+              <li>
+                Die Android-Sicherung über Google und der Umzug auf ein neues Gerät sind für die
+                App abgeschaltet.
+              </li>
             </ul>
             <p style={{ marginTop: 16 }}>
               Was die App an unseren Lizenzdienst sendet und wie lange wir es speichern, steht in
               der{' '}
               <Link to="/datenschutz/#android">Datenschutzerklärung, Abschnitt „Android-Fassung der Anwendung“</Link>.
+            </p>
+          </div>
+
+          {/* ── Hinweis zu Google (Transparenz, § 5a UWG; Wortlaut F2b Abschnitt 3) ── */}
+          <div className="legal-block">
+            <h2>Hinweis zu Google</h2>
+            <p>
+              Google verlangt künftig, dass sich Entwickler von Android-Apps registrieren, und will
+              das ab 2027 auf zertifizierten Geräten weltweit einführen. Apps nicht registrierter
+              Entwickler lassen sich dann nur noch über einen zusätzlichen Freischaltweg
+              installieren und aktualisieren. Rho-Labs bereitet die Registrierung vor.
             </p>
           </div>
 
