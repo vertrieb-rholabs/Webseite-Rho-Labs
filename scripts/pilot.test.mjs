@@ -594,7 +594,7 @@ test('P11 — der Pilotabschnitt steht hinter „Auslieferung dieser Website", �
     assert.ok(i > stelle, `Überschrift „${titel}" fehlt oder steht an der falschen Stelle.`);
     stelle = i;
   }
-  assert.match(html, /Stand: Oktober 2026/);
+  assert.match(html, /Stand: November 2026/);
 });
 
 test('P12 — der Pilotabschnitt: Inhalt, Du-Form, Fristen, keine Platzhalter', () => {

@@ -1083,6 +1083,36 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       'Das gilt auch für die Seite der Home-Version: Sie lädt nichts von PayPal und nichts von Dritten nach. Mit unserem eigenen Auslieferungsdienst verbindet sich dein Browser, sobald du das Kaufformular absendest — und außerdem schon beim Öffnen der Seite, wenn du sie über einen Vorteilslink mit „?ref=…“ aufrufst; Näheres dazu im Abschnitt „Kauf der Home-Version“. Erst nach dem Absenden der Bestellung leitet der Dienst dich zu PayPal weiter.',
     ],
   },
+  /* ── Android-Fassung (Pilot, November 2026) ───────────────────────────────
+     Eigener Abschnitt HINTER „Auslieferung dieser Website" und VOR dem
+     Pilotabschnitt. So bleiben die Ausschnitte von befunde.test.mjs
+     (Lizenzaktivierung bis „Zahlungsabwicklung") und pilot.test.mjs
+     (Anker pilotprogramm bis „E-Mail-Kommunikation") unberührt.
+     Belege:
+     – Prüfwert: android/…/license/AndroidAdapters.kt:432-438
+       (SHA-256 aus "rholabs:android:v1\n" + ANDROID_ID).
+     – Abfrage der Pilotlizenz alle 12 h: LicenseDomain.kt:70-72.
+     – Anfragekennung: time_nonce, wie main.js:565.
+     – Kein Update-Kanal in S1: Plan v6, „Kein Auto-Updater in S1".
+     – Download-Server: Caddyfile ohne log-Direktive (geprüft 10.11.2026),
+       journald MaxRetentionSec=30day (gelesen 10.11.2026).
+     – Speicherdauer: activations wird nur über /deactivate
+       (platzFreigebenAtomar) oder den Geräte-Reset im Adminbereich gelöscht;
+       pilotDatensatzLoeschen (pilot.ts:912 ff.) lässt activations stehen.
+     -------------------------------------------------------------------------- */
+  {
+    id: 'android',
+    title: 'Android-Fassung der Anwendung',
+    paragraphs: [
+      'Die Android-Fassung der Anwendung stellen wir derzeit nur Teilnehmern des Pilotprogramms bereit. Für sie gilt der Abschnitt „Lizenzaktivierung der Anwendung“ mit den folgenden Abweichungen. Was dort zur IP-Adresse, zur Freigabe eines Geräteplatzes, zu den Vermerken und zur Speicherdauer steht, gilt auch für die Android-Fassung.',
+      '**Rechtsgrundlage.** Für Aktivierung, Lizenzprüfung und Freigabe eines Geräteplatzes ist es Art. 6 Abs. 1 lit. b DSGVO, soweit du selbst Vertragspartei bist, etwa als Inhaberin oder Inhaber einer Praxis. Im Übrigen, etwa für Beschäftigte eines teilnehmenden Trägers, ist es Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist, die vereinbarte Gerätezahl und den Pilotzeitraum einzuhalten. Für die Vermerke und für die IP-Adresse zur Abwehr zu häufiger Anfragen gilt Art. 6 Abs. 1 lit. f DSGVO wie im Abschnitt „Lizenzaktivierung der Anwendung“. Die Angaben sind für die Nutzung erforderlich; ohne sie lässt sich die Lizenz nicht aktivieren.',
+      '**Prüfwert des Geräts.** Die Android-Fassung bildet den Prüfwert nicht aus Rechnername und Hardwareangaben. Sie bildet ihn als SHA-256-Hash aus einer festen Kennung der Anwendung und der Android-ID. Die Android-ID vergibt Android selbst. Sie unterscheidet sich je Gerät, Nutzerprofil auf dem Gerät und Signaturschlüssel der App, und nach einem Zurücksetzen des Geräts entsteht eine neue. Die Anwendung braucht dafür keine Berechtigung, und die Android-ID selbst sendet sie nicht. Auch dieser Prüfwert ist pseudonym und damit ein personenbezogenes Datum.',
+      '**Was die Android-Fassung sendet.** Wie unter Windows sendet sie den Lizenzschlüssel, den Prüfwert und die Version der Anwendung. Das geschieht bei der Aktivierung, bei der Freigabe eines Geräteplatzes und, solange eine Demo- oder Pilotlizenz läuft, bei der regelmäßigen Abfrage der Uhrzeit unseres Dienstes, bei der Pilotlizenz höchstens alle zwölf Stunden. Bei dieser Abfrage geht außerdem eine zufällige Anfragekennung mit, die nur diese eine Abfrage kennzeichnet. Profile, Trainingsergebnisse und Berichte sendet die Anwendung nicht. Sie liegen im privaten Speicher der App auf dem Gerät. Die Android-Sicherung über Google und der Umzug auf ein anderes Gerät sind für die App abgeschaltet.',
+      '**Keine Update-Prüfung.** Die Android-Fassung fragt keinen Update-Kanal ab, auch nicht bei GitHub. Der Absatz „Update-Prüfung“ im Abschnitt „Lizenzaktivierung der Anwendung“ gilt für sie nicht. Neue Versionen lädst du selbst herunter, wie im nächsten Absatz beschrieben.',
+      '**Download.** Die Installationsdatei und neue Versionen lädst du im Browser von unserem Download-Server download.rholabs.de herunter. Den Link findest du auf rholabs.de/android-pilot; diese Seite wird wie die übrige Website ausgeliefert (siehe „Auslieferung dieser Website“). Beim Abruf verarbeitet der Download-Server deine IP-Adresse und die üblichen Verbindungsdaten, etwa Zeitpunkt, angeforderte Datei und Angaben deines Browsers, um dir die Datei zu liefern. Ein Zugriffsprotokoll führt er nicht; diese Angaben verarbeitet er nur für die Dauer des Abrufs. Technische Betriebs- und Fehlermeldungen des Servers schreibt er in das Systemprotokoll des Servers, das Einträge nach 30 Tagen löscht. Eine solche Meldung kann im Einzelfall eine IP-Adresse enthalten. Der Download-Server läuft auf unserem Server bei der Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland, die als unser Auftragsverarbeiter tätig ist. Rechtsgrundlage für die Auslieferung ist Art. 6 Abs. 1 lit. b DSGVO, soweit du selbst Vertragspartei des Pilotprogramms bist, im Übrigen Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist, die Anwendung sicher und zuverlässig auszuliefern. Für die Betriebs- und Fehlermeldungen ist es Art. 6 Abs. 1 lit. f DSGVO; unser berechtigtes Interesse ist, den Server bei Störungen untersuchen und schützen zu können.',
+      '**Speicherdauer.** Für den Aktivierungsdatensatz eines Android-Geräts gilt dasselbe wie unter Windows. Er bleibt gespeichert, bis du den Geräteplatz mit „Lizenz deaktivieren“ freigibst oder bis wir die Geräteplätze der Lizenz zurücksetzen. Die Freigabe ist in der Android-Fassung auch nach dem Ende des Pilotzeitraums möglich; das Zurücksetzen kannst du jederzeit unter info@rholabs.de verlangen. Von selbst löschen wir den Datensatz derzeit nicht, auch nicht nach dem Ende eines Pilotprogramms. Du kannst seine Löschung jederzeit verlangen (Art. 17 DSGVO). Unsere eigenen Sicherungskopien der Datenbank bewahren wir höchstens 30 Tage auf. Bis dahin kann ein gelöschter Datensatz noch in einer Sicherungskopie stehen.',
+    ],
+  },
   /* ── Pilotprogramm (06.10.2026) ────────────────────────────────────────────
      Der Abschnitt steht HINTER „Auslieferung dieser Website" und vor
      „E-Mail-Kommunikation": Die Tests schneiden die Abschnitte davor an ihren

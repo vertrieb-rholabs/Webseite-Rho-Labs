@@ -1,4 +1,5 @@
 import { Download, Info } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Seo from '../components/Seo';
 import { CONTACT_EMAIL, ZWECKBESTIMMUNG } from '../constants';
 
@@ -29,7 +30,7 @@ const DOWNLOAD_URL = `https://download.rholabs.de/android/${APK_DATEI}`;
 const HEX_STIL = { overflowWrap: 'anywhere' as const, wordBreak: 'break-all' as const };
 
 /**
- * Android-Testversion für Pilotpartner (S1 des Android-Plans).
+ * Android-Fassung für Pilotpartner (S1 des Android-Plans).
  *
  * Bewusst versteckt: noindex, nicht in der Navigation, nicht in der Sitemap.
  * Der Download-Server liefert die APK ebenfalls mit `X-Robots-Tag: noindex`.
@@ -40,8 +41,8 @@ export default function AndroidPilot() {
     <>
       <Seo
         path="/android-pilot/"
-        title="Android-Testversion für Pilotpartner — Rho-Labs"
-        description="Android-Testversion von Rho-Labs Kognitives Training für Pilotpartner: Download, Systemanforderungen und Installation."
+        title="Android-Fassung für Pilotpartner — Rho-Labs"
+        description="Android-Fassung von Rho-Labs Kognitives Training für Pilotpartner: Download, Systemanforderungen und Installation."
         noindex
       />
 
@@ -50,10 +51,10 @@ export default function AndroidPilot() {
           Rho-Labs Kognitives Training · Android
         </p>
         <h1 className="h-page" style={{ fontSize: 'clamp(28px, 3.4vw, 44px)', marginBottom: 20 }}>
-          Android-Testversion für Pilotpartner
+          Android-Fassung für Pilotpartner
         </h1>
         <p className="lede" style={{ marginBottom: 28 }}>
-          Testfassung für die Pilotpraxis. Installation nur nach Absprache mit Rho-Labs.
+          Android-Fassung für die Pilotpraxis. Installation erst nach Bestätigung der Ergänzung A.
         </p>
 
         <div className="stack">
@@ -147,7 +148,18 @@ export default function AndroidPilot() {
                 die Lizenz auf dem alten Tablet und aktivierst sie auf dem neuen; der
                 Trainingsverlauf zieht nicht mit um.
               </li>
+              <li>
+                <strong>Bericht speichern:</strong> Übernimm im Speicherdialog den vorgeschlagenen
+                Namen und tippe keine vorhandene Datei an, auch nicht zum Überschreiben. Sonst
+                speichert die App den Bericht nicht, und die angetippte Datei wird entfernt.
+                Speichere jeden Bericht als neue Datei. Die nächste Version behebt das.
+              </li>
             </ul>
+            <p style={{ marginTop: 16 }}>
+              Was die App an unseren Lizenzdienst sendet und wie lange wir es speichern, steht in
+              der{' '}
+              <Link to="/datenschutz/#android">Datenschutzerklärung, Abschnitt „Android-Fassung der Anwendung“</Link>.
+            </p>
           </div>
 
           {/* ── Prüfwerte ────────────────────────────────────────────── */}
