@@ -30,7 +30,7 @@ export default function Footer() {
               </span>
             </Link>
             <p>
-              Desktop-Software für kognitives Training und wissenschaftliche
+              Software für kognitives Training und wissenschaftliche
               Anwendungen. Lokal. Fundiert. Durchdacht.
             </p>
 
@@ -78,6 +78,11 @@ export default function Footer() {
               <li>
                 <Link to="/home/" className="footer__link">
                   … für zu Hause
+                </Link>
+              </li>
+              <li>
+                <Link to="/android/" className="footer__link">
+                  … für Android-Tablets
                 </Link>
               </li>
             </ul>

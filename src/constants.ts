@@ -642,6 +642,22 @@ export const SYSTEM_REQUIREMENTS: string[] = [
   'Internetverbindung für die Erstaktivierung',
 ];
 
+/**
+ * Android-Fassung (erstes öffentliches Release 1.10.3).
+ *
+ * Eigene Liste neben SYSTEM_REQUIREMENTS: Die Windows-Liste ist der Wortlaut
+ * des Pflichtblocks vor dem Bestellknopf auf /home und bleibt unberührt. Die
+ * Werte hier stehen wortgleich auf /android/ (Systemanforderungen).
+ */
+export const ANDROID_VERSION = '1.10.3';
+export const ANDROID_PFAD = '/android/';
+export const ANDROID_SYSTEM_REQUIREMENTS: string[] = [
+  'Android 10 oder neuer',
+  'Android System WebView bzw. Chrome ab Version 105',
+  'Empfohlen: ein Tablet, am besten ab etwa 10 Zoll',
+  'Internetverbindung für die Aktivierung und die Prüfung der Lizenz',
+];
+
 /* ── Preise ───────────────────────────────────────────────────────────────
    EIN Kaufweg je Karte: die vorbereitete Bestellmail. Rechnung, Zahlung und
    Lizenzschluessel laufen danach von Hand.

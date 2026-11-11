@@ -26,6 +26,7 @@ import PilotZustimmung from './pages/pilot/PilotZustimmung';
 import PilotZustimmungFertig from './pages/pilot/PilotZustimmungFertig';
 import PilotZustimmungFehler from './pages/pilot/PilotZustimmungFehler';
 import AndroidPilot from './pages/AndroidPilot';
+import Android from './pages/Android';
 
 /**
  * Die drei Routen unter /demo/ sind die fest verdrahteten Weiterleitungsziele
@@ -56,7 +57,8 @@ import AndroidPilot from './pages/AndroidPilot';
  *
  * Android-Pilot (S1 des Android-Plans): /android-pilot traegt Download-Link,
  * Version und Pruefwerte der Android-Testversion. noindex, nicht in Navigation
- * und Sitemap; oeffentlich verlinkt wird sie erst in S2.
+ * und Sitemap; sie bleibt fuer die Pilotpraxis bestehen (Version 1.10.2).
+ * /android ist die oeffentliche Seite (indexierbar, Sitemap, Version 1.10.3).
  *
  * Jede neue Route gehoert an drei weitere Stellen: die ROUTES-Liste in
  * vite.config.ts (Vorrendern), die Liste in scripts/hydration-check.mjs und
@@ -102,6 +104,9 @@ export const routes: RouteRecord[] = [
       { path: 'pilotbedingungen', Component: PilotBedingungen },
       // Android-Testversion fuer Pilotpartner: noindex, ohne Navigation und Sitemap.
       { path: 'android-pilot', Component: AndroidPilot },
+      // Oeffentliche Android-Seite (erstes oeffentliches Release 1.10.3):
+      // indexierbar, in Sitemap, Hydrationspruefung und Footer.
+      { path: 'android', Component: Android },
       { path: '*', Component: NotFound },
     ],
   },

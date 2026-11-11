@@ -34,7 +34,8 @@ const HEX_STIL = { overflowWrap: 'anywhere' as const, wordBreak: 'break-all' as 
  *
  * Bewusst versteckt: noindex, nicht in der Navigation, nicht in der Sitemap.
  * Der Download-Server liefert die APK ebenfalls mit `X-Robots-Tag: noindex`.
- * In S2 wird die Seite öffentlich verlinkt; erst dann entfällt noindex.
+ * Bleibt nach dem öffentlichen Start bestehen (Pilotpraxis, Version 1.10.2);
+ * ein Hinweis oben führt alle anderen auf /android/.
  */
 export default function AndroidPilot() {
   return (
@@ -56,6 +57,18 @@ export default function AndroidPilot() {
         <p className="lede" style={{ marginBottom: 28 }}>
           Android-Fassung für die Pilotpraxis. Installation erst nach Bestätigung der Ergänzung A.
         </p>
+
+        {/* Wegweiser für alle, die diese Seite ohne Pilotprogramm erreichen. */}
+        <div className="callout" style={{ marginBottom: 28 }}>
+          <h4>
+            <Info size={15} aria-hidden="true" /> Für alle anderen: Android-Fassung
+          </h4>
+          <p>
+            Diese Seite gilt für die Pilotpraxis (Version {VERSION}). Wenn du nicht am
+            Pilotprogramm teilnimmst, findest du die aktuelle Android-Fassung auf der{' '}
+            <Link to="/android/">Android-Seite</Link>.
+          </p>
+        </div>
 
         <div className="stack">
           {/* ── Download ─────────────────────────────────────────────── */}

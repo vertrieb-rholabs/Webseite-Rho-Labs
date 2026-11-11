@@ -5,6 +5,9 @@ import Seo from '../components/Seo';
 import Trailer from '../components/Trailer';
 import Closer from '../components/Closer';
 import {
+  ANDROID_PFAD,
+  ANDROID_SYSTEM_REQUIREMENTS,
+  ANDROID_VERSION,
   APP_VERSION,
   CATEGORIES,
   CATEGORY_ORDER,
@@ -48,7 +51,7 @@ export default function ProductPage() {
       <Seo
         path="/kognitives-training"
         title="Kognitives Training — Rho-Labs"
-        description={`Windows-Anwendung mit ${GAME_COUNT} Übungen für Gedächtnis, räumliches Denken, Handlungssteuerung und Aufmerksamkeit. Einmaliger Kauf ab 119 €, Demo 14 Tage kostenlos.`}
+        description={`Anwendung für Windows und Android-Tablet mit ${GAME_COUNT} Übungen für Gedächtnis, räumliches Denken, Handlungssteuerung und Aufmerksamkeit. Einmaliger Kauf ab 119 €, Demo 14 Tage kostenlos.`}
       />
 
       {/* ── Held ─────────────────────────────────────────────────────── */}
@@ -59,7 +62,7 @@ export default function ProductPage() {
         </div>
         <div className="hero__inner hero__inner--slim">
           <span className="pill" style={{ marginBottom: 28 }}>
-            Windows-Anwendung · Version {APP_VERSION}
+            Windows · Version {APP_VERSION} · Android-Tablet · Version {ANDROID_VERSION}
           </span>
           <h1 className="hero__title hero__title--product">
             Kognitives <span className="grad grad--duo">Training</span>
@@ -71,9 +74,11 @@ export default function ProductPage() {
             PDF.
           </p>
           <p style={{ fontSize: 14.5, color: '#64748b', margin: '0 0 36px' }}>
-            Auslieferung als Installer (EXE) für Windows 10/11 in 64-Bit (x64).
-            Nach der einmaligen Aktivierung läuft die gekaufte Anwendung
-            offline; Trainingsdaten verlassen das Gerät nicht.
+            Windows: Auslieferung als Installer (EXE) für Windows 10/11 in
+            64-Bit (x64). Nach der einmaligen Aktivierung läuft die gekaufte
+            Anwendung offline. Android: Installationsdatei (APK) für Tablets
+            mit Android 10 oder neuer, geladen von der Android-Seite.
+            Trainingsdaten verlassen das Gerät nicht.
           </p>
           <div className="btn-row btn-row--center">
             <Link to="/kontakt/" className="btn btn--primary">
@@ -87,6 +92,9 @@ export default function ProductPage() {
             >
               <Download size={17} /> Download für Windows
             </a>
+            <Link to={ANDROID_PFAD} className="btn btn--ghost">
+              <Download size={17} /> Download für Android
+            </Link>
           </div>
         </div>
       </section>
@@ -289,14 +297,25 @@ export default function ProductPage() {
             <h3 style={{ fontSize: 17, fontWeight: 700, margin: '0 0 18px' }}>
               Systemanforderungen
             </h3>
+            <h4 style={{ fontSize: 14.5, fontWeight: 700, margin: '0 0 10px' }}>Windows</h4>
             <ul className="plain-list" style={{ marginBottom: 24 }}>
               {SYSTEM_REQUIREMENTS.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
+            <h4 style={{ fontSize: 14.5, fontWeight: 700, margin: '0 0 10px' }}>Android-Tablet</h4>
+            <ul className="plain-list" style={{ marginBottom: 24 }}>
+              {ANDROID_SYSTEM_REQUIREMENTS.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p style={{ fontSize: 14.5, color: '#64748b', margin: '0 0 24px' }}>
+              Download, Installation und Prüfwerte der Android-Fassung stehen auf der{' '}
+              <Link to={ANDROID_PFAD}>Android-Seite</Link>.
+            </p>
             <div className="callout">
               <h4>
-                <Info size={15} aria-hidden="true" /> Beim ersten Start
+                <Info size={15} aria-hidden="true" /> Windows: beim ersten Start
               </h4>
               <p>
                 Die Anwendung hat noch kein kommerzielles

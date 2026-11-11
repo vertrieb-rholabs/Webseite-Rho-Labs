@@ -26,7 +26,7 @@ export default function LandingPage() {
       <Seo
         path="/"
         title="Rho-Labs — Software für Mensch & Wissenschaft"
-        description={`Desktop-Werkzeuge für Fachteams, Einrichtungen und Forschung. Kognitives Training: ${GAME_COUNT} Übungen, unbegrenzt viele Profile, alle Trainingsdaten bleiben lokal.`}
+        description={`Software-Werkzeuge für Fachteams, Einrichtungen und Forschung. Kognitives Training: ${GAME_COUNT} Übungen, unbegrenzt viele Profile, alle Trainingsdaten bleiben lokal.`}
       />
 
       {/* ── Held ─────────────────────────────────────────────────────── */}
@@ -46,7 +46,7 @@ export default function LandingPage() {
             <span className="grad">Mensch &amp; Wissenschaft.</span>
           </h1>
           <p className="hero__lede">
-            Rho-Labs baut Desktop-Werkzeuge für Fachteams, Einrichtungen und
+            Rho-Labs baut Software-Werkzeuge für Fachteams, Einrichtungen und
             Forschung. Fertig ist das erste davon:{' '}
             <span className="mark">Kognitives Training</span> — {GAME_COUNT}{' '}
             Übungen, unbegrenzt viele Profile, alle Trainingsdaten lokal.
@@ -67,6 +67,9 @@ export default function LandingPage() {
           <p className="hero__meta">
             Version {APP_VERSION} · Windows 10 und 11 · Demo 14 Tage, voller
             Funktionsumfang
+          </p>
+          <p className="hero__meta">
+            Auch für Android-Tablets: <Link to="/android/">zur Android-Fassung</Link>
           </p>
         </div>
       </section>

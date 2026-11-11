@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Check, Download } from 'lucide-react';
 import StatusPage from './StatusPage';
 import { DOWNLOAD_URL } from '../../constants';
@@ -11,16 +12,21 @@ export default function DemoDone() {
       tone="cyan"
       icon={<Check size={24} strokeWidth={2.4} />}
       body="In wenigen Augenblicken liegt er in deinem Postfach. Die Demo läuft 14 Tage und enthält den vollen Funktionsumfang. Den Schlüssel gibst du in der Anwendung unter „Lizenz“ ein."
-      note="Das Programm selbst lädst du hier herunter."
+      note="Das Programm selbst lädst du hier herunter. Für Android-Tablets gibt es eine eigene Installationsdatei auf der Android-Seite."
       action={
-        <a
-          href={DOWNLOAD_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn--primary"
-        >
-          <Download size={17} /> Download für Windows
-        </a>
+        <div className="btn-row btn-row--center">
+          <a
+            href={DOWNLOAD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn--primary"
+          >
+            <Download size={17} /> Download für Windows
+          </a>
+          <Link to="/android/" className="btn btn--ghost">
+            <Download size={17} /> Download für Android
+          </Link>
+        </div>
       }
     />
   );

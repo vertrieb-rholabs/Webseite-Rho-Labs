@@ -30,6 +30,8 @@ export default function KaufFertig() {
           <a href={DOWNLOAD_URL} target="_blank" rel="noopener noreferrer">
             hier
           </a>{' '}
+          herunter. Die Android-Fassung für Tablets laden Sie auf der{' '}
+          <Link to="/android/">Android-Seite</Link>{' '}
           herunter. Falls der Kauf nicht abgeschlossen war, können Sie ihn neu
           beginnen.
         </>
