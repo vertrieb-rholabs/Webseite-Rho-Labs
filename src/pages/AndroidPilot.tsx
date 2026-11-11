@@ -9,7 +9,7 @@ import { CONTACT_EMAIL, ZWECKBESTIMMUNG } from '../constants';
    im App-Repo. Der Link zeigt dann auf eine Datei, die wirklich öffentlich
    liegt.
 
-     APK_DATEI    rholabs-kognitives-training-<version>.apk
+     APK_DATEI    rholabs-kognitives-training-<versionName>-<versionCode>.apk
      VERSION      versionName der App, z. B. 1.10.0
      APK_SHA256   SHA-256 der APK (Ausgabe von promote)
      CERT_SHA256  SHA-256-Fingerabdruck des Signaturzertifikats
@@ -18,9 +18,9 @@ import { CONTACT_EMAIL, ZWECKBESTIMMUNG } from '../constants';
    Die Prüfwerte stehen hier auf rholabs.de (GitHub Pages), getrennt vom
    Download-Server. Das Prüfen ist freiwillig (Plan R-85).
    -------------------------------------------------------------------------- */
-const APK_DATEI = 'rholabs-kognitives-training-1.10.0.apk';
-const VERSION = '1.10.0';
-const APK_SHA256 = '6db089a8e193cd7485dfdcfd7ffcba75f58884f5c71f789c0d67a3fa358bd94d';
+const APK_DATEI = 'rholabs-kognitives-training-1.10.2-10100004.apk';
+const VERSION = '1.10.2';
+const APK_SHA256 = '26c28117f20bbba1242f4f40a592885933cf5f747ff401ecdf84534e0522b2a6';
 const CERT_SHA256 = '7B:28:D0:38:91:34:DC:DB:B9:5C:22:C1:33:C6:DF:B5:75:DD:F6:E9:13:71:65:16:8F:57:9A:55:D3:B0:C6:87';
 
 const DOWNLOAD_URL = `https://download.rholabs.de/android/${APK_DATEI}`;
