@@ -659,7 +659,7 @@ export const SYSTEM_REQUIREMENTS: string[] = [
  * des Pflichtblocks vor dem Bestellknopf auf /home und bleibt unberührt. Die
  * Werte hier stehen wortgleich auf /android/ (Systemanforderungen).
  */
-export const ANDROID_VERSION = '1.10.3';
+export const ANDROID_VERSION = '1.10.4';
 export const ANDROID_PFAD = '/android/';
 export const ANDROID_SYSTEM_REQUIREMENTS: string[] = [
   'Android 10 oder neuer',

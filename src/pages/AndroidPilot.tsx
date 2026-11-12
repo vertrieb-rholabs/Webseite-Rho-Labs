@@ -19,9 +19,9 @@ import { CONTACT_EMAIL, ZWECKBESTIMMUNG } from '../constants';
    Die Prüfwerte stehen hier auf rholabs.de (GitHub Pages), getrennt vom
    Download-Server. Das Prüfen ist freiwillig (Plan R-85).
    -------------------------------------------------------------------------- */
-const APK_DATEI = 'rholabs-kognitives-training-1.10.3-10100005.apk';
-const VERSION = '1.10.3';
-const APK_SHA256 = 'cb1fc6121ac66209fa223663ee6facc0ce81d7d4c7d999a57baeb0b03c412cd4';
+const APK_DATEI = 'rholabs-kognitives-training-1.10.4-10100006.apk';
+const VERSION = '1.10.4';
+const APK_SHA256 = 'ebf87ef6d322c806a69ad86e59926ee8c8a4de17ba27adb02045678efb09f927';
 const CERT_SHA256 = '7B:28:D0:38:91:34:DC:DB:B9:5C:22:C1:33:C6:DF:B5:75:DD:F6:E9:13:71:65:16:8F:57:9A:55:D3:B0:C6:87';
 
 const DOWNLOAD_URL = `https://download.rholabs.de/android/${APK_DATEI}`;
@@ -34,7 +34,7 @@ const HEX_STIL = { overflowWrap: 'anywhere' as const, wordBreak: 'break-all' as 
  *
  * Bewusst versteckt: noindex, nicht in der Navigation, nicht in der Sitemap.
  * Der Download-Server liefert die APK ebenfalls mit `X-Robots-Tag: noindex`.
- * Bleibt nach dem öffentlichen Start bestehen (Pilotpraxis, Version 1.10.3);
+ * Bleibt nach dem öffentlichen Start bestehen (Pilotpraxis, Version 1.10.4);
  * ein Hinweis oben führt alle anderen auf /android/.
  */
 export default function AndroidPilot() {
