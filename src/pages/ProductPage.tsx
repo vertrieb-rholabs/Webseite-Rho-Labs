@@ -319,11 +319,10 @@ export default function ProductPage() {
                 <Info size={15} aria-hidden="true" /> Windows: beim ersten Start
               </h4>
               <p>
-                Die Anwendung hat noch kein kommerzielles
-                Code-Signing-Zertifikat. Windows Defender SmartScreen kann
-                deshalb eine Warnung zeigen: „Weitere Informationen“ und dann
-                „Trotzdem ausführen“. Die Installationsdatei kommt direkt über
-                unseren Release-Kanal.
+                Die Anwendung ist signiert (Herausgeber: Rho-Labs Inh. Patrick
+                Feix). Zeigt Windows beim ersten Start trotzdem einen Hinweis:
+                „Weitere Informationen“ und dann „Trotzdem ausführen“. Die
+                Installationsdatei kommt direkt über unseren Release-Kanal.
               </p>
             </div>
           </div>
